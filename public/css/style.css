@@ -1,0 +1,466 @@
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+    --primary: #27ae60;
+    --dark: #121212;
+    --light: #f4f7f6;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* --- Navbar --- */
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 0;
+    position: sticky;
+    top: 0; z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+}
+
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+
+.nav-tools { display: flex; gap: 15px; align-items: center; }
+
+.search-box { background: #eee; padding: 8px 15px; border-radius: 25px; display: flex; align-items: center; }
+
+.search-box input { border: none; background: transparent; outline: none; margin-left: 10px; width: 150px; }
+
+.fav-badge { position: relative; cursor: pointer; color: #ff4757; font-size: 1.2rem; }
+
+.fav-badge span {
+    position: absolute; top: -8px; right: -10px;
+    background: #ff4757; color: white; font-size: 0.7rem;
+    padding: 2px 6px; border-radius: 10px;
+}
+
+/* --- Hero Banner Sư Tử --- */
+.hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../images/hero-lion.jpg');
+    background-size: cover;
+    background-position: center 20%;
+    background-attachment: fixed; /* Hiệu ứng Parallax */
+    color: white;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.7));
+}
+
+.hero-content { position: relative; z-index: 10; max-width: 800px; padding: 0 20px; }
+
+.display-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    animation: fadeInUp 0.8s ease;
+}
+
+.hero-subtitle { font-size: 1.2rem; margin-bottom: 30px; font-weight: 300; animation: fadeInUp 1s ease; }
+
+.hero-buttons { display: flex; gap: 15px; justify-content: center; animation: fadeInUp 1.2s ease; }
+
+.btn-primary {
+    background: var(--primary); color: white;
+    padding: 14px 35px; border-radius: 30px;
+    text-decoration: none; font-weight: 600; transition: 0.3s;
+}
+
+.btn-outline {
+    border: 2px solid white; color: white;
+    padding: 14px 35px; border-radius: 30px;
+    text-decoration: none; font-weight: 600; transition: 0.3s;
+}
+
+.btn-outline:hover { background: white; color: var(--dark); }
+
+/* --- Filter & Cards --- */
+.filter-wrapper { margin: -40px 0 40px; position: relative; z-index: 20; }
+
+.filter-group {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+}
+
+.filter-group input { display: none; }
+
+.filter-group label {
+    background: white; padding: 10px 25px; border-radius: 30px;
+    cursor: pointer; box-shadow: var(--shadow); transition: 0.3s; font-weight: 600;
+}
+
+#all:checked ~ .filter-wrapper label[for="all"],
+#mammals:checked ~ .filter-wrapper label[for="mammals"],
+#birds:checked ~ .filter-wrapper label[for="birds"],
+#ocean:checked ~ .filter-wrapper label[for="ocean"] {
+    background: var(--primary); color: white;
+}
+
+/* Logic Filter ẩn card */
+#all:checked ~ .animal-grid .animal-card { display: block; }
+#mammals:checked ~ .animal-grid .animal-card:not(.mammals) { display: none; }
+#birds:checked ~ .animal-grid .animal-card:not(.birds) { display: none; }
+#ocean:checked ~ .animal-grid .animal-card:not(.ocean) { display: none; }
+
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    animation: fadeIn 1s ease;
+}
+
+.animal-card {
+    background: white; border-radius: 20px; overflow: hidden;
+    box-shadow: var(--shadow); transition: 0.4s;
+}
+
+.animal-card:hover { transform: translateY(-10px); }
+
+.card-img-wrapper { position: relative; height: 220px; overflow: hidden; }
+
+.card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+
+.animal-card:hover img { transform: scale(1.1); }
+
+.fav-btn {
+    position: absolute; top: 15px; right: 15px;
+    background: rgba(255,255,255,0.3); backdrop-filter: blur(5px);
+    width: 35px; height: 35px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: white;
+}
+
+.card-body { padding: 25px; }
+
+.stats { margin: 15px 0; font-size: 0.9rem; color: #555; }
+
+.btn-detail {
+    display: block; width: 100%; padding: 12px;
+    border: 2px solid #eee; border-radius: 12px;
+    text-align: center; font-weight: 700; color: var(--primary);
+    cursor: pointer; transition: 0.3s;
+}
+
+.btn-detail:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+/* --- Modal Logic --- */
+.modal-toggle { display: none; }
+
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+    display: none; z-index: 2000; align-items: center; justify-content: center; padding: 20px;
+}
+
+.modal-toggle:checked + .modal-overlay { display: flex; }
+
+.modal-content {
+    background: white; width: 100%; max-width: 900px;
+    border-radius: 25px; overflow: hidden; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr;
+    animation: zoomIn 0.3s ease;
+}
+
+.modal-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.modal-info { padding: 40px; }
+
+.btn-close {
+    position: absolute; top: 20px; right: 25px;
+    font-size: 2rem; cursor: pointer; z-index: 100;
+}
+
+/* --- Animations --- */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 850px) {
+    .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+    .modal-img { height: 250px; }
+}
+/* Container của Dropdown */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    color: white; /* Đổi màu tùy theo nền navbar của bạn */
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Menu ẩn mặc định */
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 10px 0;
+    list-style: none;
+    z-index: 1000;
+    display: none; /* Ẩn đi */
+}
+
+/* Hiển thị khi hover */
+.user-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li a {
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f1f1f1;
+    color: #27ae60; /* Màu thương hiệu của bạn */
+}
+
+.dropdown-menu .divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 5px 0;
+}
+
+.text-danger {
+    color: #e74c3c !important;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    margin-right: 10px;
+    border-radius: 30px;
+    background: white;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid #eee;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+/* --- Search Autocomplete Styles --- */
+.search-box {
+    position: relative; /* Bắt buộc để danh sách gợi ý bám sát ô input */
+    background: #f1f1f1;
+    padding: 8px 15px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.search-box:focus-within {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Khung chứa danh sách gợi ý đổ xuống */
+.suggestion-results {
+    position: absolute;
+    top: calc(100% + 5px); /* Hiển thị ngay dưới ô search */
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    z-index: 1100;
+    overflow: hidden;
+    display: none; /* Ẩn mặc định, JS sẽ cho hiện khi có dữ liệu */
+    border: 1px solid #eee;
+}
+
+/* Từng mục gợi ý */
+.suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.suggestion-item i {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.suggestion-item:hover {
+    background-color: #f9f9f9;
+    color: var(--primary);
+}
+
+.suggestion-item:not(:last-child) {
+    border-bottom: 1px solid #f1f1f1;
+}
+
+
+.ai-container { max-width: 800px; margin: 40px auto; text-align: center; }
+.drop-area {
+    border: 3px dashed #27ae60; padding: 40px; border-radius: 20px;
+    background: #f0fff4; cursor: pointer; transition: 0.3s;
+}
+.drop-area:hover { background: #dcf6e5; }
+.drop-area i { font-size: 50px; color: #27ae60; margin-bottom: 15px; }
+.result-card {
+    background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 30px; overflow: hidden; border-top: 5px solid #27ae60;
+}
+.result-header { background: #27ae60; color: white; padding: 10px; font-weight: 800; }
+.btn-primary-ai {
+    background: #27ae60; color: white; border: none; padding: 15px 40px;
+    border-radius: 30px; margin-top: 20px; font-weight: bold; cursor: pointer;
+}
+
+/* --- Chủ đề Rừng xanh & Thiên nhiên --- */
+
+/* --- Nút AI trên Navbar --- */
+.btn-ai-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.btn-ai-nav:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
+    filter: brightness(1.1);
+}
+
+.ai-icon-wrapper { position: relative; }
+
+.badge-notify {
+    position: absolute;
+    top: -10px; right: -12px;
+    background: #ff4757;
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 8px;
+    border: 2px solid white;
+    animation: blink 1.5s infinite;
+}
+
+/* --- Nút AI cực đại ở Hero --- */
+.btn-ai-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 2px solid #2ecc71;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.4s;
+}
+
+.btn-ai-hero:hover {
+    background: #2ecc71;
+    color: #121212;
+    box-shadow: 0 0 30px rgba(46, 204, 113, 0.6);
+    transform: scale(1.05);
+}
+
+/* Hiệu ứng nhấp nháy cho Badge */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* --- UI BỘ LỌC HIỆN ĐẠI --- */
+.nav-filter-btn {
+    padding: 8px 22px; border-radius: 25px; text-decoration: none;
+    color: #666; font-weight: 600; font-size: 0.85rem; transition: 0.3s;
+}
+.nav-filter-btn.active {
+    background: #27ae60 !important; color: white !important;
+    box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.dropbtn-modern {
+    background: white; border: 1px solid #ddd; padding: 10px 25px;
+    border-radius: 30px; cursor: pointer; font-weight: 700; color: #2c3e50;
+    display: flex; align-items: center; transition: 0.3s;
+}
+
+.dropdown-content-horizontal {
+    display: none; position: absolute; right: 0; top: 120%;
+    background: white; min-width: 380px; padding: 12px;
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999;
+}
+.dropdown-content-horizontal.show { display: block !important; }
+
+.dropdown-inner { display: flex; gap: 8px; align-items: center; }
+.opt {
+    flex: 1; padding: 8px; text-align: center; text-decoration: none;
+    color: #555; background: #f8f9fa; border-radius: 8px; font-size: 0.85rem;
+}
+.opt.active, .opt:hover { background: #27ae60; color: white; }
+.divider-v { width: 1px; height: 20px; background: #eee; }
+.opt-reset { color: #e74c3c; font-weight: bold; text-decoration: none; padding: 0 10px; }
