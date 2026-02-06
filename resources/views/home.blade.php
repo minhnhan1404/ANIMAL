@@ -95,7 +95,7 @@
 
         <div class="hero-buttons">
             <a href="#explore" class="btn-primary">Khám phá ngay</a>
-            <a href="#" class="btn-outline">Tham gia bảo tồn</a>
+            <a href="{{ route('social.index') }}" class="btn-outline">Tham gia bảo tồn</a>
             <a href="{{ route('ai.nhandien') }}" class="btn-ai-hero">
     <i class="fas fa-microscope"></i> Khám phá Công nghệ AI
 </a>

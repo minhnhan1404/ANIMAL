@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SocialController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,6 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-use App\Http\Controllers\AdminController;
 
 Route::get('/admin/dashboard', [AdminController::class, 'index'])
     ->name('admin.dashboard')
@@ -74,3 +74,10 @@ Route::get('/get-animal-info/{name}', function ($name) {
 })->name('ai.get_info');
 Route::get('/animal/detail/{id}', [HomeController::class, 'detail'])->name('animal.detail');
 Route::post('/animal/like/{id}', [App\Http\Controllers\HomeController::class, 'likeAnimal'])->name('animal.like');
+
+Route::get('/social', [App\Http\Controllers\SocialController::class, 'index'])->name('social.index');
+Route::post('/social/post', [App\Http\Controllers\SocialController::class, 'store'])->name('social.store');
+Route::post('/social/store', [SocialController::class, 'store'])->name('social.store');
+Route::post('/social/like', [App\Http\Controllers\SocialController::class, 'toggleLike'])->name('social.like');
+Route::get('/admin/posts', [AdminController::class, 'indexPost'])->name('admin.post.index');
+Route::post('/admin/posts/update/{id}', [AdminController::class, 'updateStatus'])->name('admin.post.update');

@@ -22,7 +22,11 @@
     </a>
 </li>
             <li><a href="#"><i class="fas fa-users"></i> Người dùng</a></li>
-            <li><a href="#"><i class="fas fa-clipboard-list"></i> Bài đăng</a></li>
+            <li>
+    <a href="{{ route('admin.post.index') }}">
+        <i class="fas fa-clipboard-list"></i> Bài đăng
+    </a>
+</li>
             <li><a href="{{ url('/') }}"><i class="fas fa-home"></i> Xem trang chủ</a></li>
         </ul>
     </aside>

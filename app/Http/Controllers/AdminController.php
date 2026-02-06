@@ -154,4 +154,34 @@ public function editAnimal($id) {
     return view('admin.edit_animal', compact('animal'));
 }
 
+public function updateStatus(Request $request, $id)
+{
+    if ($request->status == 1) {
+        // Nếu Accept: Duyệt cho hiện lên Social
+        DB::table('posts')->where('id', $id)->update([
+            'status' => 1,
+            'updated_at' => now()
+        ]);
+        $msg = 'Đã phê duyệt bài viết thành công!';
+    } else {
+        // Nếu Denied: XÓA VĨNH VIỄN BÀI VIẾT
+        DB::table('posts')->where('id', $id)->delete();
+        $msg = 'Đã xóa bài viết bị từ chối!';
+    }
+
+    return redirect()->back()->with('status_msg', $msg);
+}
+
+public function indexPost()
+{
+    // Lấy tất cả bài viết kèm tên người đăng từ Database
+    $pendingPosts = DB::table('posts')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.*', 'users.name as user_name')
+        ->orderBy('posts.created_at', 'desc')
+        ->get();
+
+    // Trả về view admin/post.blade.php bạn đã tạo
+    return view('admin.post', compact('pendingPosts'));
+}
 }
