@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
 
 body {
     background-color: #fafafa;
@@ -150,9 +149,13 @@ body {
     cursor: pointer;
     color: #262626;
 }
-
 .fa-heart.active, .fas.fa-heart {
     color: #ed4956 !important;
+    transition: transform 0.2s ease;
+}
+
+.action-btn-ins:active {
+    transform: scale(1.2);
 }
 
 .modal {
@@ -229,4 +232,20 @@ body {
 @keyframes zoomIn {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+.big-heart-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 80px;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.big-heart-overlay.animate {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
 }

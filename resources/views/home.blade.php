@@ -43,10 +43,12 @@
     <a href="{{ route('register') }}" class="btn-primary-sm">Đăng ký</a>
 @else
     <div class="user-dropdown">
-        <button class="dropdown-toggle">
-            Xin chào, <strong>{{ Auth::user()->name }}</strong>
-            <i class="fas fa-chevron-down"></i>
-        </button>
+<button class="dropdown-toggle" style="display: flex; align-items: center; gap: 8px;">
+    <img src="{{ asset(Auth::user()->avatar ?? 'images/default-avatar.png') }}"
+         style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
+    Xin chào, <strong>{{ Auth::user()->name }}</strong>
+    <i class="fas fa-chevron-down"></i>
+</button>
 
         <ul class="dropdown-menu">
             {{-- CHỈ HIỆN NẾU LÀ ADMIN --}}
@@ -239,10 +241,7 @@
                 </div>
 
                 <h3><i class="fas fa-lightbulb text-warning"></i> Sự thật thú vị</h3>
-                <p>
-                    Sư tử là loài duy nhất trong họ Mèo có đời sống xã hội phức tạp.
-                    Tiếng gầm của chúng có thể vang xa tới 8km.
-                </p>
+
 
                 <button class="btn-primary w-full">Chia sẻ thông điệp</button>
             </div>

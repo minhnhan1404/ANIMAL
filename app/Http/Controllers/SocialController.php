@@ -8,18 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialController extends Controller
 {
+    /**
+     * Hiển thị danh sách bài viết trên trang mạng xã hội
+     */
     public function index()
     {
         $posts = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.id')
             ->where('posts.status', 1)
-            ->select('posts.*', 'users.name as user_name')
+            // Lấy đúng cột likes_count để hiển thị số tim
+            ->select('posts.*', 'users.name as user_name', 'users.avatar as user_avatar', 'posts.likes_count')
             ->orderBy('posts.created_at', 'desc')
             ->get();
 
         return view('social.index', compact('posts'));
     }
 
+    /**
+     * Xử lý đăng bài viết mới
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -38,40 +45,68 @@ class SocialController extends Controller
             'user_id' => Auth::id(),
             'content' => $request->content,
             'image_url' => $imagePath,
-            'status' => 0,
+            'status' => 0, // Chờ Admin phê duyệt
+            'likes_count' => 0, // Bài mới mặc định 0 like
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
         return redirect()->back()->with('success', 'Bài viết đang chờ Admin phê duyệt!');
     }
-    public function toggleLike(Request $request)
-{
-    $postId = $request->post_id;
-    $userId = Auth::id();
 
-    // Kiểm tra xem đã thả tim chưa
-    $like = DB::table('reactions') // Hoặc bảng likes tùy Nhan đặt tên
-        ->where('user_id', $userId)
-        ->where('post_id', $postId)
-        ->first();
+    /**
+     * Xử lý thả tim (Like/Unlike) bài viết
+     */
+    public function like($id)
+    {
+        // 1. Chặn khách vãng lai để tránh lỗi 500
+        if (!Auth::check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Bạn cần đăng nhập!'
+            ], 401);
+        }
 
-    if ($like) {
-        // Nếu có rồi thì bỏ tim (Unlike)
-        DB::table('reactions')
+        $userId = Auth::id();
+        $postId = $id;
+
+        // 2. Chỉ kiểm tra user_id và post_id trong bảng likes
+        $like = DB::table('likes')
             ->where('user_id', $userId)
             ->where('post_id', $postId)
-            ->delete();
-        return response()->json(['action' => 'unliked']);
-    } else {
-        // Nếu chưa có thì thêm tim (Like)
-        DB::table('reactions')->insert([
-            'user_id' => $userId,
-            'post_id' => $postId,
-            'type' => 'like', // Chỉ một loại duy nhất là like
-            'created_at' => now()
+            ->first();
+
+        if ($like) {
+            // Đã like rồi thì xóa (Unlike)
+            DB::table('likes')
+                ->where('user_id', $userId)
+                ->where('post_id', $postId)
+                ->delete();
+            $action = 'unliked';
+        } else {
+            // Chưa có thì thêm mới (Bỏ qua type và animal_id theo ý Nhan)
+            DB::table('likes')->insert([
+                'user_id' => $userId,
+                'post_id' => $postId,
+                'created_at' => now()
+            ]);
+            $action = 'liked';
+        }
+
+        // 3. Đếm lại tổng số tim từ bảng likes
+        $newLikesCount = DB::table('likes')->where('post_id', $postId)->count();
+
+        // 4. Cập nhật con số tổng vào bảng posts để hiển thị nhanh
+        DB::table('posts')->where('id', $postId)->update([
+            'likes_count' => $newLikesCount,
+            'updated_at' => now()
         ]);
-        return response()->json(['action' => 'liked']);
+
+        // 5. Trả số liệu về cho JavaScript nhảy số trên màn hình
+        return response()->json([
+            'success' => true,
+            'action' => $action,
+            'new_likes' => $newLikesCount
+        ]);
     }
-}
 }
