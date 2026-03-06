@@ -1,24 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Phải dùng đúng tên Class mới: .dropbtn-modern và .dropdown-content-horizontal
+document.addEventListener('DOMContentLoaded', () => {
     const dropBtn = document.querySelector('.dropbtn-modern');
     const dropdownContent = document.querySelector('.dropdown-content-horizontal');
 
+    // QUẢN LÝ DROPDOWN BỘ LỌC
     if (dropBtn && dropdownContent) {
-        // 2. Xử lý click mở menu
-        dropBtn.addEventListener('click', function(e) {
+        dropBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            dropdownContent.classList.toggle('show');
+            const isShow = dropdownContent.classList.toggle('show');
+            const arrow = dropBtn.querySelector('.fa-chevron-down');
 
-            // Hiệu ứng xoay mũi tên chuẩn
-            const arrow = this.querySelector('.fa-chevron-down');
             if (arrow) {
                 arrow.style.transition = '0.3s';
-                arrow.style.transform = dropdownContent.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+                arrow.style.transform = isShow ? 'rotate(180deg)' : 'rotate(0deg)';
             }
         });
 
-        // 3. Click ra ngoài để đóng menu
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', (e) => {
             if (!dropBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
                 dropdownContent.classList.remove('show');
                 const arrow = dropBtn.querySelector('.fa-chevron-down');
@@ -26,4 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    window.addEventListener('pageshow', (event) => {
+        const isBackNavigation = event.persisted ||
+            (typeof window.performance !== "undefined" && window.performance.navigation.type === 2);
+
+        if (isBackNavigation) {
+            window.location.reload();
+        }
+    });
 });

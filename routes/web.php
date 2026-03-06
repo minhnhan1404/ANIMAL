@@ -67,3 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
+
+Route::get('/post/{id}/comments', [SocialController::class, 'getComments']);
+Route::post('/post/{id}/comment', [SocialController::class, 'storeComment']);
+Route::delete('/comment/{id}/delete', [SocialController::class, 'deleteComment']);

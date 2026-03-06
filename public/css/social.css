@@ -1,4 +1,4 @@
-
+/* --- Giao diện chung --- */
 body {
     background-color: #fafafa;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -7,12 +7,12 @@ body {
     min-height: 100vh;
 }
 
+/* --- Sidebar bên trái --- */
 .sidebar {
     width: 250px;
     height: 100vh;
     position: fixed;
-    left: 0;
-    top: 0;
+    left: 0; top: 0;
     background: white;
     border-right: 1px solid #dbdbdb;
     padding: 20px;
@@ -49,20 +49,22 @@ body {
     text-align: center;
 }
 
+/* --- Container chính giữa --- */
 .instagram-container {
-    margin: 30px auto ;
-    margin-right: auto;
-    margin-top: 30px;
+    margin: 30px auto;
     max-width: 600px;
     width: calc(100% - 320px);
 }
 
-.create-post-card {
+.create-post-card, .post-card {
     background: white;
-    padding: 15px;
-    border-radius: 8px;
     border: 1px solid #dbdbdb;
-    margin-bottom: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.create-post-card {
+    padding: 15px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -78,14 +80,7 @@ body {
     color: #8e8e8e;
 }
 
-.post-card {
-    background: white;
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    overflow: hidden;
-}
-
+/* --- Bài viết (Post) --- */
 .ins-header {
     padding: 10px 15px;
     display: flex;
@@ -109,6 +104,7 @@ body {
     position: relative;
     cursor: pointer;
     background-color: #efefef;
+    overflow: hidden;
 }
 
 .post-image {
@@ -120,10 +116,9 @@ body {
 
 .big-heart-overlay {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    color: white;
+    color: rgba(255, 255, 255, 0.9);
     font-size: 80px;
     opacity: 0;
     pointer-events: none;
@@ -131,8 +126,7 @@ body {
 }
 
 .big-heart-overlay.animate {
-    opacity: 0.9;
-    transform: translate(-50%, -50%) scale(1.2);
+    animation: heartFade 0.8s ease-out;
 }
 
 .post-actions {
@@ -149,23 +143,14 @@ body {
     cursor: pointer;
     color: #262626;
 }
-.fa-heart.active, .fas.fa-heart {
-    color: #ed4956 !important;
-    transition: transform 0.2s ease;
-}
 
-.action-btn-ins:active {
-    transform: scale(1.2);
-}
-
+/* --- Modals chung --- */
 .modal {
     display: none;
     position: fixed;
     z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.6);
     align-items: center;
     justify-content: center;
@@ -178,7 +163,7 @@ body {
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    animation: zoomIn 0.3s ease;
+    animation: zoomIn 0.3s ease-out;
 }
 
 .modal-header {
@@ -207,14 +192,6 @@ body {
     background-color: #fafafa;
 }
 
-#imagePreview {
-    display: none;
-    width: 100%;
-    max-height: 350px;
-    object-fit: contain;
-    border-radius: 8px;
-}
-
 .submit-post-btn {
     background: #0095f6;
     color: white;
@@ -225,27 +202,49 @@ body {
     cursor: pointer;
 }
 
-.submit-post-btn:hover {
-    background: #1877f2;
+/* --- Bình luận & Menu xóa --- */
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
 }
 
+.delete-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+/* --- Thông báo Toast --- */
+#auth-toast {
+    position: fixed;
+    bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: none;
+    z-index: 10000;
+}
+
+/* --- Hiệu ứng Animations --- */
 @keyframes zoomIn {
-    from { transform: scale(0.9); opacity: 0; }
+    from { transform: scale(1.1); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
-.big-heart-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 80px;
-    pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+@keyframes fadeIn {
+    from { bottom: 0; opacity: 0; }
+    to { bottom: 20px; opacity: 1; }
 }
 
-.big-heart-overlay.animate {
-    transform: translate(-50%, -50%) scale(1.5);
-    opacity: 0;
+@keyframes heartFade {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }

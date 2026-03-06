@@ -9,15 +9,25 @@ use Illuminate\Support\Facades\Auth;
 class SocialController extends Controller
 {
     /**
-     * Hiển thị danh sách bài viết trên trang mạng xã hội
+     * Hiển thị danh sách bài viết kèm bình luận mới nhất
      */
     public function index()
     {
         $posts = DB::table('posts')
             ->join('users', 'posts.user_id', '=', 'users.id')
+            ->leftJoin(DB::raw('(SELECT c1.post_id, c1.content as latest_comment_content, u.name as latest_comment_user
+                                FROM comments c1
+                                JOIN users u ON c1.user_id = u.id
+                                WHERE c1.id = (SELECT MAX(id) FROM comments c2 WHERE c2.post_id = c1.post_id)
+                               ) as latest_cmt'), 'posts.id', '=', 'latest_cmt.post_id')
             ->where('posts.status', 1)
-            // Lấy đúng cột likes_count để hiển thị số tim
-            ->select('posts.*', 'users.name as user_name', 'users.avatar as user_avatar', 'posts.likes_count')
+            ->select(
+                'posts.*',
+                'users.name as user_name',
+                'users.avatar as user_avatar',
+                'latest_cmt.latest_comment_content',
+                'latest_cmt.latest_comment_user'
+            )
             ->orderBy('posts.created_at', 'desc')
             ->get();
 
@@ -25,7 +35,67 @@ class SocialController extends Controller
     }
 
     /**
-     * Xử lý đăng bài viết mới
+     * Lấy danh sách bình luận (Dùng cho Modal)
+     */
+    public function getComments($postId)
+    {
+        $comments = DB::table('comments')
+            ->join('users', 'comments.user_id', '=', 'users.id')
+            ->where('comments.post_id', $postId)
+            ->select('comments.*', 'users.name as user_name', 'users.avatar as user_avatar')
+            ->orderBy('comments.created_at', 'asc')
+            ->get();
+
+        return response()->json(['comments' => $comments]);
+    }
+
+    /**
+     * Lưu bình luận mới
+     */
+    public function storeComment(Request $request, $postId)
+    {
+        if (!Auth::check()) {
+            return response()->json(['success' => false], 401);
+        }
+
+        $request->validate(['content' => 'required']);
+
+        // Dùng insertGetId để lấy ID phục vụ nút xóa ngay sau khi đăng
+        $id = DB::table('comments')->insertGetId([
+            'user_id' => Auth::id(),
+            'post_id' => $postId,
+            'content' => $request->content,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'user_name' => Auth::user()->name,
+            'user_avatar' => asset(Auth::user()->avatar ?? 'images/default-avatar.png'),
+            'comment_id' => $id
+        ]);
+    }
+
+    /**
+     * Xóa bình luận (Đã thêm log kiểm tra ID)
+     */
+    public function deleteComment($id)
+{
+    $comment = DB::table('comments')->where('id', $id)->first();
+
+    if ($comment) {
+        // KIỂM TRA: Chỉ cho xóa nếu đúng chủ nhân CMT
+        if ($comment->user_id == Auth::id()) {
+            DB::table('comments')->where('id', $id)->delete();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Bạn không có quyền xóa!'], 403);
+    }
+    return response()->json(['success' => false, 'message' => 'Không tìm thấy CMT'], 404);
+}
+    /**
+     * Xử lý đăng bài mới
      */
     public function store(Request $request)
     {
@@ -45,64 +115,42 @@ class SocialController extends Controller
             'user_id' => Auth::id(),
             'content' => $request->content,
             'image_url' => $imagePath,
-            'status' => 0, // Chờ Admin phê duyệt
-            'likes_count' => 0, // Bài mới mặc định 0 like
+            'status' => 1,
+            'likes_count' => 0,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Bài viết đang chờ Admin phê duyệt!');
+        return redirect()->back()->with('success', 'Đăng bài thành công!');
     }
 
     /**
-     * Xử lý thả tim (Like/Unlike) bài viết
+     * Xử lý Like
      */
     public function like($id)
     {
-        // 1. Chặn khách vãng lai để tránh lỗi 500
         if (!Auth::check()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Bạn cần đăng nhập!'
-            ], 401);
+            return response()->json(['success' => false], 401);
         }
 
         $userId = Auth::id();
-        $postId = $id;
-
-        // 2. Chỉ kiểm tra user_id và post_id trong bảng likes
-        $like = DB::table('likes')
-            ->where('user_id', $userId)
-            ->where('post_id', $postId)
-            ->first();
+        $like = DB::table('likes')->where('user_id', $userId)->where('post_id', $id)->first();
 
         if ($like) {
-            // Đã like rồi thì xóa (Unlike)
-            DB::table('likes')
-                ->where('user_id', $userId)
-                ->where('post_id', $postId)
-                ->delete();
+            DB::table('likes')->where('user_id', $userId)->where('post_id', $id)->delete();
             $action = 'unliked';
         } else {
-            // Chưa có thì thêm mới (Bỏ qua type và animal_id theo ý Nhan)
             DB::table('likes')->insert([
                 'user_id' => $userId,
-                'post_id' => $postId,
+                'post_id' => $id,
                 'created_at' => now()
             ]);
             $action = 'liked';
         }
 
-        // 3. Đếm lại tổng số tim từ bảng likes
-        $newLikesCount = DB::table('likes')->where('post_id', $postId)->count();
+        $newLikesCount = DB::table('likes')->where('post_id', $id)->count();
+        DB::table('posts')->where('id', $id)->update(['likes_count' => $newLikesCount]);
 
-        // 4. Cập nhật con số tổng vào bảng posts để hiển thị nhanh
-        DB::table('posts')->where('id', $postId)->update([
-            'likes_count' => $newLikesCount,
-            'updated_at' => now()
-        ]);
-
-        // 5. Trả số liệu về cho JavaScript nhảy số trên màn hình
         return response()->json([
             'success' => true,
             'action' => $action,

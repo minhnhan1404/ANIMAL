@@ -464,3 +464,60 @@ body {
 .opt.active, .opt:hover { background: #27ae60; color: white; }
 .divider-v { width: 1px; height: 20px; background: #eee; }
 .opt-reset { color: #e74c3c; font-weight: bold; text-decoration: none; padding: 0 10px; }
+
+.user-avatar-nav {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.filter-main-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.filter-label {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-right: 15px;
+    font-size: 0.95rem;
+}
+
+.btn-group-custom {
+    display: inline-flex;
+    background: #f8f9fa;
+    padding: 5px;
+    border-radius: 30px;
+    border: 1px solid #eee;
+}
+
+.like-form-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+.taxonomy-mini span {
+    display: block;
+    font-size: 0.85rem;
+    color: #7f8c8d;
+}
+
+.btn-primary.w-full {
+    width: 100%;
+    margin-top: 20px;
+}
