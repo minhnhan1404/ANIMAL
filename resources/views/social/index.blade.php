@@ -21,6 +21,19 @@
     </div>
 
     <div class="instagram-container">
+        {{-- THÊM LẠI PHẦN THÔNG BÁO VỚI STYLE VIẾT TAY CHO CHẮC CHẮN --}}
+        @if(session('error'))
+            <div style="background: #fff5f5; color: #ed4956; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffcccc; font-weight: 600; text-align: center;">
+                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div style="background: #f0fff4; color: #2f855a; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #c6f6d5; font-weight: 600; text-align: center;">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
+            </div>
+        @endif
+
         @auth
             <div class="create-post-card" onclick="document.getElementById('postModal').style.display='flex'">
                 <img src="{{ asset(Auth::user()->avatar ?? 'images/default-avatar.png') }}" class="avatar-small">
@@ -135,7 +148,7 @@
             </div>
             <div style="display: flex; flex-direction: column; border-top: 1px solid #dbdbdb;">
                 <button id="btnDeleteConfirm" onclick="executeDelete()" style="padding: 12px; background: none; border: none; color: #ed4956; font-weight: bold; cursor: pointer; border-bottom: 1px solid #dbdbdb;">Xóa</button>
-                <button onclick="closeConfirm(); resetPostModal();" style="padding: 12px; background: none; border: none; color: #262626; cursor: pointer;">Hủy</button>
+                <button onclick="closeConfirm();" style="padding: 12px; background: none; border: none; color: #262626; cursor: pointer;">Hủy</button>
             </div>
         </div>
     </div>

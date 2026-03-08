@@ -220,17 +220,7 @@ body {
 }
 
 /* --- Thông báo Toast --- */
-#auth-toast {
-    position: fixed;
-    bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 8px;
-    display: none;
-    z-index: 10000;
-}
+
 
 /* --- Hiệu ứng Animations --- */
 @keyframes zoomIn {
@@ -247,4 +237,75 @@ body {
     0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
     50% { opacity: 0.9; }
     100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+}
+
+
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.comment-content-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-content-wrapper p {
+    margin: 0;
+}
+
+/* --- Menu ba chấm và nút xóa --- */
+.comment-actions-container {
+    position: relative;
+}
+
+.comment-actions-container i {
+    cursor: pointer;
+    color: #8e8e8e;
+    padding: 5px;
+}
+
+.delete-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.delete-menu button {
+    color: #ed4956;
+    border: none;
+    background: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+#auth-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: #ed4956; /* Đổi sang màu đỏ cho giống cảnh báo của Instagram */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+    z-index: 10000;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+#auth-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
 }

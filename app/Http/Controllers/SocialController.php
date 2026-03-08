@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialController extends Controller
 {
-    /**
-     * Hiển thị danh sách bài viết kèm bình luận mới nhất
-     */
     public function index()
     {
         $posts = DB::table('posts')
@@ -34,9 +31,6 @@ class SocialController extends Controller
         return view('social.index', compact('posts'));
     }
 
-    /**
-     * Lấy danh sách bình luận (Dùng cho Modal)
-     */
     public function getComments($postId)
     {
         $comments = DB::table('comments')
@@ -49,22 +43,38 @@ class SocialController extends Controller
         return response()->json(['comments' => $comments]);
     }
 
-    /**
-     * Lưu bình luận mới
-     */
+    // --- HÀM LƯU BÌNH LUẬN: ĐÃ THÊM BỘ LỌC TỪ CẤM ---
     public function storeComment(Request $request, $postId)
     {
         if (!Auth::check()) {
-            return response()->json(['success' => false], 401);
+            return response()->json(['success' => false, 'message' => 'Bạn cần đăng nhập!'], 401);
         }
 
         $request->validate(['content' => 'required']);
 
-        // Dùng insertGetId để lấy ID phục vụ nút xóa ngay sau khi đăng
+        // Danh sách từ cấm "thật" của Nhan
+        $badWords = [
+            'đụ', 'mẹ', 'mày', 'tao', 'chửi', 'vô văn hóa', 'ngu', 'cút', 'đếch', 'đéo',
+            'giết', 'thịt', 'ăn thịt', 'săn bắn', 'bắn chết', 'ngược đãi', 'hành hạ',
+            'đánh đập', 'buôn bán lậu', 'tận diệt', 'bẫy', 'kích điện', 'lột da',
+            'đâm', 'chém', 'đốt', 'phóng hỏa', 'bạo lực', 'tàn sát', 'thảm sát'
+        ];
+
+        $content = $request->content;
+
+        foreach ($badWords as $word) {
+            if (str_contains(mb_strtolower($content), $word)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ko được bình luận những từ ngữ thô tục hoặc vi phạm chính sách bảo vệ động vật!'
+                ], 422); // Trả về mã lỗi 422 để JS bắt được
+            }
+        }
+
         $id = DB::table('comments')->insertGetId([
             'user_id' => Auth::id(),
             'post_id' => $postId,
-            'content' => $request->content,
+            'content' => $content,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -77,26 +87,20 @@ class SocialController extends Controller
         ]);
     }
 
-    /**
-     * Xóa bình luận (Đã thêm log kiểm tra ID)
-     */
     public function deleteComment($id)
-{
-    $comment = DB::table('comments')->where('id', $id)->first();
+    {
+        $comment = DB::table('comments')->where('id', $id)->first();
 
-    if ($comment) {
-        // KIỂM TRA: Chỉ cho xóa nếu đúng chủ nhân CMT
-        if ($comment->user_id == Auth::id()) {
-            DB::table('comments')->where('id', $id)->delete();
-            return response()->json(['success' => true]);
+        if ($comment) {
+            if ($comment->user_id == Auth::id()) {
+                DB::table('comments')->where('id', $id)->delete();
+                return response()->json(['success' => true]);
+            }
+            return response()->json(['success' => false, 'message' => 'Bạn không có quyền xóa!'], 403);
         }
-        return response()->json(['success' => false, 'message' => 'Bạn không có quyền xóa!'], 403);
+        return response()->json(['success' => false, 'message' => 'Không tìm thấy CMT'], 404);
     }
-    return response()->json(['success' => false, 'message' => 'Không tìm thấy CMT'], 404);
-}
-    /**
-     * Xử lý đăng bài mới
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -105,9 +109,23 @@ class SocialController extends Controller
         ]);
 
         $imagePath = null;
+        $fileHash = null;
+
         if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('uploads/posts'), $imageName);
+            $image = $request->file('image');
+            $fileHash = md5_file($image->getRealPath());
+
+            $isDuplicate = DB::table('posts')
+                ->where('user_id', Auth::id())
+                ->where('image_hash', $fileHash)
+                ->exists();
+
+            if ($isDuplicate) {
+                return redirect()->back()->with('error', 'Ảnh này bạn đã đăng rồi, đừng spam nhé!');
+            }
+
+            $imageName = time().'.'.$image->extension();
+            $image->move(public_path('uploads/posts'), $imageName);
             $imagePath = 'uploads/posts/' . $imageName;
         }
 
@@ -115,6 +133,7 @@ class SocialController extends Controller
             'user_id' => Auth::id(),
             'content' => $request->content,
             'image_url' => $imagePath,
+            'image_hash' => $fileHash,
             'status' => 1,
             'likes_count' => 0,
             'created_at' => now(),
@@ -124,9 +143,6 @@ class SocialController extends Controller
         return redirect()->back()->with('success', 'Đăng bài thành công!');
     }
 
-    /**
-     * Xử lý Like
-     */
     public function like($id)
     {
         if (!Auth::check()) {
