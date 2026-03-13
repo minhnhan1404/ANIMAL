@@ -1,0 +1,116 @@
+
+body {
+    margin: 0;
+    display: flex;
+    background-color: #fafafa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    border-right: 1px solid #dbdbdb;
+    padding: 20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.sidebar .logo {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    display: block;
+    text-decoration: none;
+    color: black;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #f2f2f2;
+}
+
+.menu-item i {
+    margin-right: 15px;
+    font-size: 20px;
+    width: 25px;
+    text-align: center;
+}
+
+.menu-item.active {
+    font-weight: bold;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+    min-height: 100vh;
+}
+
+.instagram-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.post-card {
+    padding: 25px;
+    background: white;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: #0095f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #1877f2;
+}

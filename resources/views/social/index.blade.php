@@ -14,14 +14,13 @@
         <div class="sidebar-logo"><h2>Animal</h2></div>
         <nav class="sidebar-nav">
             <a href="{{ url('/') }}"><i class="fas fa-home"></i> <span>Trang chủ</span></a>
-            <a href="#"><i class="fas fa-compass"></i> <span>Khám phá</span></a>
+            <a href="{{ route('ai.nhandien') }}" class="btn-ai-hero"><i class="fas fa-compass"></i> <span>Khám phá</span></a>
             <a href="{{ route('profile.edit') }}"><i class="fas fa-user-edit"></i> <span>Hồ sơ</span></a>
             <a href="#" onclick="document.getElementById('postModal').style.display='flex'"><i class="far fa-plus-square"></i> <span>Tạo</span></a>
         </nav>
     </div>
 
     <div class="instagram-container">
-        {{-- THÊM LẠI PHẦN THÔNG BÁO VỚI STYLE VIẾT TAY CHO CHẮC CHẮN --}}
         @if(session('error'))
             <div style="background: #fff5f5; color: #ed4956; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffcccc; font-weight: 600; text-align: center;">
                 <i class="fas fa-exclamation-circle"></i> {{ session('error') }}

@@ -7,7 +7,7 @@
 
     {{-- Nhúng file CSS gốc và file CSS Form mới --}}
     <link rel="stylesheet" href="{{ asset('css/admin-style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin-form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -32,10 +32,15 @@
             </a>
         </li>
 
-        <li><a href="#"><i class="fas fa-users"></i> Người dùng</a></li>
-        <li><a href="#"><i class="fas fa-clipboard-list"></i> Bài đăng</a></li>
+        <li>
+                <a href="{{ route('admin.users.index') }}">
+                    <i class="fas fa-users"></i> Người dùng
+                </a>
+            </li>
+        <li><a href="{{ route('admin.post.index') }}">
+        <i class="fas fa-clipboard-list"></i> Bài đăng
+    </a></li>
 
-        {{-- Nút quay lại trang chủ người dùng --}}
         <li>
             <a href="{{ url('/') }}">
                 <i class="fas fa-home"></i> Xem trang chủ
@@ -74,6 +79,9 @@
                                 <option value="Thú">Thú</option>
                                 <option value="Chim">Chim</option>
                                 <option value="Đại dương">Đại dương</option>
+                                <option value="Bò sát">Bò sát</option>
+                                <option value="Côn trùng">Côn trùng</option>
+                                <option value="Linh trưởng">Linh trưởng</option>
                             </select>
                         </div>
                         <div class="form-group" style="flex: 1;">
