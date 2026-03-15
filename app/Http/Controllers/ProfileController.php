@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Support\Facades\DB; // Giữ nguyên dòng này
 
 class ProfileController extends Controller
 {
@@ -13,7 +13,11 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+
+        // SỬA: Bỏ dấu \ ở trước DB vì đã có 'use' ở trên đầu file
+        $posts = DB::table('posts')->where('user_id', $user->id)->latest()->get();
+
+        return view('profile.edit', compact('user', 'posts'));
     }
 
     // Xử lý cập nhật thông tin (Avatar & Mật khẩu)
@@ -27,28 +31,29 @@ class ProfileController extends Controller
             'password' => 'nullable|min:6|confirmed',
         ]);
 
-        $user->name = $request->name;
-
         // Xử lý lưu Avatar vào thư mục uploads/avatars
+        $avatarPath = $user->avatar; // Giữ lại avatar cũ nếu không up mới
         if ($request->hasFile('avatar')) {
             $imageName = time().'.'.$request->avatar->extension();
             $request->avatar->move(public_path('uploads/avatars'), $imageName);
-            $user->avatar = 'uploads/avatars/' . $imageName;
+            $avatarPath = 'uploads/avatars/' . $imageName;
         }
 
-        // Nếu Nhan có nhập mật khẩu mới thì mới đổi
+        // Xử lý mật khẩu
+        $newPassword = $user->password;
         if ($request->password) {
-            $user->password = Hash::make($request->password);
+            $newPassword = Hash::make($request->password);
         }
 
-        // Lưu trực tiếp bằng Query Builder vì Nhan đang dùng DB
-        \DB::table('users')->where('id', $user->id)->update([
-            'name' => $user->name,
-            'avatar' => $user->avatar,
-            'password' => $user->password,
+        // SỬA: Dùng trực tiếp DB Builder cho đồng bộ
+        DB::table('users')->where('id', $user->id)->update([
+            'name' => $request->name,
+            'avatar' => $avatarPath,
+            'password' => $newPassword,
             'updated_at' => now(),
         ]);
 
         return redirect()->back()->with('success', 'Đã cập nhật thông tin thành công!');
     }
 }
+                    

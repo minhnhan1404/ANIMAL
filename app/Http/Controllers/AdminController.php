@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -12,32 +11,35 @@ class AdminController extends Controller
 {
     // 1. TRANG TỔNG QUAN (Dashboard chính)
     public function index()
-    {
-        if (Auth::user()->role !== 'admin') {
-            return redirect('/')->with('error', 'Truy cập bị từ chối.');
-        }
-
-       $totalLikes   = DB::table('animals')->sum('likes_count');
-        $totalAnimals = DB::table('animals')->count();
-        $totalUsers = DB::table('users')->where('role', 'user')->count();
-
-        $aiHistory = DB::table('ai_detections')
-            ->join('users', 'ai_detections.user_id', '=', 'users.id')
-            ->select('ai_detections.*', 'users.name as user_name')
-            ->orderBy('ai_detections.created_at', 'desc')
-            ->limit(5)
-            ->get();
-
-        $animals = DB::table('animals')->orderBy('id', 'desc')->get();
-
-        return view('admin.dashboard', compact(
-            'totalLikes',
-            'totalAnimals',
-            'totalUsers',
-            'aiHistory',
-            'animals'
-        ));
+{
+    if (Auth::user()->role !== 'admin') {
+        return redirect('/')->with('error', 'Truy cập bị từ chối.');
     }
+
+    // 1. Lấy các thông số thống kê
+    $totalLikes   = DB::table('animals')->sum('likes_count');
+    $totalAnimals = DB::table('animals')->count();
+    $totalUsers   = DB::table('users')->where('role', 'user')->count();
+
+    // 2. Lấy danh sách loài vật
+    $animals = DB::table('animals')->orderBy('id', 'desc')->get();
+
+    // 3. Lấy 5 lịch sử nhận diện mới nhất từ bảng detection_history
+    // (Bảng này nãy mình vừa tạo để Python lưu vào đó Nhan)
+    $aiHistory = DB::table('detection_history')
+                ->orderBy('created_at', 'desc')
+                ->limit(5)
+                ->get();
+
+    // 4. Trả về view duy nhất một lần ở cuối hàm
+    return view('admin.dashboard', compact(
+        'totalLikes',
+        'totalAnimals',
+        'totalUsers',
+        'aiHistory',
+        'animals'
+    ));
+}
 
     // 2. TRANG QUẢN LÝ RIÊNG (Hiển thị danh sách để đăng bài)
     public function manageAnimals()

@@ -29,13 +29,27 @@
             </p>
 
             <div class="info-badges">
-                <span class="badge-status">
-                    <i class="fas fa-leaf"></i> {{ $animal->status }}
-                </span>
-                <span class="badge-category">
-                    <i class="fas fa-tag"></i> {{ $animal->category }}
-                </span>
-            </div>
+    @php
+        // Bảng màu đồng bộ với trang chủ
+        $statusMap = [
+            'Ít lo ngại' => ['color' => '#28a745', 'icon' => 'fa-leaf', 'bg' => '#e8f5e9'],
+            'Sắp nguy cấp' => ['color' => '#ffc107', 'icon' => 'fa-exclamation-triangle', 'bg' => '#fffde7'],
+            'Nguy cấp' => ['color' => '#fd7e14', 'icon' => 'fa-book', 'bg' => '#fff3e0'],
+            'Cực kỳ nguy cấp' => ['color' => '#dc3545', 'icon' => 'fa-skull-crossbones', 'bg' => '#ffebee'],
+        ];
+        $current = $statusMap[trim($animal->status)] ?? ['color' => '#28a745', 'icon' => 'fa-leaf', 'bg' => '#e8f5e9'];
+    @endphp
+
+    {{-- Badge Trạng thái tự động đổi màu --}}
+    <span class="badge-status" style="background-color: {{ $current['bg'] }}; color: {{ $current['color'] }}; padding: 10px 20px; border-radius: 50px; font-weight: bold; margin-right: 10px; display: inline-block;">
+        <i class="fas {{ $current['icon'] }}"></i> {{ $animal->status }}
+    </span>
+
+    {{-- Badge Danh mục --}}
+    <span class="badge-category" style="background-color: #e3f2fd; color: #1976d2; padding: 10px 20px; border-radius: 50px; font-weight: bold; display: inline-block;">
+        <i class="fas fa-tag"></i> {{ $animal->category }}
+    </span>
+</div>
 
             <h3 class="section-title">Tập tính & Đặc điểm</h3>
             <p style="line-height: 1.8; color: #555; margin-bottom: 30px; font-size: 1.05rem;">

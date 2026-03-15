@@ -155,14 +155,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($aiHistory as $ai)
+                       @foreach($aiHistory as $ai)
                         <tr>
-                            <td><strong>{{ $ai->user_name }}</strong></td>
-                            <td><span class="text-success">{{ $ai->detected_animal }}</span></td>
-                            <td>{{ number_format($ai->confidence * 100, 1) }}%</td>
-                            <td>{{ $ai->created_at }}</td>
-                        </tr>
-                        @endforeach
+                    <td><strong>{{ $ai->user_name }}</strong></td>
+                    <td><span class="text-success">{{ $ai->prediction_result }}</span></td>
+                    <td>{{ number_format($ai->confidence * 100, 1) }}%</td>
+                    <td>{{ $ai->created_at }}</td>
+                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

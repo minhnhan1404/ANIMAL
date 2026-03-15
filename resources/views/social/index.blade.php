@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/social.css') }}">
 </head>
 <body>
+    {{-- SIDEBAR --}}
     <div class="sidebar">
         <div class="sidebar-logo"><h2>Animal</h2></div>
         <nav class="sidebar-nav">
@@ -20,19 +21,8 @@
         </nav>
     </div>
 
+    {{-- NỘI DUNG CHÍNH --}}
     <div class="instagram-container">
-        @if(session('error'))
-            <div style="background: #fff5f5; color: #ed4956; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffcccc; font-weight: 600; text-align: center;">
-                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-            </div>
-        @endif
-
-        @if(session('success'))
-            <div style="background: #f0fff4; color: #2f855a; padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #c6f6d5; font-weight: 600; text-align: center;">
-                <i class="fas fa-check-circle"></i> {{ session('success') }}
-            </div>
-        @endif
-
         @auth
             <div class="create-post-card" onclick="document.getElementById('postModal').style.display='flex'">
                 <img src="{{ asset(Auth::user()->avatar ?? 'images/default-avatar.png') }}" class="avatar-small">
@@ -40,9 +30,7 @@
             </div>
         @else
             <div class="create-post-card">
-                <a href="{{ route('login') }}" class="open-modal-btn" style="text-decoration: none; color: #0095f6; font-weight: bold; width: 100%; text-align: center;">
-                    Đăng nhập để chia sẻ khoảnh khắc...
-                </a>
+                <a href="{{ route('login') }}" class="open-modal-btn" style="text-decoration: none; color: #0095f6; font-weight: bold; width: 100%; text-align: center;">Đăng nhập để chia sẻ...</a>
             </div>
         @endauth
 
@@ -53,36 +41,20 @@
                     <img src="{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}" class="avatar-small">
                     <span class="username">{{ $post->user_name }}</span>
                 </div>
-
                 <div class="post-image-container">
                     @if($post->image_url)
                         <img src="{{ asset($post->image_url) }}" class="post-image">
-                    @else
-                        <div class="no-image-placeholder">Không có ảnh</div>
                     @endif
                     <div class="big-heart-overlay" id="heart-{{ $post->id }}"><i class="fas fa-heart"></i></div>
                 </div>
-
                 <div class="ins-footer">
                     <div class="post-actions">
-                        <button class="action-btn-ins" onclick="handleLike({{ $post->id }})">
-                            <i class="far fa-heart fa-lg"></i>
-                        </button>
-                        <button class="action-btn-ins" onclick="openCommentModal({{ $post->id }}, '{{ asset($post->image_url) }}', '{{ $post->user_name }}', '{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}')">
-                            <i class="far fa-comment fa-lg"></i>
-                        </button>
+                        <button class="action-btn-ins" onclick="handleLike({{ $post->id }})"><i class="far fa-heart fa-lg"></i></button>
+                        <button class="action-btn-ins" onclick="openCommentModal({{ $post->id }}, '{{ asset($post->image_url) }}', '{{ $post->user_name }}', '{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}')"><i class="far fa-comment fa-lg"></i></button>
                     </div>
                     <div class="ins-content">
                         <p><strong id="likes-count-{{ $post->id }}">{{ $post->likes_count ?? 0 }}</strong> lượt thích</p>
                         <p><strong>{{ $post->user_name }}</strong> {{ $post->content }}</p>
-
-                        <div id="latest-comment-{{ $post->id }}">
-                            @if(isset($post->latest_comment_content) && $post->latest_comment_content)
-                                <p style="font-size: 14px; margin-top: 5px;">
-                                    <strong>{{ $post->latest_comment_user }}</strong> {{ $post->latest_comment_content }}
-                                </p>
-                            @endif
-                        </div>
                         <span class="post-time">{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
                     </div>
                 </div>
@@ -91,6 +63,7 @@
         </div>
     </div>
 
+    {{-- MODAL BÌNH LUẬN --}}
     <div class="modal" id="commentModal">
         <div class="modal-content" style="max-width: 900px; display: flex; height: 600px; padding: 0; flex-direction: row;">
             <div style="flex: 1.2; background: #000; display: flex; align-items: center; justify-content: center;">
@@ -116,22 +89,19 @@
         </div>
     </div>
 
+    {{-- MODAL ĐĂNG BÀI --}}
     <div class="modal" id="postModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Tạo bài viết mới</h3>
-                <span class="close-btn" onclick="document.getElementById('postModal').style.display='none'; resetPostModal();">&times;</span>
+                <span class="close-btn" onclick="document.getElementById('postModal').style.display='none'">&times;</span>
             </div>
             <form action="{{ route('social.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <textarea name="content" placeholder="Viết chú thích..." required></textarea>
                     <div class="upload-section">
-                        <img id="imagePreview" src="#" style="display:none; max-width:100%;">
-                        <label for="file-upload" id="uploadPlaceholder">
-                            <i class="fas fa-images"></i> <span>Chọn ảnh</span>
-                        </label>
-                        <input type="file" name="image" id="file-upload" hidden onchange="previewImage(event)">
+                        <input type="file" name="image" required>
                     </div>
                 </div>
                 <button type="submit" class="submit-post-btn">Chia sẻ</button>
@@ -139,20 +109,20 @@
         </div>
     </div>
 
-    <div id="customConfirm" class="modal" style="display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); z-index: 9999;">
+    {{-- CÁC THÔNG BÁO VÀ CONFIRM (QUAN TRỌNG: ĐỂ DƯỚI CÙNG) --}}
+    <div id="customConfirm" class="modal" style="display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); z-index: 100000;">
         <div style="background: white; border-radius: 12px; width: 260px; text-align: center; overflow: hidden;">
             <div style="padding: 20px;">
                 <h3 style="margin: 0 0 10px; font-size: 18px;">Xóa bình luận?</h3>
-                <p style="margin: 0; color: #8e8e8e; font-size: 14px;">Bạn chắc chắn muốn xóa bình luận này chứ?</p>
-            </div>
-            <div style="display: flex; flex-direction: column; border-top: 1px solid #dbdbdb;">
-                <button id="btnDeleteConfirm" onclick="executeDelete()" style="padding: 12px; background: none; border: none; color: #ed4956; font-weight: bold; cursor: pointer; border-bottom: 1px solid #dbdbdb;">Xóa</button>
-                <button onclick="closeConfirm();" style="padding: 12px; background: none; border: none; color: #262626; cursor: pointer;">Hủy</button>
+                <button id="btnDeleteConfirm" onclick="executeDelete()" style="width: 100%; padding: 10px; color: red; border: none; background: none; font-weight: bold; cursor: pointer;">Xóa</button>
+                <button onclick="document.getElementById('customConfirm').style.display='none'" style="width: 100%; padding: 10px; border: none; background: none; cursor: pointer;">Hủy</button>
             </div>
         </div>
     </div>
 
-    <div id="auth-toast"></div>
+    {{-- THÔNG BÁO ĐỎ PHẢI NẰM ĐÂY --}}
+    <div id="auth-toast" style="position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 999999 !important; display: none;"></div>
+
     <script src="{{ asset('js/social.js') }}"></script>
     <script>
         window.addEventListener('pageshow', (event) => {

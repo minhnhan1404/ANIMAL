@@ -77,18 +77,10 @@
                     <a href="{{ route('home', ['category' => 'Thú']) }}" class="nav-filter-btn {{ request('category') == 'Thú' ? 'active' : '' }}">Thú</a>
                     <a href="{{ route('home', ['category' => 'Chim']) }}" class="nav-filter-btn {{ request('category') == 'Chim' ? 'active' : '' }}">Chim</a>
                     <a href="{{ route('home', ['category' => 'Đại dương']) }}" class="nav-filter-btn {{ request('category') == 'Đại dương' ? 'active' : '' }}">Đại dương</a>
-                     <a href="{{ route('home', ['category' => 'Bò sát']) }}" class="nav-filter-btn {{ request('category') == 'Bò sát' ? 'active' : '' }}">Bò sát</a>
+                    <a href="{{ route('home', ['category' => 'Bò sát']) }}" class="nav-filter-btn {{ request('category') == 'Bò sát' ? 'active' : '' }}">Bò sát</a>
                     <a href="{{ route('home', ['category' => 'Côn trùng']) }}" class="nav-filter-btn {{ request('category') == 'Côn trùng' ? 'active' : '' }}">Côn trùng</a>
                     <a href="{{ route('home', ['category' => 'Linh trưởng']) }}" class="nav-filter-btn {{ request('category') == 'Linh trưởng' ? 'active' : '' }}">Linh trưởng</a>
-
                 </div>
-            </div>
-
-            <div class="diet-dropdown-container">
-                <button class="dropbtn-modern" type="button">
-                    <span>{{ request('diet') ? 'Chế độ: ' . request('diet') : 'CHẾ ĐỘ ĂN' }}</span>
-                    <i class="fas fa-chevron-down"></i>
-                </button>
             </div>
         </div>
     </div>
@@ -116,8 +108,24 @@
                     <span><strong>Lớp:</strong> {{ $animal->animal_class ?? 'Đang cập nhật' }}</span>
                     <span><strong>Bộ:</strong> {{ $animal->animal_order ?? 'Đang cập nhật' }}</span>
                 </div>
-                <div class="stats"><p><i class="fas fa-leaf"></i> {{ $animal->status }}</p></div>
-                <a href="{{ Auth::check() ? route('animal.detail', $animal->id) : route('login') }}" class="btn-detail">
+
+                {{-- ĐOẠN TỰ ĐỘNG CẬP NHẬT MÀU VÀ ICON TỪ DB --}}
+                <div class="stats" style="margin-top: 10px;">
+                    @php
+                        $statusMap = [
+                            'Ít lo ngại' => ['color' => '#28a745', 'icon' => 'fa-leaf'],
+                            'Sắp nguy cấp' => ['color' => '#ffc107', 'icon' => 'fa-exclamation-triangle'],
+                            'Nguy cấp' => ['color' => '#fd7e14', 'icon' => 'fa-book'],
+                            'Cực kỳ nguy cấp' => ['color' => '#dc3545', 'icon' => 'fa-skull-crossbones'],
+                        ];
+                        $current = $statusMap[trim($animal->status)] ?? ['color' => '#28a745', 'icon' => 'fa-leaf'];
+                    @endphp
+                    <p style="color: {{ $current['color'] }}; font-weight: bold; font-size: 0.9rem;">
+                        <i class="fas {{ $current['icon'] }}"></i> {{ $animal->status }}
+                    </p>
+                </div>
+
+                <a href="{{ Auth::check() ? route('animal.detail', $animal->id) : route('login') }}" class="btn-detail" style="margin-top: 10px; display: inline-block;">
                     {{ Auth::check() ? 'Chi tiết' : 'Đăng nhập để xem' }} <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

@@ -86,11 +86,18 @@
                         </div>
                         <div class="form-group" style="flex: 1;">
     <label>Tình trạng bảo tồn</label>
-    <select name="status" class="form-control">
-        <option value="Ít lo ngại" selected>Ít lo ngại</option>
-        <option value="Sắp nguy cấp">Sắp nguy cấp</option>
-        <option value="Nguy cấp">Nguy cấp</option>
-        <option value="Cực kỳ nguy cấp">Cực kỳ nguy cấp</option>
+    <select name="status" class="form-control" style="font-weight: bold;">
+        {{-- Mức 1: Xanh lá --}}
+        <option value="Ít lo ngại" selected style="color: #28a745;">🌿 Ít lo ngại</option>
+
+        {{-- Mức 2: Vàng --}}
+        <option value="Sắp nguy cấp" style="color: #ffc107;">⚠️ Sắp nguy cấp</option>
+
+        {{-- Mức 3: Cam --}}
+        <option value="Nguy cấp" style="color: #fd7e14;">📕 Nguy cấp</option>
+
+        {{-- Mức 4: Đỏ --}}
+        <option value="Cực kỳ nguy cấp" style="color: #dc3545;">💀 Cực kỳ nguy cấp</option>
     </select>
 </div>
                     </div>

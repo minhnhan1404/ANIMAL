@@ -21,7 +21,11 @@
         <ul class="sidebar-menu">
             <li><a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Tổng quan</a></li>
             <li><a href="{{ route('admin.animals') }}"><i class="fas fa-fish"></i> Quản lý loài vật</a></li>
-            <li><a href="#"><i class="fas fa-users"></i> Người dùng</a></li>
+            <li>
+                <a href="{{ route('admin.users.index') }}">
+                    <i class="fas fa-users"></i> Người dùng
+                </a>
+            </li>
             <li class="active"><a href="{{ route('admin.post.index') }}"><i class="fas fa-clipboard-list"></i> Bài đăng</a></li>
             <li><a href="{{ url('/') }}"><i class="fas fa-home"></i> Xem trang chủ</a></li>
         </ul>

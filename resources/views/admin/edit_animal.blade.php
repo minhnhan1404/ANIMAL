@@ -11,7 +11,6 @@
 <body>
 
 <div class="dashboard-container">
-    {{-- Sidebar giống Dashboard --}}
     <aside class="sidebar">
         <div class="sidebar-brand">
             <i class="fas fa-paw"></i> <span>Animalia Admin</span>

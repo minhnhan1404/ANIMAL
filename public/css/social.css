@@ -1,311 +1,128 @@
-/* --- Giao diện chung --- */
+/* ==========================================================
+   GIAO DIỆN SOCIAL ANIMAL - BẢN HÒA QUYỆN HOÀN HẢO
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    background-color: #fafafa;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0;
+    font-family: 'Inter', sans-serif;
+    /* 1. HÌNH NỀN HÒA QUYỆN TOÀN TRANG */
+    background: url('../images/rung.jpg') no-repeat center center fixed;
+    background-size: cover;
     display: flex;
     min-height: 100vh;
 }
 
-/* --- Sidebar bên trái --- */
+/* Lớp phủ mờ nhẹ toàn trang để chữ dễ đọc hơn */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+}
+
+/* --- 2. SIDEBAR KÍNH MỜ (Glassmorphism) --- */
 .sidebar {
-    width: 250px;
+    width: 245px;
     height: 100vh;
     position: fixed;
     left: 0; top: 0;
-    background: white;
-    border-right: 1px solid #dbdbdb;
-    padding: 20px;
+    border-right: 1px solid rgba(219, 219, 219, 0.3);
+    padding: 20px 15px;
+    /* Trong suốt và làm mờ nền đằng sau */
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
     z-index: 1000;
 }
 
-.sidebar-logo h2 {
-    font-family: 'Billabong', 'Grand Hotel', cursive;
-    font-size: 36px;
-    margin: 20px 0 30px 10px;
-    color: #262626;
-}
-
+.sidebar-logo h2 { font-weight: 800; margin-bottom: 40px; color: #262626; padding-left: 10px; }
 .sidebar-nav a {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 12px;
-    text-decoration: none;
-    color: #262626;
-    font-size: 16px;
-    transition: 0.3s;
-    border-radius: 8px;
+    display: flex; align-items: center; gap: 15px; padding: 12px;
+    text-decoration: none; color: #262626; border-radius: 8px; transition: 0.2s;
+    margin-bottom: 5px; font-weight: 500;
 }
+.sidebar-nav a:hover { background: rgba(0, 0, 0, 0.05); }
 
-.sidebar-nav a:hover {
-    background-color: #fafafa;
-    font-weight: 600;
-}
-
-.sidebar-nav i {
-    font-size: 24px;
-    width: 30px;
-    text-align: center;
-}
-
-/* --- Container chính giữa --- */
+/* --- 3. CONTAINER NỘI DUNG CHÍNH (Căn giữa và mờ) --- */
 .instagram-container {
-    margin: 30px auto;
-    max-width: 600px;
-    width: calc(100% - 320px);
-}
-
-.create-post-card, .post-card {
-    background: white;
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    margin-bottom: 25px;
-}
-
-.create-post-card {
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-
-.open-modal-btn {
-    background: #f0f2f5;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    width: 100%;
-    text-align: left;
-    color: #8e8e8e;
-}
-
-/* --- Bài viết (Post) --- */
-.ins-header {
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.avatar-small {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.username {
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.post-image-container {
-    position: relative;
-    cursor: pointer;
-    background-color: #efefef;
-    overflow: hidden;
-}
-
-.post-image {
-    width: 100%;
+    margin-left: 245px; /* Đẩy ra khỏi sidebar */
+    margin-right: auto;
+    width: calc(100% - 245px);
+    max-width: 600px; /* Độ rộng chuẩn Instagram */
+    padding: 30px 20px;
     display: block;
-    object-fit: cover;
-    max-height: 600px;
+    margin-left: auto; /* Căn giữa vùng còn lại */
+    margin-right: auto;
 }
 
-.big-heart-overlay {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 80px;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.big-heart-overlay.animate {
-    animation: heartFade 0.8s ease-out;
-}
-
-.post-actions {
-    padding: 10px 15px;
-    display: flex;
-    gap: 15px;
-    font-size: 24px;
-}
-
-.action-btn-ins {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: #262626;
-}
-
-/* --- Modals chung --- */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background: white;
-    width: 95%;
-    max-width: 500px;
-    border-radius: 15px;
+/* CARD BÀI VIẾT TRẮNG MỜ */
+.create-post-card, .post-card {
+    background: rgba(255, 255, 255, 0.8) !important; /* Trắng mờ 80% */
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(219, 219, 219, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
     overflow: hidden;
-    position: relative;
-    animation: zoomIn 0.3s ease-out;
 }
 
-.modal-header {
-    padding: 15px;
-    border-bottom: 1px solid #dbdbdb;
-    text-align: center;
+.create-post-card { padding: 15px; display: flex; align-items: center; gap: 15px; cursor: pointer; }
+.avatar-small { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.open-modal-btn { background: rgba(0, 0, 0, 0.05); padding: 10px 20px; border-radius: 20px; flex: 1; color: #555; }
+
+/* NỘI DUNG BÀI VIẾT */
+.ins-header { padding: 12px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.username { font-weight: 600; }
+.post-image-container { position: relative; width: 100%; background: rgba(0,0,0,0.05); }
+.post-image { width: 100%; height: auto; display: block; max-height: 600px; object-fit: cover; }
+
+.ins-footer { padding: 15px; }
+.post-actions { display: flex; gap: 15px; margin-bottom: 10px; font-size: 22px; }
+.action-btn-ins { background: none; border: none; cursor: pointer; color: #262626; }
+.post-time { font-size: 11px; color: #666; text-transform: uppercase; margin-top: 8px; display: block; }
+
+/* MODAL CHUNG */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 2000;
 }
+.modal-content { background: #fff; border-radius: 15px; width: 95%; max-width: 500px; overflow: hidden; animation: zoomIn 0.3s; }
 
-.modal-body textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    height: 120px;
-    resize: none;
-    font-size: 16px;
-    padding: 15px;
-    box-sizing: border-box;
-}
-
-.upload-section {
-    border: 1px dashed #dbdbdb;
-    margin: 0 15px 15px;
-    padding: 30px;
-    text-align: center;
-    border-radius: 10px;
-    background-color: #fafafa;
-}
-
-.submit-post-btn {
-    background: #0095f6;
-    color: white;
-    border: none;
-    padding: 12px;
-    font-weight: 600;
-    width: 100%;
-    cursor: pointer;
-}
-
-/* --- Bình luận & Menu xóa --- */
-.comment-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.delete-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    z-index: 10;
-}
-
-/* --- Thông báo Toast --- */
-
-
-/* --- Hiệu ứng Animations --- */
-@keyframes zoomIn {
-    from { transform: scale(1.1); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes fadeIn {
-    from { bottom: 0; opacity: 0; }
-    to { bottom: 20px; opacity: 1; }
-}
-
+/* ANIMATIONS */
+@keyframes zoomIn { from { transform: scale(1.1); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes heartFade {
     0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
     50% { opacity: 0.9; }
     100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
 }
+.big-heart-overlay.animate { animation: heartFade 0.8s ease-out; }
 
-
-.comment-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-
-.comment-content-wrapper {
-    display: flex;
-    gap: 10px;
-}
-
-.comment-content-wrapper p {
-    margin: 0;
-}
-
-/* --- Menu ba chấm và nút xóa --- */
-.comment-actions-container {
-    position: relative;
-}
-
-.comment-actions-container i {
-    cursor: pointer;
-    color: #8e8e8e;
-    padding: 5px;
-}
-
-.delete-menu {
-    display: none;
-    position: absolute;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.delete-menu button {
-    color: #ed4956;
-    border: none;
-    background: none;
-    padding: 8px 15px;
-    cursor: pointer;
+/* TOAST THÔNG BÁO - BẢN FIX HIỂN THỊ */
+#auth-toast {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px); /* Mặc định giấu dưới màn hình */
+    background-color: #ed4956 !important;
+    color: white !important;
+    padding: 15px 30px;
+    border-radius: 50px;
     font-weight: bold;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 999999 !important; /* Đè lên tất cả các Modal */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    display: block !important; /* Phải để block để class show điều khiển */
+    pointer-events: none;
     white-space: nowrap;
 }
 
-#auth-toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background-color: #ed4956; /* Đổi sang màu đỏ cho giống cảnh báo của Instagram */
-    color: white;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-weight: 600;
-    z-index: 10000;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    opacity: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    pointer-events: none;
-}
-
+/* Khi có class show thì nhảy lên */
 #auth-toast.show {
     transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
