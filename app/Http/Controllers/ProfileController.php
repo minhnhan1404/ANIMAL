@@ -56,4 +56,3 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Đã cập nhật thông tin thành công!');
     }
 }
-                    

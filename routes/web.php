@@ -7,7 +7,7 @@ use App\Http\Controllers\SocialController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminUserController;
-
+use App\Http\Controllers\ChatbotController;
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -64,3 +64,5 @@ use App\Http\Controllers\AdminUserController;
     Route::get('/post/{id}/comments', [SocialController::class, 'getComments']);
     Route::post('/post/{id}/comment', [SocialController::class, 'storeComment']);
     Route::delete('/comment/{id}/delete', [SocialController::class, 'deleteComment']);
+
+    Route::post('/chatbot/ask', [ChatbotController::class, 'ask'])->name('chatbot.ask');

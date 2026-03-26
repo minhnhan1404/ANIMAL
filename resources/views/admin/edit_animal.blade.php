@@ -38,56 +38,71 @@
                 <form action="{{ route('admin.animals.update', $animal->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="form-group">
-                        <label>Tên loài vật (Khớp với Label AI)</label>
-                        <input type="text" name="name" class="form-control" value="{{ $animal->name }}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tên khoa học</label>
-                        <input type="text" name="scientific_name" class="form-control" value="{{ $animal->scientific_name }}" required>
+                    <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Tên loài vật</label>
+                            <input type="text" name="name" class="form-control" value="{{ $animal->name }}" required placeholder="VD: Hổ Bengal">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>Tên khoa học</label>
+                            <input type="text" name="scientific_name" class="form-control" value="{{ $animal->scientific_name }}" required placeholder="VD: Panthera tigris">
+                        </div>
                     </div>
 
                     <div style="display: flex; gap: 20px; margin-bottom: 20px;">
                         <div class="form-group" style="flex: 1;">
-                            <label>Danh mục</label>
-                            <select name="category" class="form-control">
+                            <label><i class="fas fa-th-large"></i> Danh mục chính</label>
+                            <select name="category" class="form-control" required>
                                 <option value="Thú" {{ $animal->category == 'Thú' ? 'selected' : '' }}>Thú</option>
                                 <option value="Chim" {{ $animal->category == 'Chim' ? 'selected' : '' }}>Chim</option>
                                 <option value="Đại dương" {{ $animal->category == 'Đại dương' ? 'selected' : '' }}>Đại dương</option>
+                                <option value="Bò sát" {{ $animal->category == 'Bò sát' ? 'selected' : '' }}>Bò sát</option>
+                                <option value="Côn trùng" {{ $animal->category == 'Côn trùng' ? 'selected' : '' }}>Côn trùng</option>
                             </select>
                         </div>
                         <div class="form-group" style="flex: 1;">
-                            <label>Tình trạng bảo tồn</label>
+                            <label><i class="fas fa-shield-alt"></i> Tình trạng bảo tồn</label>
                             <select name="status" class="form-control">
                                 <option value="Ít lo ngại" {{ $animal->status == 'Ít lo ngại' ? 'selected' : '' }}>Ít lo ngại</option>
+                                <option value="Sắp nguy cấp" {{ $animal->status == 'Sắp nguy cấp' ? 'selected' : '' }}>Sắp nguy cấp</option>
                                 <option value="Nguy cấp" {{ $animal->status == 'Nguy cấp' ? 'selected' : '' }}>Nguy cấp</option>
+                                <option value="Cực kỳ nguy cấp" {{ $animal->status == 'Cực kỳ nguy cấp' ? 'selected' : '' }}>Cực kỳ nguy cấp</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>Tập tính & Đặc điểm</label>
-                        <textarea name="behavior" class="form-control" rows="4">{{ $animal->behavior }}</textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Mô tả chi tiết</label>
-                        <textarea name="description" class="form-control" rows="5">{{ $animal->description }}</textarea>
-                    </div>
-
-                    {{-- PHÂN LOẠI CHI TIẾT --}}
                     <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
                         <div class="form-group" style="flex: 1; min-width: 200px;">
                             <label>Lớp (Class)</label>
-                            <input type="text" name="animal_class" class="form-control" value="{{ $animal->animal_class }}">
+                            <input type="text" name="animal_class" class="form-control" value="{{ $animal->animal_class }}" placeholder="VD: Mammalia">
                         </div>
+
                         <div class="form-group" style="flex: 1; min-width: 200px;">
-                            <label>Bộ (Order)</label>
-                            <input type="text" name="animal_order" class="form-control" value="{{ $animal->animal_order }}">
+                            <label style="color: #27ae60; font-weight: bold;"><i class="fas fa-sitemap"></i> Bộ (Order)</label>
+                            <select name="animal_order" class="form-control" required style="border: 2px solid #27ae60;">
+                                <option value="">-- Chọn Bộ để lọc --</option>
+                                <optgroup label="Nhóm Thú">
+                                    <option value="Ăn thịt" {{ $animal->animal_order == 'Ăn thịt' ? 'selected' : '' }}>Bộ Ăn thịt (Hổ, Sư tử)</option>
+                                    <option value="Vòi" {{ $animal->animal_order == 'Vòi' ? 'selected' : '' }}>Bộ Vòi (Voi)</option>
+                                    <option value="Linh trưởng" {{ $animal->animal_order == 'Linh trưởng' ? 'selected' : '' }}>Bộ Linh trưởng (Khỉ, Vượn)</option>
+                                </optgroup>
+                                <optgroup label="Nhóm Bò sát">
+                                    <option value="Cá sấu" {{ $animal->animal_order == 'Cá sấu' ? 'selected' : '' }}>Bộ Cá sấu</option>
+                                    <option value="Rùa" {{ $animal->animal_order == 'Rùa' ? 'selected' : '' }}>Bộ Rùa</option>
+                                </optgroup>
+                                <optgroup label="Nhóm Chim">
+                                    <option value="Chim ưng" {{ $animal->animal_order == 'Chim ưng' ? 'selected' : '' }}>Bộ Chim ưng</option>
+                                    <option value="Vẹt" {{ $animal->animal_order == 'Vẹt' ? 'selected' : '' }}>Bộ Vẹt</option>
+                                </optgroup>
+                                <optgroup label="Khác">
+                                    <option value="Cá mập" {{ $animal->animal_order == 'Cá mập' ? 'selected' : '' }}>Họ Cá mập</option>
+                                    <option value="Cá voi" {{ $animal->animal_order == 'Cá voi' ? 'selected' : '' }}>Bộ Cá voi</option>
+                                </optgroup>
+                            </select>
                         </div>
+
                         <div class="form-group" style="flex: 1; min-width: 200px;">
-                            <label>Chế độ ăn</label>
+                            <label><i class="fas fa-utensils"></i> Chế độ ăn</label>
                             <select name="diet_type" class="form-control">
                                 <option value="Ăn cỏ" {{ $animal->diet_type == 'Ăn cỏ' ? 'selected' : '' }}>Ăn cỏ</option>
                                 <option value="Ăn thịt" {{ $animal->diet_type == 'Ăn thịt' ? 'selected' : '' }}>Ăn thịt</option>
@@ -97,15 +112,23 @@
                     </div>
 
                     <div class="form-group" style="margin-top: 20px;">
+                        <label>Mô tả chi tiết</label>
+                        <textarea name="description" class="form-control" rows="5" placeholder="Nhập thông tin chi tiết về loài vật...">{{ $animal->description }}</textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
                         <label>Thay đổi ảnh (Bỏ trống nếu giữ ảnh cũ)</label>
-                        <input type="file" name="image" class="form-control" style="border: none;">
+                        <input type="file" name="image" class="form-control">
+                        @if($animal->image_url)
+                            <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 5px;">Ảnh hiện tại: {{ $animal->image_url }}</p>
+                        @endif
                     </div>
 
                     <div style="display: flex; gap: 10px; margin-top: 30px;">
-                        <button type="submit" class="btn-submit" style="background: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; flex: 1; font-weight: bold;">
+                        <button type="submit" class="btn-submit" style="background: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 8px; flex: 1; font-weight: bold; cursor: pointer; transition: 0.3s;">
                             <i class="fas fa-save"></i> Cập nhật thay đổi
                         </button>
-                        <a href="{{ route('admin.dashboard') }}" style="background: #95a5a6; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; text-align: center; flex: 1; font-weight: bold;">
+                        <a href="{{ route('admin.animals') }}" style="background: #95a5a6; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; text-align: center; flex: 1; font-weight: bold;">
                             Hủy bỏ
                         </a>
                     </div>
@@ -117,96 +140,3 @@
 
 </body>
 </html>
-@section('content')
-<link rel="stylesheet" href="{{ asset('css/admin-form.css') }}">
-
-<div class="admin-form-container" style="padding: 20px; background: #fff; border-radius: 10px;">
-    <h1 class="page-title" style="margin-bottom: 20px;">
-        <i class="fas fa-edit"></i> Chỉnh sửa thông tin: {{ $animal->name }}
-    </h1>
-
-    <form action="{{ route('admin.animals.update', $animal->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="form-group">
-            <label>Tên loài vật (Khớp với Label AI)</label>
-            <input type="text" name="name" class="form-control" value="{{ $animal->name }}" required>
-        </div>
-
-        <div class="form-group">
-            <label>Tên khoa học (Tên hiển thị phụ)</label>
-            <input type="text" name="scientific_name" class="form-control" value="{{ $animal->scientific_name }}" required>
-        </div>
-
-        <div style="display: flex; gap: 20px;">
-            <div class="form-group" style="flex: 1;">
-                <label>Danh mục</label>
-                <select name="category" class="form-control">
-                    <option value="Thú" {{ $animal->category == 'Thú' ? 'selected' : '' }}>Thú</option>
-                    <option value="Chim" {{ $animal->category == 'Chim' ? 'selected' : '' }}>Chim</option>
-                    <option value="Đại dương" {{ $animal->category == 'Đại dương' ? 'selected' : '' }}>Đại dương</option>
-                </select>
-            </div>
-            <div class="form-group" style="flex: 1;">
-                <label>Tình trạng bảo tồn</label>
-                <select name="status" class="form-control">
-                    <option value="Ít lo ngại" {{ $animal->status == 'Ít lo ngại' ? 'selected' : '' }}>Ít lo ngại</option>
-                    <option value="Sắp nguy cấp" {{ $animal->status == 'Sắp nguy cấp' ? 'selected' : '' }}>Sắp nguy cấp</option>
-                    <option value="Nguy cấp" {{ $animal->status == 'Nguy cấp' ? 'selected' : '' }}>Nguy cấp</option>
-                    <option value="Cực kỳ nguy cấp" {{ $animal->status == 'Cực kỳ nguy cấp' ? 'selected' : '' }}>Cực kỳ nguy cấp</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label><i class="fas fa-paw"></i> Tập tính & Đặc điểm</label>
-            <textarea name="behavior" class="form-control" rows="4">{{ $animal->behavior }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label><i class="fas fa-info-circle"></i> Mô tả chi tiết</label>
-            <textarea name="description" class="form-control" rows="6">{{ $animal->description }}</textarea>
-        </div>
-
-        {{-- HÀNG DỮ LIỆU PHÂN LOẠI (Giống hình 2 của Nhan) --}}
-        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-            <div class="form-group" style="flex: 1; min-width: 200px;">
-                <label>Lớp (Ví dụ: Mammalia)</label>
-                <input type="text" name="animal_class" class="form-control" value="{{ $animal->animal_class }}">
-            </div>
-            <div class="form-group" style="flex: 1; min-width: 200px;">
-                <label>Bộ (Ví dụ: Carnivora)</label>
-                <input type="text" name="animal_order" class="form-control" value="{{ $animal->animal_order }}">
-            </div>
-            <div class="form-group" style="flex: 1; min-width: 200px;">
-                <label>Chế độ ăn</label>
-                <select name="diet_type" class="form-control">
-                    <option value="Ăn cỏ" {{ $animal->diet_type == 'Ăn cỏ' ? 'selected' : '' }}>Ăn cỏ</option>
-                    <option value="Ăn thịt" {{ $animal->diet_type == 'Ăn thịt' ? 'selected' : '' }}>Ăn thịt</option>
-                    <option value="Ăn tạp" {{ $animal->diet_type == 'Ăn tạp' ? 'selected' : '' }}>Ăn tạp</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>Chọn ảnh mới (Bỏ trống nếu giữ ảnh cũ)</label>
-            <input type="file" name="image" class="form-control" style="border: none; padding-left: 0;">
-            @if($animal->image_url)
-                <div style="margin-top: 10px;">
-                    <p>Ảnh hiện tại:</p>
-                    <img src="{{ asset($animal->image_url) }}" width="150" style="border-radius: 8px;">
-                </div>
-            @endif
-        </div>
-
-        <div style="display: flex; gap: 10px;">
-            <button type="submit" class="btn-submit" style="background: #27ae60; color: white; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer; flex: 1;">
-                <i class="fas fa-save"></i> Cập nhật bài đăng
-            </button>
-            <a href="{{ route('admin.dashboard') }}" style="background: #95a5a6; color: white; padding: 12px 25px; border-radius: 8px; text-decoration: none; text-align: center;">
-                Hủy bỏ
-            </a>
-        </div>
-    </form>
-</div>
-@endsection

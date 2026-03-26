@@ -54,41 +54,38 @@ class AdminController extends Controller
 
     // 3. XỬ LÝ LƯU ĐỘNG VẬT (Khi bấm nút Đăng bài)
    public function storeAnimal(Request $request)
-{
-    // 1. Kiểm tra dữ liệu đầu vào chặt chẽ hơn
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'scientific_name' => 'required',
-        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        'category' => 'required',
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'scientific_name' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'category' => 'required',
+        ]);
 
-    // 2. Xử lý lưu ảnh
-    $imagePath = '';
-    if ($request->hasFile('image')) {
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('uploads'), $imageName);
-        $imagePath = 'uploads/' . $imageName;
+        $imagePath = '';
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads'), $imageName);
+            $imagePath = 'uploads/' . $imageName;
+        }
+
+        DB::table('animals')->insert([
+            'name' => $request->name,
+            'scientific_name' => $request->scientific_name,
+            'category' => $request->category,
+            'status' => $request->status ?? 'Ít lo ngại',
+            'animal_class' => $request->animal_class,
+            'animal_order' => $request->animal_order,
+            'diet_type'    => $request->diet_type,
+            'behavior' => $request->behavior,
+            'description' => $request->description,
+            'image_url' => $imagePath,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect()->back()->with('success', 'Đã đăng bài thành công!');
     }
-
-    // 3. LƯU VÀO DATABASE
-    DB::table('animals')->insert([
-        'name' => $request->name,
-        'scientific_name' => $request->scientific_name,
-        'category' => $request->category,
-
-        // Mẹo: Nếu ô status trống, tự động lưu là 'Ít lo ngại'
-        'status' => $request->status ?? 'Ít lo ngại',
-
-        'behavior' => $request->behavior,
-        'description' => $request->description,
-        'image_url' => $imagePath,
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
-
-    return redirect()->back()->with('success', 'Đã đăng bài thành công!');
-}
     // 4. XỬ LÝ CẬP NHẬT ĐỘNG VẬT (Sửa bài đã đăng)
    public function updateAnimal(Request $request, $id)
 {

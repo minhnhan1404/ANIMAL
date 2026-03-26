@@ -6,6 +6,8 @@
     <title>Animalia - Thế Giới Động Vật</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -78,59 +80,47 @@
                     <a href="{{ route('home', ['category' => 'Chim']) }}" class="nav-filter-btn {{ request('category') == 'Chim' ? 'active' : '' }}">Chim</a>
                     <a href="{{ route('home', ['category' => 'Đại dương']) }}" class="nav-filter-btn {{ request('category') == 'Đại dương' ? 'active' : '' }}">Đại dương</a>
                     <a href="{{ route('home', ['category' => 'Bò sát']) }}" class="nav-filter-btn {{ request('category') == 'Bò sát' ? 'active' : '' }}">Bò sát</a>
-                    <a href="{{ route('home', ['category' => 'Côn trùng']) }}" class="nav-filter-btn {{ request('category') == 'Côn trùng' ? 'active' : '' }}">Côn trùng</a>
-                    <a href="{{ route('home', ['category' => 'Linh trưởng']) }}" class="nav-filter-btn {{ request('category') == 'Linh trưởng' ? 'active' : '' }}">Linh trưởng</a>
                 </div>
             </div>
+
+            @if(request('category'))
+            <div class="sub-filter-section animate__animated animate__fadeIn">
+                <span class="filter-label" style="font-size: 0.8rem; color: #7f8c8d;">
+                    <i class="fas fa-level-down-alt"></i> CHI TIẾT THEO BỘ ({{ request('category') }})
+                </span>
+                <div class="sub-menu-scroll">
+                    @if(request('category') == 'Thú')
+                        <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Ăn thịt']) }}" class="sub-btn {{ request('order') == 'Ăn thịt' ? 'active' : '' }}">Bộ Ăn thịt (Hổ, Sư tử)</a>
+                        <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Vòi']) }}" class="sub-btn {{ request('order') == 'Vòi' ? 'active' : '' }}">Bộ Vòi (Voi)</a>
+                    @elseif(request('category') == 'Bò sát')
+                        <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" class="sub-btn {{ request('order') == 'Cá sấu' ? 'active' : '' }}">Bộ Cá sấu</a>
+                        <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" class="sub-btn {{ request('order') == 'Rùa' ? 'active' : '' }}">Bộ Rùa</a>
+                    @endif
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 
     <div class="animal-grid">
-        @foreach($animals as $animal)
-        <div class="animal-card">
-            <div class="card-img-wrapper">
-                <img src="{{ str_contains($animal->image_url, 'http') ? $animal->image_url : asset($animal->image_url) }}" alt="{{ $animal->name }}">
-
-                <form action="{{ route('animal.like', $animal->id) }}" method="POST" class="like-form-container">
-                    @csrf
-                    <button type="submit" class="like-badge-btn">
-                        <i class="{{ (Auth::check() && DB::table('likes')->where('user_id', Auth::id())->where('animal_id', $animal->id)->exists()) ? 'fas' : 'far' }} fa-heart" style="color: #ff4757;"></i>
-                        <span class="like-count">{{ $animal->likes_count ?? 0 }}</span>
-                    </button>
-                </form>
-
-                <span class="category-tag">{{ $animal->category }}</span>
-            </div>
-            <div class="card-body">
-                <h3>{{ $animal->name }}</h3>
-                <p class="latin">{{ $animal->scientific_name }}</p>
-                <div class="taxonomy-mini">
-                    <span><strong>Lớp:</strong> {{ $animal->animal_class ?? 'Đang cập nhật' }}</span>
-                    <span><strong>Bộ:</strong> {{ $animal->animal_order ?? 'Đang cập nhật' }}</span>
+        @forelse($animals as $animal)
+            <div class="animal-card">
+                <div class="card-img-wrapper">
+                    <img src="{{ str_contains($animal->image_url, 'http') ? $animal->image_url : asset($animal->image_url) }}" alt="{{ $animal->name }}">
+                    <span class="category-tag">{{ $animal->category }}</span>
                 </div>
-
-                {{-- ĐOẠN TỰ ĐỘNG CẬP NHẬT MÀU VÀ ICON TỪ DB --}}
-                <div class="stats" style="margin-top: 10px;">
-                    @php
-                        $statusMap = [
-                            'Ít lo ngại' => ['color' => '#28a745', 'icon' => 'fa-leaf'],
-                            'Sắp nguy cấp' => ['color' => '#ffc107', 'icon' => 'fa-exclamation-triangle'],
-                            'Nguy cấp' => ['color' => '#fd7e14', 'icon' => 'fa-book'],
-                            'Cực kỳ nguy cấp' => ['color' => '#dc3545', 'icon' => 'fa-skull-crossbones'],
-                        ];
-                        $current = $statusMap[trim($animal->status)] ?? ['color' => '#28a745', 'icon' => 'fa-leaf'];
-                    @endphp
-                    <p style="color: {{ $current['color'] }}; font-weight: bold; font-size: 0.9rem;">
-                        <i class="fas {{ $current['icon'] }}"></i> {{ $animal->status }}
-                    </p>
+                <div class="card-body">
+                    <h3>{{ $animal->name }}</h3>
+                    <p class="latin">{{ $animal->scientific_name }}</p>
+                    <div class="taxonomy-mini">
+                        <span><strong>Bộ:</strong> {{ $animal->animal_order ?? 'Đang cập nhật' }}</span>
+                    </div>
+                    <a href="{{ route('animal.detail', $animal->id) }}" class="btn-detail">Chi tiết</a>
                 </div>
-
-                <a href="{{ Auth::check() ? route('animal.detail', $animal->id) : route('login') }}" class="btn-detail" style="margin-top: 10px; display: inline-block;">
-                    {{ Auth::check() ? 'Chi tiết' : 'Đăng nhập để xem' }} <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
-        </div>
-        @endforeach
+        @empty
+            <p style="text-align: center; width: 100%; grid-column: 1/-1;">Không tìm thấy loài vật nào phù hợp.</p>
+        @endforelse
     </div>
 </main>
 
@@ -138,7 +128,38 @@
     <div class="container"><p>&copy; {{ date('Y') }} Animalia World.</p></div>
 </footer>
 
+<div id="chat-circle" class="btn btn-raised">
+    <i class="fas fa-paw"></i>
+</div>
+
+<div class="chat-box">
+    <div class="chat-box-header">
+        <i class="fas fa-robot"></i> Trợ lý Animalia
+        <span class="chat-box-toggle"><i class="fas fa-times"></i></span>
+    </div>
+    <div class="chat-box-body">
+        <div class="chat-logs">
+            <div class="chat-msg bot">
+                <div class="cm-msg-text">
+                    Xin chào! Tui là chuyên gia động vật. Bạn muốn hỏi gì về thế giới hoang dã nè? 🐾
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-input">
+        <form id="chat-form">
+            <input type="text" id="chat-input-field" placeholder="Hỏi về loài vật..."/>
+            <button type="submit" class="chat-submit" id="chat-submit">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="{{ asset('js/search.js') }}"></script>
 <script src="{{ asset('js/home.js') }}"></script>
+<script src="{{ asset('js/chatbot.js') }}"></script>
 </body>
 </html>
