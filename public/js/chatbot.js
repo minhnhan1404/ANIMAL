@@ -1,35 +1,40 @@
 $(document).ready(function() {
     const chatRoute = "/chatbot/ask";
 
-    // 1. Đóng mở khung chat mượt mà
+    // 1. Đóng mở chat
     $("#chat-circle, .chat-box-toggle").click(function() {
-        $(".chat-box").fadeToggle(300);
-        // Khi mở ra thì tự cuộn xuống cuối luôn cho chắc
-        setTimeout(scrollToBottom, 300);
+        $(".chat-box").toggleClass("active");
+
+        setTimeout(function() {
+            scrollToBottom();
+        }, 300);
     });
 
-    // 2. Xử lý gửi tin nhắn
+    // 2. Submit form
     $("#chat-form").submit(function(e) {
         e.preventDefault();
-        var msg = $("#chat-input-field").val().trim();
-        if (msg == "") return;
 
-        // Hiện tin nhắn người dùng
+        var msg = $("#chat-input-field").val().trim();
+        if (msg === "") return;
+
+        // Tin nhắn user
         appendMessage(msg, 'user');
         $("#chat-input-field").val('');
 
-        // Hiện hiệu ứng "Đang suy nghĩ"
+        // Loading
         var tempId = "loading-" + Date.now();
+
         var loadingHtml = `
             <div class="chat-msg bot" id="${tempId}">
                 <div class="cm-msg-text">
                     <i class="fas fa-ellipsis-h fa-spin"></i> Đang suy nghĩ...
                 </div>
             </div>`;
-        $(".chat-logs").append(loadingHtml);
+
+        $(".chat-box-body").append(loadingHtml);
         scrollToBottom();
 
-        // AJAX gửi đến Laravel
+        // AJAX
         $.ajax({
             url: chatRoute,
             method: "POST",
@@ -43,10 +48,10 @@ $(document).ready(function() {
             },
             error: function(xhr) {
                 $("#" + tempId).remove();
-                // Hiện lỗi chi tiết để Nhan dễ bắt bệnh
+
                 var errorMsg = "Hệ thống bận tí, bạn hỏi lại sau nha!";
-                if(xhr.status === 400) errorMsg = "Lỗi cấu trúc gửi đi (400).";
-                if(xhr.status === 500) errorMsg = "Lỗi Server hoặc API Key (500).";
+                if (xhr.status === 400) errorMsg = "Lỗi cấu trúc gửi đi (400).";
+                if (xhr.status === 500) errorMsg = "Lỗi Server hoặc API (500).";
 
                 appendMessage(errorMsg, 'bot');
                 console.error("Lỗi Chatbot:", xhr.responseText);
@@ -54,24 +59,27 @@ $(document).ready(function() {
         });
     });
 
-    // 3. Hàm thêm tin nhắn và TỰ ĐỘNG CUỘN
+    // 3. Thêm tin nhắn
     function appendMessage(text, side) {
-        var html = `<div class="chat-msg ${side}"><div class="cm-msg-text">${text}</div></div>`;
-        $(".chat-logs").append(html);
+        var html = `
+            <div class="chat-msg ${side}">
+                <div class="cm-msg-text">${text}</div>
+            </div>`;
 
-        // Quan trọng: Phải dùng setTimeout để trình duyệt kịp nhận chiều cao mới của tin nhắn
+        $(".chat-box-body").append(html);
+
+        // Delay nhẹ để DOM render xong
         setTimeout(function() {
             scrollToBottom();
-        }, 100);
+        }, 50);
     }
 
-    // 4. Hàm cuộn xuống đáy "thần thánh"
+    // 4. Scroll xuống đáy (FIX CHUẨN)
     function scrollToBottom() {
-        var chatBoxBody = $(".chat-box-body");
-        if (chatBoxBody.length > 0) {
-            chatBoxBody.stop().animate({
-                scrollTop: chatBoxBody[0].scrollHeight
-            }, 500);
+        var chatBox = $(".chat-box-body");
+
+        if (chatBox.length > 0) {
+            chatBox.scrollTop(chatBox[0].scrollHeight);
         }
     }
 });
