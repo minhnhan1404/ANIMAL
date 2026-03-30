@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý loài vật - Animalia</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logotgdvv.png') }}">
     <link rel="stylesheet" href="{{ asset('css/admin-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -82,30 +83,43 @@
                         </div>
 
                         <div class="form-group" style="flex: 1; min-width: 250px;">
-                            <label style="color: #27ae60; font-weight: bold;"><i class="fas fa-sitemap"></i> Bộ (Order) - Cần khớp để lọc</label>
-                            <select name="animal_order" class="form-control" required style="border: 2px solid #27ae60;">
-                                <option value="">-- Chọn Bộ để lọc --</option>
-                                <optgroup label="Nhóm Thú">
-                                    <option value="Ăn thịt">Bộ Ăn thịt (Hổ, Sư tử)</option>
-                                    <option value="Vòi">Bộ Vòi (Voi)</option>
-                                    <option value="Linh trưởng">Bộ Linh trưởng (Khỉ, Vượn)</option>
-                                    <option value="Móng guốc">Bộ Móng guốc (Hươu, Nai)</option>
-                                </optgroup>
-                                <optgroup label="Nhóm Bò sát">
-                                    <option value="Cá sấu">Bộ Cá sấu</option>
-                                    <option value="Rùa">Bộ Rùa</option>
-                                    <option value="Có vảy">Bộ Có vảy (Rắn, Kỳ đà)</option>
-                                </optgroup>
-                                <optgroup label="Nhóm Chim">
-                                    <option value="Chim ưng">Bộ Chim ưng</option>
-                                    <option value="Vẹt">Bộ Vẹt</option>
-                                </optgroup>
-                                <optgroup label="Khác">
-                                    <option value="Cá mập">Họ Cá mập</option>
-                                    <option value="Cá voi">Bộ Cá voi</option>
-                                </optgroup>
-                            </select>
-                        </div>
+    <label style="color: #27ae60; font-weight: bold;"><i class="fas fa-sitemap"></i> Bộ (Order) - Cần khớp để lọc</label>
+    <select name="animal_order" class="form-control" required style="border: 2px solid #27ae60;">
+        <option value="">-- Chọn Bộ để lọc --</option>
+
+        <optgroup label="Nhóm Thú">
+            <option value="Ăn thịt">Bộ Ăn thịt</option>
+            <option value="Vòi">Bộ Vòi</option>
+            <option value="Linh trưởng">Bộ Linh trưởng</option>
+            <option value="Guốc chẵn">Bộ Guốc chẵn</option>
+            <option value="Guốc lẻ">Bộ Guốc lẻ</option>
+            <option value="Gặm nhấm">Bộ Gặm nhấm</option>
+            <option value="Dơi">Bộ Dơi</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Chim">
+            <option value="Ưng">Bộ Ưng</option>
+            <option value="Sẻ">Bộ Sẻ</option>
+            <option value="Vẹt">Bộ Vẹt</option>
+            <option value="Gà">Bộ Gà</option>
+            <option value="Cú">Bộ Cú</option>
+            <option value="Cánh cụt">Bộ Chim cánh cụt</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Đại dương">
+            <option value="Cá voi">Bộ Cá voi</option>
+            <option value="Cá mập">Bộ Cá mập</option>
+            <option value="Cá vược">Bộ Cá vược</option>
+            <option value="Chân đầu">Lớp Chân đầu</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Bò sát">
+            <option value="Cá sấu">Bộ Cá sấu</option>
+            <option value="Rùa">Bộ Rùa</option>
+            <option value="Có vảy">Bộ Có vảy</option>
+        </optgroup>
+    </select>
+</div>
 
                         <div class="form-group" style="flex: 1; min-width: 200px;">
                             <label><i class="fas fa-utensils"></i> Chế độ ăn</label>

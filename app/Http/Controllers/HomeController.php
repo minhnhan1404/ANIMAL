@@ -8,36 +8,33 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Hiển thị trang chủ với bộ lọc: Danh mục, Chế độ ăn và BỘ (Order)
-     */
     public function index(Request $request)
     {
-        // 1. Lấy tất cả các tham số lọc từ URL
+        // 1. Lấy ID người dùng (Dùng Facade Auth::id() để VS Code không báo lỗi đỏ)
+        $userId = Auth::id();
+
+        // 2. Lấy các tham số lọc từ URL
         $category = $request->query('category');
         $diet     = $request->query('diet');
-        $order    = $request->query('order'); // <--- THÊM DÒNG NÀY ĐỂ LỌC THEO BỘ
+        $order    = $request->query('order');
         $search   = $request->query('search');
 
+        // 3. Khởi tạo Query builder
         $query = DB::table('animals');
 
-        // 2. Lọc theo Danh mục (Thú, Bò sát...)
+        // 4. Thực hiện các bộ lọc (Filter)
         if ($category && $category !== 'Tất cả') {
             $query->where('category', $category);
         }
 
-        // 3. Lọc theo Chế độ ăn
         if ($diet) {
             $query->where('diet_type', $diet);
         }
 
-        // 4. Lọc theo BỘ (Rùa, Cá sấu, Ăn thịt, Vòi...)
-        // Đây chính là chỗ ông đang thiếu khiến nó không lọc được!
         if ($order) {
             $query->where('animal_order', $order);
         }
 
-        // 5. Tìm kiếm từ khóa
         if ($search) {
             $query->where(function($q) use ($search) {
                 $q->where('name', 'LIKE', "%$search%")
@@ -47,45 +44,64 @@ class HomeController extends Controller
             });
         }
 
-        // 6. Sắp xếp: Nhiều tim hiện trước, mới đăng hiện sau
+        // 5. Lấy danh sách kết quả (Sắp xếp theo Tim nhiều nhất và mới nhất)
         $animals = $query->orderBy('likes_count', 'desc')
                          ->orderBy('created_at', 'desc')
                          ->get();
 
+        // 6. XỬ LÝ TRẠNG THÁI THẢ TIM (Vòng lặp này phải nằm SAU khi đã lấy được danh sách $animals)
+        foreach ($animals as $animal) {
+            if ($userId) {
+                $animal->is_liked = DB::table('likes')
+                    ->where('user_id', $userId)
+                    ->where('animal_id', $animal->id)
+                    ->exists();
+            } else {
+                $animal->is_liked = false;
+            }
+        }
+
+        // 7. Trả về view duy nhất ở cuối hàm
         return view('home', compact('animals'));
     }
 
-    /**
-     * Xử lý Thích/Hủy thích
-     */
     public function likeAnimal($id)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để thả tim!');
-        }
-
-        $userId = Auth::id();
-        $existingLike = DB::table('likes')
-            ->where('user_id', $userId)
-            ->where('animal_id', $id)
-            ->first();
-
-        if ($existingLike) {
-            DB::table('likes')->where('id', $existingLike->id)->delete();
-            DB::table('animals')->where('id', $id)->decrement('likes_count');
-            $message = 'Đã hủy yêu thích.';
-        } else {
-            DB::table('likes')->insert([
-                'user_id' => $userId,
-                'animal_id' => $id,
-                'created_at' => now()
-            ]);
-            DB::table('animals')->where('id', $id)->increment('likes_count');
-            $message = 'Đã thêm vào yêu thích!';
-        }
-
-        return redirect()->back()->with('success', $message);
+{
+    if (!Auth::check()) {
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
+
+    $userId = Auth::id();
+    $existingLike = DB::table('likes')
+        ->where('user_id', $userId)
+        ->where('animal_id', $id)
+        ->first();
+
+    if ($existingLike) {
+        // Nếu đã like rồi thì xóa (Unlike)
+        DB::table('likes')->where('id', $existingLike->id)->delete();
+        DB::table('animals')->where('id', $id)->decrement('likes_count');
+        $status = 'unliked';
+    } else {
+        // Nếu chưa like thì thêm mới (Like)
+        DB::table('likes')->insert([
+            'user_id' => $userId,
+            'animal_id' => $id,
+            'type' => 'like',
+            'created_at' => now()
+        ]);
+        DB::table('animals')->where('id', $id)->increment('likes_count');
+        $status = 'liked';
+    }
+
+    // Lấy số lượng like mới nhất để gửi về cho JS
+    $newCount = DB::table('animals')->where('id', $id)->value('likes_count');
+
+    return response()->json([
+        'status' => $status,
+        'new_count' => $newCount
+    ]);
+}
 
     public function detail($id)
     {

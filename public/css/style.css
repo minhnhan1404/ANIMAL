@@ -145,10 +145,45 @@ body {
 .animal-card:hover img { transform: scale(1.1); }
 
 .fav-btn {
-    position: absolute; top: 15px; right: 15px;
-    background: rgba(255,255,255,0.3); backdrop-filter: blur(5px);
-    width: 35px; height: 35px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; color: white;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9); /* Tăng độ đậm để hiện rõ trên ảnh */
+    backdrop-filter: blur(5px);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888; /* Màu xám mặc định cho dễ nhìn */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 20;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Hiệu ứng khi rê chuột vào */
+.fav-btn:hover {
+    transform: scale(1.15);
+    background: #fff;
+}
+
+/* Lớp này dùng để đổi màu ĐỎ khi đã thả tim */
+.fav-btn.active {
+    color: #e74c3c !important;
+}
+
+/* Hiệu ứng tim nảy lên khi bấm */
+.fav-btn.active i {
+    animation: heartPop 0.4s linear;
+}
+
+@keyframes heartPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
 }
 
 .card-body { padding: 25px; }

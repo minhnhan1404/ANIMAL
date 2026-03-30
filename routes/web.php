@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ForgotPasswordController;
 
 
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -66,3 +67,13 @@ use App\Http\Controllers\ChatbotController;
     Route::delete('/comment/{id}/delete', [SocialController::class, 'deleteComment']);
 
     Route::post('/chatbot/ask', [ChatbotController::class, 'ask'])->name('chatbot.ask');
+
+    // Trang nhập Email
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetCode'])->name('password.email');
+
+// Trang nhập mã và đổi Pass
+    Route::get('/verify-password', [ForgotPasswordController::class, 'showVerifyForm'])->name('password.verify');
+    Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+
+    Route::post('/verify-registration', [ForgotPasswordController::class, 'verifyRegister'])->name('verify.register');

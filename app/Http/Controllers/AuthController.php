@@ -5,54 +5,67 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail; // Thêm dòng này để gửi mail
 use App\Models\User;
+use App\Mail\ForgotPasswordMail; // Dùng lại mailable này cho lẹ
 
 class AuthController extends Controller
 {
-    // XỬ LÝ ĐĂNG KÝ
+    // XỬ LÝ ĐĂNG KÝ (Đã thêm xác thực Mail)
     public function register(Request $request)
     {
-        // 1. Kiểm tra dữ liệu (Validation)
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users', // Kiểm tra email không được trùng trong localhost
+            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
 
-        // 2. Tự động thêm dữ liệu vào bảng 'users' trong localhost
+        $code = rand(100000, 999999); // Tạo mã 6 số
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Mã hóa mật khẩu trước khi lưu
-            'role' => 'user', // Gán quyền mặc định là user theo file SQL của bạn
+            'password' => Hash::make($request->password),
+            'role' => 'user',
+            'reset_code' => $code, // Lưu mã vào cột reset_code
+            'is_verified' => 0,    // Mặc định là chưa xác thực
         ]);
 
-        // 3. Đăng nhập ngay sau khi tạo tài khoản thành công
-        Auth::login($user);
+        // Gửi Mail ngay lập tức
+        Mail::to($user->email)->send(new ForgotPasswordMail($code, $user->name));
 
-        // 4. Chuyển hướng về trang chủ
-        return redirect()->route('home')->with('success', 'Đăng ký tài khoản thành công!');
+        // Trả về trang cũ và báo cho Blade hiện Form nhập mã OTP
+        return back()->with([
+            'success' => 'Mã xác thực đã gửi vào Gmail của ông! 🐾',
+            'show_verify_form' => true,
+            'verify_email' => $user->email
+        ]);
     }
 
-    // XỬ LÝ ĐĂNG NHẬP
+    // XỬ LÝ ĐĂNG NHẬP (Đã thêm chặn nếu chưa xác thực)
     public function login(Request $request)
     {
-        // Lấy email và mật khẩu từ form
         $credentials = $request->only('email', 'password');
 
-        // Kiểm tra xem thông tin có khớp với dữ liệu trong localhost không
-        if (Auth::attempt($credentials)) {
+        // Tìm user trước để kiểm tra trạng thái xác thực
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Auth::attempt($credentials)) {
+            // Kiểm tra xem đã xác thực chưa
+            if ($user->is_verified == 0) {
+                Auth::logout(); // Đăng xuất ngay nếu chưa xác thực
+                return back()->with('error', 'Tài khoản chưa xác thực Gmail! Check hòm thư đi Nhan ơi.');
+            }
+
             $request->session()->regenerate();
 
-            // Phân quyền dựa trên cột 'role' trong database
             if (Auth::user()->role == 'admin') {
                 return redirect()->intended('/admin/dashboard');
             }
 
-            return redirect()->intended('/'); // Chuyển về trang chủ nếu là user
+            return redirect()->intended('/');
         }
 
-        // Nếu sai tài khoản/mật khẩu
         return back()->with('error', 'Email hoặc mật khẩu không chính xác!');
     }
 

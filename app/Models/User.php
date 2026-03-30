@@ -18,6 +18,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'reset_code',
+        'is_verified',
     ];
 
     /**
@@ -37,3 +39,5 @@ class User extends Authenticatable
         ];
     }
 }
+
+

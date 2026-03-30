@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animalia - Thế Giới Động Vật</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logotgdvv.png') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
@@ -63,7 +64,7 @@
         <p class="hero-subtitle">Khám phá vẻ đẹp hoang dã và chung tay bảo tồn những giống loài quý hiếm trên hành tinh.</p>
         <div class="hero-buttons">
             <a href="#explore" class="btn-primary">Khám phá ngay</a>
-            <a href="{{ route('social.index') }}" class="btn-outline">Tham gia bảo tồn</a>
+            <a href="{{ route('social.index') }}" class="btn-outline">Góc chia sẻ</a>
             <a href="{{ route('ai.nhandien') }}" class="btn-ai-hero"><i class="fas fa-microscope"></i> Khám phá Công nghệ AI</a>
         </div>
     </div>
@@ -84,31 +85,63 @@
             </div>
 
             @if(request('category'))
-            <div class="sub-filter-section animate__animated animate__fadeIn">
-                <span class="filter-label" style="font-size: 0.8rem; color: #7f8c8d;">
-                    <i class="fas fa-level-down-alt"></i> CHI TIẾT THEO BỘ ({{ request('category') }})
-                </span>
-                <div class="sub-menu-scroll">
-                    @if(request('category') == 'Thú')
-                        <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Ăn thịt']) }}" class="sub-btn {{ request('order') == 'Ăn thịt' ? 'active' : '' }}">Bộ Ăn thịt (Hổ, Sư tử)</a>
-                        <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Vòi']) }}" class="sub-btn {{ request('order') == 'Vòi' ? 'active' : '' }}">Bộ Vòi (Voi)</a>
-                    @elseif(request('category') == 'Bò sát')
-                        <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" class="sub-btn {{ request('order') == 'Cá sấu' ? 'active' : '' }}">Bộ Cá sấu</a>
-                        <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" class="sub-btn {{ request('order') == 'Rùa' ? 'active' : '' }}">Bộ Rùa</a>
-                    @endif
-                </div>
-            </div>
-            @endif
+<div class="sub-filter-section animate__animated animate__fadeIn">
+    <span class="filter-label" style="font-size: 0.8rem; color: #7f8c8d;">
+        <i class="fas fa-level-down-alt"></i> CHI TIẾT THEO BỘ ({{ request('category') }})
+    </span>
+    <div class="sub-menu-scroll">
+        @php $category = request('category'); @endphp
+
+        {{-- NHÓM THÚ --}}
+        @if($category == 'Thú')
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Ăn thịt']) }}" class="sub-btn {{ request('order') == 'Ăn thịt' ? 'active' : '' }}">Bộ Ăn thịt</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Vòi']) }}" class="sub-btn {{ request('order') == 'Vòi' ? 'active' : '' }}">Bộ Vòi</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Linh trưởng']) }}" class="sub-btn {{ request('order') == 'Linh trưởng' ? 'active' : '' }}">Bộ Linh trưởng</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Guốc chẵn']) }}" class="sub-btn {{ request('order') == 'Guốc chẵn' ? 'active' : '' }}">Bộ Guốc chẵn</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Guốc lẻ']) }}" class="sub-btn {{ request('order') == 'Guốc lẻ' ? 'active' : '' }}">Bộ Guốc lẻ</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Gặm nhấm']) }}" class="sub-btn {{ request('order') == 'Gặm nhấm' ? 'active' : '' }}">Bộ Gặm nhấm</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Dơi']) }}" class="sub-btn {{ request('order') == 'Dơi' ? 'active' : '' }}">Bộ Dơi</a>
+
+        {{-- NHÓM CHIM --}}
+        @elseif($category == 'Chim')
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Ưng']) }}" class="sub-btn {{ request('order') == 'Ưng' ? 'active' : '' }}">Bộ Ưng</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Sẻ']) }}" class="sub-btn {{ request('order') == 'Sẻ' ? 'active' : '' }}">Bộ Sẻ</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Vẹt']) }}" class="sub-btn {{ request('order') == 'Vẹt' ? 'active' : '' }}">Bộ Vẹt</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Gà']) }}" class="sub-btn {{ request('order') == 'Gà' ? 'active' : '' }}">Bộ Gà</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cú']) }}" class="sub-btn {{ request('order') == 'Cú' ? 'active' : '' }}">Bộ Cú</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cánh cụt']) }}" class="sub-btn {{ request('order') == 'Cánh cụt' ? 'active' : '' }}">Bộ Chim cánh cụt</a>
+
+        {{-- NHÓM ĐẠI DƯƠNG --}}
+        @elseif($category == 'Đại dương')
+            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá voi']) }}" class="sub-btn {{ request('order') == 'Cá voi' ? 'active' : '' }}">Bộ Cá voi</a>
+            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá mập']) }}" class="sub-btn {{ request('order') == 'C mập' ? 'active' : '' }}">Bộ Cá mập</a>
+            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá vược']) }}" class="sub-btn {{ request('order') == 'Cá vược' ? 'active' : '' }}">Bộ Cá xương</a>
+            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Chân đầu']) }}" class="sub-btn {{ request('order') == 'Chân đầu' ? 'active' : '' }}">Lớp Chân đầu</a>
+
+        {{-- NHÓM BÒ SÁT --}}
+        @elseif($category == 'Bò sát')
+            <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" class="sub-btn {{ request('order') == 'Cá sấu' ? 'active' : '' }}">Bộ Cá sấu</a>
+            <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" class="sub-btn {{ request('order') == 'Rùa' ? 'active' : '' }}">Bộ Rùa</a>
+            <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Có vảy']) }}" class="sub-btn {{ request('order') == 'Có vảy' ? 'active' : '' }}">Bộ Có vảy</a>
+        @endif
+    </div>
+</div>
+@endif
         </div>
     </div>
 
     <div class="animal-grid">
         @forelse($animals as $animal)
             <div class="animal-card">
-                <div class="card-img-wrapper">
-                    <img src="{{ str_contains($animal->image_url, 'http') ? $animal->image_url : asset($animal->image_url) }}" alt="{{ $animal->name }}">
-                    <span class="category-tag">{{ $animal->category }}</span>
-                </div>
+       <div class="card-img-wrapper">
+    <img src="{{ str_contains($animal->image_url, 'http') ? $animal->image_url : asset($animal->image_url) }}" alt="{{ $animal->name }}">
+    <span class="category-tag">{{ $animal->category }}</span>
+
+    {{-- Đổi class thành fav-btn --}}
+    <button class="fav-btn {{ $animal->is_liked ? 'active' : '' }}" data-id="{{ $animal->id }}">
+        <i class="{{ $animal->is_liked ? 'fas' : 'far' }} fa-heart"></i>
+    </button>
+</div>
                 <div class="card-body">
                     <h3>{{ $animal->name }}</h3>
                     <p class="latin">{{ $animal->scientific_name }}</p>
