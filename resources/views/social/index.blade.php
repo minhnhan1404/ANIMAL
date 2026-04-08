@@ -46,7 +46,6 @@
                     @if($post->image_url)
                         <img src="{{ asset($post->image_url) }}" class="post-image">
                     @endif
-                    <div class="big-heart-overlay" id="heart-{{ $post->id }}"><i class="fas fa-heart"></i></div>
                 </div>
                 <div class="ins-footer">
                     <div class="post-actions">
@@ -94,15 +93,24 @@
     <div class="modal" id="postModal">
         <div class="modal-content">
             <div class="modal-header">
+                <div style="width: 24px;"></div> <!-- Spacer for center alignment -->
                 <h3>Tạo bài viết mới</h3>
-                <span class="close-btn" onclick="document.getElementById('postModal').style.display='none'">&times;</span>
+                <span class="close-btn" onclick="document.getElementById('postModal').style.display='none'; resetPostModal();">&times;</span>
             </div>
-            <form action="{{ route('social.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('social.store') }}" method="POST" enctype="multipart/form-data" id="postForm">
                 @csrf
                 <div class="modal-body">
-                    <textarea name="content" placeholder="Viết chú thích..." required></textarea>
-                    <div class="upload-section">
-                        <input type="file" name="image" required>
+                    <div class="upload-area">
+                        <input type="file" name="image" id="file-upload" class="file-input-hidden" accept="image/*" onchange="previewImage(event)" required>
+                        <div id="uploadPlaceholder">
+                            <i class="far fa-images"></i>
+                            <span>Chọn ảnh tải lên</span>
+                        </div>
+                        <img id="imagePreview" src="#" alt="Bản xem trước">
+                    </div>
+                    <div class="caption-area">
+                        <img src="{{ asset(Auth::user()->avatar ?? 'images/default-avatar.png') }}" alt="Avatar">
+                        <textarea name="content" placeholder="Viết chú thích cho bức ảnh..." required></textarea>
                     </div>
                 </div>
                 <button type="submit" class="submit-post-btn">Chia sẻ</button>

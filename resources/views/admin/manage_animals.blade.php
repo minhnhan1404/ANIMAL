@@ -30,6 +30,66 @@
     </aside>
 
     <main class="main-content">
+        <header class="admin-header">
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm trang hệ thống..." style="padding-right: 40px; width: 250px;" onkeyup="filterAdminSearch()">
+                <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #7f8c8d; cursor: default;"></i>
+                <div id="adminSearchSuggestions" class="search-suggestions">
+                    <a href="{{ route('admin.dashboard') }}" class="search-suggestion-item"><i class="fas fa-tachometer-alt"></i> Tổng quan (Dashboard)</a>
+                    <a href="{{ route('admin.animals') }}" class="search-suggestion-item"><i class="fas fa-hippo"></i> Quản lý loài vật</a>
+                    <a href="{{ route('admin.users.index') }}" class="search-suggestion-item"><i class="fas fa-users"></i> Quản lý người dùng</a>
+                    <a href="{{ route('admin.post.index') }}" class="search-suggestion-item"><i class="fas fa-newspaper"></i> Quản lý bài đăng</a>
+                    <a href="{{ url('/profile/edit') }}" class="search-suggestion-item"><i class="fas fa-user-cog"></i> Cài đặt tài khoản</a>
+                </div>
+            </div>
+            <script>
+            function filterAdminSearch() {
+                let input = document.getElementById('adminSearchInput').value.toLowerCase();
+                let suggestionsBox = document.getElementById('adminSearchSuggestions');
+                let items = suggestionsBox.getElementsByTagName('a');
+                if (input.length > 0) {
+                    suggestionsBox.style.display = 'block';
+                    let hasMatch = false;
+                    for (let i = 0; i < items.length; i++) {
+                        if ((items[i].textContent || items[i].innerText).toLowerCase().indexOf(input) > -1) {
+                            items[i].style.display = 'flex';
+                            hasMatch = true;
+                        } else {
+                            items[i].style.display = 'none';
+                        }
+                    }
+                    if(!hasMatch) suggestionsBox.style.display = 'none';
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            }
+            document.addEventListener('click', function(e){
+                let input = document.getElementById('adminSearchInput');
+                let box = document.getElementById('adminSearchSuggestions');
+                if(input && box && !input.contains(e.target) && !box.contains(e.target)) box.style.display = 'none';
+            });
+            document.getElementById('adminSearchInput')?.addEventListener('focus', filterAdminSearch);
+            </script>
+            <div class="user-tools" style="margin-left: auto;">
+                <div class="user-dropdown">
+                    <button class="dropdown-toggle">
+                        <i class="fas fa-user-shield"></i> Admin: <strong>{{ Auth::user()->name }}</strong>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url('/profile/edit') }}"><i class="fas fa-user-cog"></i> Cài đặt</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST" id="admin-logout">
+                                @csrf
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('admin-logout').submit();" class="text-danger">
+                                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
         <section class="content-body" style="padding: 30px;">
             <h1 class="page-title"><i class="fas fa-plus-circle"></i> Đăng bài lên trang chủ</h1>
 
@@ -59,10 +119,10 @@
                             <select name="category" class="form-control" required>
                                 <option value="Thú">Thú</option>
                                 <option value="Chim">Chim</option>
-                                <option value="Đại dương">Đại dương</option>
                                 <option value="Bò sát">Bò sát</option>
+                                <option value="Cá">Cá</option>
+                                <option value="Lưỡng cư">Lưỡng cư</option>
                                 <option value="Côn trùng">Côn trùng</option>
-                                <option value="Linh trưởng">Linh trưởng</option>
                             </select>
                         </div>
                         <div class="form-group" style="flex: 1;">
@@ -95,6 +155,7 @@
             <option value="Guốc lẻ">Bộ Guốc lẻ</option>
             <option value="Gặm nhấm">Bộ Gặm nhấm</option>
             <option value="Dơi">Bộ Dơi</option>
+            <option value="Cá voi">Bộ Cá voi (Thú biển)</option>
         </optgroup>
 
         <optgroup label="Nhóm Chim">
@@ -103,20 +164,31 @@
             <option value="Vẹt">Bộ Vẹt</option>
             <option value="Gà">Bộ Gà</option>
             <option value="Cú">Bộ Cú</option>
-            <option value="Cánh cụt">Bộ Chim cánh cụt</option>
-        </optgroup>
-
-        <optgroup label="Nhóm Đại dương">
-            <option value="Cá voi">Bộ Cá voi</option>
-            <option value="Cá mập">Bộ Cá mập</option>
-            <option value="Cá vược">Bộ Cá vược</option>
-            <option value="Chân đầu">Lớp Chân đầu</option>
+            <option value="Cánh cụt">Bộ Cánh cụt</option>
         </optgroup>
 
         <optgroup label="Nhóm Bò sát">
             <option value="Cá sấu">Bộ Cá sấu</option>
             <option value="Rùa">Bộ Rùa</option>
             <option value="Có vảy">Bộ Có vảy</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Cá">
+            <option value="Cá mập">Cá mập / Cá nhám</option>
+            <option value="Cá xương">Cá xương (Cá vược...)</option>
+            <option value="Cá đuối">Cá đuối</option>
+            <option value="Chân đầu">Lớp Chân đầu (Mực/Bạch tuộc)</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Lưỡng cư">
+            <option value="Không đuôi">Không đuôi (Ếch/Nhái)</option>
+            <option value="Có đuôi">Có đuôi (Kỳ giông)</option>
+        </optgroup>
+
+        <optgroup label="Nhóm Côn trùng">
+            <option value="Cánh cứng">Bộ Cánh cứng</option>
+            <option value="Cánh phấn">Bộ Cánh phấn (Bướm)</option>
+            <option value="Cánh màng">Bộ Cánh màng (Ong/Kiến)</option>
         </optgroup>
     </select>
 </div>

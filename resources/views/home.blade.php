@@ -79,8 +79,10 @@
                     <a href="{{ route('home') }}" class="nav-filter-btn {{ !request('category') ? 'active' : '' }}">Tất cả</a>
                     <a href="{{ route('home', ['category' => 'Thú']) }}" class="nav-filter-btn {{ request('category') == 'Thú' ? 'active' : '' }}">Thú</a>
                     <a href="{{ route('home', ['category' => 'Chim']) }}" class="nav-filter-btn {{ request('category') == 'Chim' ? 'active' : '' }}">Chim</a>
-                    <a href="{{ route('home', ['category' => 'Đại dương']) }}" class="nav-filter-btn {{ request('category') == 'Đại dương' ? 'active' : '' }}">Đại dương</a>
                     <a href="{{ route('home', ['category' => 'Bò sát']) }}" class="nav-filter-btn {{ request('category') == 'Bò sát' ? 'active' : '' }}">Bò sát</a>
+                    <a href="{{ route('home', ['category' => 'Cá']) }}" class="nav-filter-btn {{ request('category') == 'Cá' ? 'active' : '' }}">Cá</a>
+                    <a href="{{ route('home', ['category' => 'Lưỡng cư']) }}" class="nav-filter-btn {{ request('category') == 'Lưỡng cư' ? 'active' : '' }}">Lưỡng cư</a>
+                    <a href="{{ route('home', ['category' => 'Côn trùng']) }}" class="nav-filter-btn {{ request('category') == 'Côn trùng' ? 'active' : '' }}">Côn trùng</a>
                 </div>
             </div>
 
@@ -101,6 +103,7 @@
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Guốc lẻ']) }}" class="sub-btn {{ request('order') == 'Guốc lẻ' ? 'active' : '' }}">Bộ Guốc lẻ</a>
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Gặm nhấm']) }}" class="sub-btn {{ request('order') == 'Gặm nhấm' ? 'active' : '' }}">Bộ Gặm nhấm</a>
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Dơi']) }}" class="sub-btn {{ request('order') == 'Dơi' ? 'active' : '' }}">Bộ Dơi</a>
+            <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Cá voi']) }}" class="sub-btn {{ request('order') == 'Cá voi' ? 'active' : '' }}">Bộ Cá voi (Thú biển)</a>
 
         {{-- NHÓM CHIM --}}
         @elseif($category == 'Chim')
@@ -109,20 +112,31 @@
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Vẹt']) }}" class="sub-btn {{ request('order') == 'Vẹt' ? 'active' : '' }}">Bộ Vẹt</a>
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Gà']) }}" class="sub-btn {{ request('order') == 'Gà' ? 'active' : '' }}">Bộ Gà</a>
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cú']) }}" class="sub-btn {{ request('order') == 'Cú' ? 'active' : '' }}">Bộ Cú</a>
-            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cánh cụt']) }}" class="sub-btn {{ request('order') == 'Cánh cụt' ? 'active' : '' }}">Bộ Chim cánh cụt</a>
-
-        {{-- NHÓM ĐẠI DƯƠNG --}}
-        @elseif($category == 'Đại dương')
-            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá voi']) }}" class="sub-btn {{ request('order') == 'Cá voi' ? 'active' : '' }}">Bộ Cá voi</a>
-            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá mập']) }}" class="sub-btn {{ request('order') == 'C mập' ? 'active' : '' }}">Bộ Cá mập</a>
-            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Cá vược']) }}" class="sub-btn {{ request('order') == 'Cá vược' ? 'active' : '' }}">Bộ Cá xương</a>
-            <a href="{{ route('home', ['category' => 'Đại dương', 'order' => 'Chân đầu']) }}" class="sub-btn {{ request('order') == 'Chân đầu' ? 'active' : '' }}">Lớp Chân đầu</a>
+            <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cánh cụt']) }}" class="sub-btn {{ request('order') == 'Cánh cụt' ? 'active' : '' }}">Bộ Cánh cụt</a>
 
         {{-- NHÓM BÒ SÁT --}}
         @elseif($category == 'Bò sát')
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" class="sub-btn {{ request('order') == 'Cá sấu' ? 'active' : '' }}">Bộ Cá sấu</a>
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" class="sub-btn {{ request('order') == 'Rùa' ? 'active' : '' }}">Bộ Rùa</a>
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Có vảy']) }}" class="sub-btn {{ request('order') == 'Có vảy' ? 'active' : '' }}">Bộ Có vảy</a>
+
+        {{-- NHÓM CÁ --}}
+        @elseif($category == 'Cá')
+            <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá mập']) }}" class="sub-btn {{ request('order') == 'Cá mập' ? 'active' : '' }}">Cá mập / Cá nhám</a>
+            <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá xương']) }}" class="sub-btn {{ request('order') == 'Cá xương' ? 'active' : '' }}">Cá xương (Cá vược...)</a>
+            <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá đuối']) }}" class="sub-btn {{ request('order') == 'Cá đuối' ? 'active' : '' }}">Cá đuối</a>
+            <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Chân đầu']) }}" class="sub-btn {{ request('order') == 'Chân đầu' ? 'active' : '' }}">Lớp Chân đầu (Mực/Bạch tuộc)</a>
+
+        {{-- NHÓM LƯỠNG CƯ --}}
+        @elseif($category == 'Lưỡng cư')
+            <a href="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Không đuôi']) }}" class="sub-btn {{ request('order') == 'Không đuôi' ? 'active' : '' }}">Không đuôi (Ếch/Nhái)</a>
+            <a href="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Có đuôi']) }}" class="sub-btn {{ request('order') == 'Có đuôi' ? 'active' : '' }}">Có đuôi (Kỳ giông)</a>
+
+        {{-- NHÓM CÔN TRùng --}}
+        @elseif($category == 'Côn trùng')
+            <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh cứng']) }}" class="sub-btn {{ request('order') == 'Cánh cứng' ? 'active' : '' }}">Bộ Cánh cứng</a>
+            <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh phấn']) }}" class="sub-btn {{ request('order') == 'Cánh phấn' ? 'active' : '' }}">Bộ Cánh phấn (Bướm)</a>
+            <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh màng']) }}" class="sub-btn {{ request('order') == 'Cánh màng' ? 'active' : '' }}">Bộ Cánh màng (Ong/Kiến)</a>
         @endif
     </div>
 </div>
@@ -157,8 +171,64 @@
     </div>
 </main>
 
-<footer>
-    <div class="container"><p>&copy; {{ date('Y') }} Animalia World.</p></div>
+<footer class="site-footer">
+    <div class="footer-container">
+        <!-- Cột 1: Giới thiệu -->
+        <div class="footer-col footer-brand">
+            <a href="{{ url('/') }}" class="logo"><i class="fas fa-paw"></i> Animalia</a>
+            <p class="footer-desc">Nền tảng bách khoa toàn thư thế giới động vật. Chung tay bảo tồn sự đa dạng sinh học và lan tỏa tình yêu thiên nhiên qua công nghệ AI nhận diện hiện đại.</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61572031791404" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <!-- Cột 2: Khám phá -->
+        <div class="footer-col">
+            <h3 class="footer-heading">Khám phá</h3>
+            <ul class="footer-links">
+                <li><a href="{{ route('home', ['category' => 'Thú']) }}"><i class="fas fa-angle-right"></i> Thế giới Thú</a></li>
+                <li><a href="{{ route('home', ['category' => 'Chim']) }}"><i class="fas fa-angle-right"></i> Thế giới Chim</a></li>
+                <li><a href="{{ route('home', ['category' => 'Cá']) }}"><i class="fas fa-angle-right"></i> Đại dương bao la</a></li>
+                <li><a href="{{ route('ai.nhandien') }}"><i class="fas fa-angle-right"></i> AI Nhận diện</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 3: Liên kết nhanh -->
+        <div class="footer-col">
+            <h3 class="footer-heading">Hỗ trợ & Thông tin</h3>
+            <ul class="footer-links">
+                <li><a href="{{ route('social.index') }}"><i class="fas fa-angle-right"></i> Góc chia sẻ cộng đồng</a></li>
+                <li><a href="#"><i class="fas fa-angle-right"></i> Giới thiệu về Animalia</a></li>
+                <li><a href="#"><i class="fas fa-angle-right"></i> Chính sách bảo mật</a></li>
+                <li><a href="#"><i class="fas fa-angle-right"></i> Điều khoản sử dụng</a></li>
+            </ul>
+        </div>
+
+        <!-- Cột 4: Liên hệ -->
+        <div class="footer-col">
+            <h3 class="footer-heading">Thông tin liên hệ</h3>
+            <ul class="footer-contact">
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Đại Học Cần Thơ Khu 2</span>
+                </li>
+                <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+84 (0) 123 456 789</span>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <span>animalaidongvat@gmail.com<br>animalaidongvat@gmail.com</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; {{ date('Y') }} Animalia World. Mọi quyền được bảo lưu. Phát triển với <i class="fas fa-heart" style="color: #e74c3c;"></i> dành cho thiên nhiên.</p>
+    </div>
 </footer>
 
 <div id="chat-circle" class="btn btn-raised">

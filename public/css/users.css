@@ -140,3 +140,136 @@ body {
     margin-bottom: 20px;
     border: 1px solid #f5c6cb;
 }
+
+/* --- TẠC TÀI KHOẢN FORM CSS --- */
+.admin-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-create-account {
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background 0.2s;
+}
+.btn-create-account:hover {
+    background-color: #219150;
+}
+
+.alert-error-box {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+.error-list {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.form-card {
+    margin-bottom: 20px;
+    border-top: 4px solid #27ae60;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.form-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #edf2f7;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.form-title {
+    margin: 0;
+    color: #2d3748;
+    font-size: 1.2rem;
+}
+
+.btn-close-form {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #a0aec0;
+    transition: color 0.2s;
+}
+.btn-close-form:hover {
+    color: #e53e3e;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.form-col {
+    flex: 1;
+    min-width: 200px;
+}
+.form-col.small-col {
+    min-width: 150px;
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: #3182ce;
+}
+
+.form-actions {
+    margin-top: 25px;
+    text-align: right;
+}
+
+.btn-save-user {
+    padding: 12px 25px;
+    background: #3182ce;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+    transition: background 0.2s;
+}
+.btn-save-user:hover {
+    background: #2b6cb0;
+}

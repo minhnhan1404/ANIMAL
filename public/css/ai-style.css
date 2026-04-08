@@ -37,26 +37,67 @@
     display: block;
 }
 
-/* Tia laser quét ảnh */
+/* --- HIỆU ỨNG QUÉT LASER XỊN SÒ (SCI-FI SCANNER) --- */
 .laser {
     position: absolute;
     top: 0; left: 0;
     width: 100%;
     height: 4px;
     background: #00ff88;
-    box-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
+    box-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88;
     z-index: 10;
     display: none;
+    border-radius: 50%;
+}
+
+/* Vệt sáng mờ theo sau tia laser */
+.laser::after {
+    content: '';
+    position: absolute;
+    top: -60px; left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to top, rgba(0, 255, 136, 0.4), transparent);
+    pointer-events: none;
 }
 
 .scanning .laser {
     display: block;
-    animation: scanLine 2s linear infinite;
+    animation: scanLine 2.5s ease-in-out infinite alternate;
+}
+
+/* Lưới định vị không gian hiển thị khi đang quét */
+.scanning::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 255, 136, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.15) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: 5;
+    pointer-events: none;
+    animation: pulseGrid 2s infinite alternate;
+}
+
+/* Viền nhấp nháy ngầu hơn */
+.scanning {
+    animation: pulseBorder 1s infinite alternate;
 }
 
 @keyframes scanLine {
     0% { top: 0; }
-    100% { top: 100%; }
+    100% { top: calc(100% - 4px); }
+}
+
+@keyframes pulseGrid {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+@keyframes pulseBorder {
+    0% { border-color: #27ae60; box-shadow: 0 0 10px #27ae60; }
+    100% { border-color: #00ff88; box-shadow: 0 0 40px #00ff88, inset 0 0 20px rgba(0,255,136,0.3); }
 }
 
 /* CHỈNH MÀU CHỮ TRONG KHUNG KẾT QUẢ (Sửa lỗi chữ trắng bị che) */

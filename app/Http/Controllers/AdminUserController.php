@@ -20,6 +20,25 @@ class AdminUserController extends Controller
         return back()->with('success', 'Đã cập nhật quyền thành công!');
     }
 
+    public function storeUser(Request $request) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'role' => 'required|in:user,admin'
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'role' => $request->role,
+            'is_verified' => 1 // Account created by admin is considered verified
+        ]);
+
+        return back()->with('success', 'Đã thêm tài khoản mới thành công!');
+    }
+
 public function deleteUser($id) {
     $user = User::findOrFail($id);
 

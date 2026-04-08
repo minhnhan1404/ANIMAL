@@ -25,7 +25,7 @@
                 @if(Auth::user()->role == 'admin')
                     <a href="{{ route('admin.dashboard') }}"><i class="fas fa-terminal"></i> Admin Panel</a>
                 @endif
-                <a href="#"><i class="fas fa-user-edit"></i> Hồ sơ</a>
+                <a href="{{ route('profile.edit') }}"><i class="fas fa-user-edit"></i> Hồ sơ</a>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
                     <button type="submit" class="logout-link"><i class="fas fa-power-off"></i> Đăng xuất</button>
@@ -38,7 +38,7 @@
 <div class="ai-container">
     <div class="header-section">
         <h2 class="display-title">AI RECOGNITION SYSTEM</h2>
-        <p class="ai-subtitle">Nhận diện hình ảnh các loài động vật/p>
+        <p class="ai-subtitle">Nhận diện hình ảnh các loài động vật</p>
     </div>
 
     <div class="upload-box shadow-lg">

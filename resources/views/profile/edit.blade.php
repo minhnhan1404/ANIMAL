@@ -27,20 +27,20 @@
     <div class="main-content">
         <div class="instagram-container">
             <div class="post-card">
-                <h3 style="margin-top: 0;">Chỉnh sửa hồ sơ</h3>
-                <hr style="border: 0; border-top: 1px solid #dbdbdb; margin: 20px 0;">
+                <h3 class="profile-title">Chỉnh sửa hồ sơ</h3>
+                <hr class="profile-divider">
 
                 {{-- Hiển thị thông báo thành công --}}
                 @if(session('success'))
-                    <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                    <div class="alert-success-box">
                         <i class="fas fa-check-circle"></i> {{ session('success') }}
                     </div>
                 @endif
 
                 {{-- Hiển thị lỗi nếu có --}}
                 @if ($errors->any())
-                    <div style="background: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb;">
-                        <ul style="margin: 0; padding-left: 20px;">
+                    <div class="alert-error-box">
+                        <ul class="error-list">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -52,28 +52,38 @@
                     @csrf
 
                     {{-- Khu vực ảnh đại diện --}}
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <div style="position: relative; display: inline-block;">
+                    <div class="avatar-section">
+                        <div class="avatar-wrapper">
                             <img id="avatarPreview"
                                  src="{{ Auth::user()->avatar ? asset(Auth::user()->avatar) : asset('images/default-avatar.png') }}"
                                  onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff';"
-                                 style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 3px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                                 class="avatar-img">
 
-                            <label for="avatar-input" style="position: absolute; bottom: 5px; right: 5px; background: #0095f6; color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid #fff;">
+                            <label for="avatar-input" class="avatar-upload-btn">
                                 <i class="fas fa-camera"></i>
                             </label>
                         </div>
                         <br>
-                        <span style="color: #8e8e8e; font-size: 0.9rem; margin-top: 10px; display: block;">Nhấn vào biểu tượng camera để đổi ảnh</span>
+                        <span class="avatar-hint">Nhấn vào biểu tượng camera để đổi ảnh</span>
                         <input type="file" name="avatar" id="avatar-input" hidden onchange="previewAvatar(event)" accept="image/*">
                     </div>
 
                     <div class="form-group">
-                        <label style="font-weight: 600; margin-bottom: 5px; display: block;">Tên người dùng</label>
+                        <label>Tên người dùng</label>
                         <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-input" required>
                     </div>
 
-                    <button type="submit" class="submit-btn" style="width: 100%; margin-top: 25px; background: #0095f6; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label>Mật khẩu mới (bỏ trống nếu không đổi)</label>
+                        <input type="password" name="password" class="form-input" placeholder="Nhập mật khẩu mới">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label>Xác nhận mật khẩu mới</label>
+                        <input type="password" name="password_confirmation" class="form-input" placeholder="Nhập lại mật khẩu mới">
+                    </div>
+
+                    <button type="submit" class="profile-submit-btn">
                         Lưu thay đổi
                     </button>
                 </form>

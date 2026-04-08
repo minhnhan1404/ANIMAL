@@ -37,10 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.img-wrapper').classList.add('scanning');
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/predict', {
-                method: 'POST',
-                body: formData
-            });
+            // Đợi tối thiểu 2.5 giây để tia laser chạy hết 1 vòng ảnh cho ngầu
+            const [response] = await Promise.all([
+                fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    body: formData
+                }),
+                new Promise(resolve => setTimeout(resolve, 2500))
+            ]);
 
             const data = await response.json();
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\File;
 class AdminController extends Controller
 {
     // 1. TRANG TỔNG QUAN (Dashboard chính)
-    public function index()
+    public function index(Request $request)
 {
     if (Auth::user()->role !== 'admin') {
         return redirect('/')->with('error', 'Truy cập bị từ chối.');
@@ -21,8 +21,17 @@ class AdminController extends Controller
     $totalAnimals = DB::table('animals')->count();
     $totalUsers   = DB::table('users')->where('role', 'user')->count();
 
-    // 2. Lấy danh sách loài vật
-    $animals = DB::table('animals')->orderBy('id', 'desc')->get();
+    // 2. Phân loại tìm kiếm
+    $query = DB::table('animals')->orderBy('id', 'desc');
+    
+    if ($request->has('search') && $request->search != '') {
+        $keyword = $request->search;
+        $query->where('name', 'LIKE', '%' . $keyword . '%')
+              ->orWhere('scientific_name', 'LIKE', '%' . $keyword . '%')
+              ->orWhere('category', 'LIKE', '%' . $keyword . '%');
+    }
+    
+    $animals = $query->get();
 
     // 3. Lấy 5 lịch sử nhận diện mới nhất từ bảng detection_history
     // (Bảng này nãy mình vừa tạo để Python lưu vào đó Nhan)

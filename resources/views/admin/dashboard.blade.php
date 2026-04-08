@@ -48,9 +48,45 @@
 
     <main class="main-content">
         <header class="admin-header">
-            <div class="search-bar">
-                <input type="text" placeholder="Tìm kiếm hệ thống...">
+            <div class="search-bar" style="position: relative;">
+                <input type="text" id="adminSearchInput" placeholder="Tìm kiếm trang hệ thống..." style="padding-right: 40px; width: 250px;" onkeyup="filterAdminSearch()">
+                <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #7f8c8d; cursor: default;"></i>
+                <div id="adminSearchSuggestions" class="search-suggestions">
+                    <a href="{{ route('admin.dashboard') }}" class="search-suggestion-item"><i class="fas fa-tachometer-alt"></i> Tổng quan (Dashboard)</a>
+                    <a href="{{ route('admin.animals') }}" class="search-suggestion-item"><i class="fas fa-hippo"></i> Quản lý loài vật</a>
+                    <a href="{{ route('admin.users.index') }}" class="search-suggestion-item"><i class="fas fa-users"></i> Quản lý người dùng</a>
+                    <a href="{{ route('admin.post.index') }}" class="search-suggestion-item"><i class="fas fa-newspaper"></i> Quản lý bài đăng</a>
+                    <a href="{{ url('/profile/edit') }}" class="search-suggestion-item"><i class="fas fa-user-cog"></i> Cài đặt tài khoản</a>
+                </div>
             </div>
+            <script>
+            function filterAdminSearch() {
+                let input = document.getElementById('adminSearchInput').value.toLowerCase();
+                let suggestionsBox = document.getElementById('adminSearchSuggestions');
+                let items = suggestionsBox.getElementsByTagName('a');
+                if (input.length > 0) {
+                    suggestionsBox.style.display = 'block';
+                    let hasMatch = false;
+                    for (let i = 0; i < items.length; i++) {
+                        if ((items[i].textContent || items[i].innerText).toLowerCase().indexOf(input) > -1) {
+                            items[i].style.display = 'flex';
+                            hasMatch = true;
+                        } else {
+                            items[i].style.display = 'none';
+                        }
+                    }
+                    if(!hasMatch) suggestionsBox.style.display = 'none';
+                } else {
+                    suggestionsBox.style.display = 'none';
+                }
+            }
+            document.addEventListener('click', function(e){
+                let input = document.getElementById('adminSearchInput');
+                let box = document.getElementById('adminSearchSuggestions');
+                if(input && box && !input.contains(e.target) && !box.contains(e.target)) box.style.display = 'none';
+            });
+            document.getElementById('adminSearchInput')?.addEventListener('focus', filterAdminSearch);
+            </script>
 
             <div class="user-tools">
                 <div class="user-dropdown">
@@ -103,7 +139,7 @@
             <div class="data-section">
                 <div class="section-header">
                     <h2>Quản lý loài vật</h2>
-                    <button class="btn-add">+ Thêm loài mới</button>
+                    <button type="button" class="btn-add" onclick="window.location.href='{{ route('admin.animals') }}'">+ Thêm loài mới</button>
                 </div>
                 <table class="admin-table">
                     <thead>

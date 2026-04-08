@@ -52,6 +52,7 @@ use App\Http\Controllers\ForgotPasswordController;
     Route::post('/admin/posts/update/{id}', [AdminController::class, 'updateStatus'])->name('admin.post.update');
 
     Route::get('/admin/users', [AdminUserController::class, 'indexUser'])->name('admin.users.index');
+    Route::post('/admin/users/store', [AdminUserController::class, 'storeUser'])->name('admin.users.store');
     Route::post('/admin/users/update-role/{id}', [AdminUserController::class, 'updateUserRole'])->name('admin.users.update_role');
     Route::get('/admin/users/delete/{id}', [AdminUserController::class, 'deleteUser'])->name('admin.users.delete');
 });

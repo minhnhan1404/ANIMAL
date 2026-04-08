@@ -126,3 +126,119 @@ body::before {
     opacity: 1;
     pointer-events: auto;
 }
+
+/* --- MODAL TẠO BÀI VIẾT (BEAUTIFUL INSTAGRAM STYLE) --- */
+#postModal .modal-content {
+    border-radius: 12px;
+    max-width: 600px;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+    border: none;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+#postModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #efefef;
+    padding: 12px 15px;
+    background: #fafafa;
+}
+#postModal .modal-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+#postModal .close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    color: #262626;
+    line-height: 1;
+    padding: 0 5px;
+}
+#postModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+}
+#postModal .upload-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+#postModal .upload-area:hover {
+    background: #f1f1f1;
+}
+#postModal #uploadPlaceholder {
+    text-align: center;
+    color: #262626;
+}
+#postModal #uploadPlaceholder i {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+#postModal #uploadPlaceholder span {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+#postModal #imagePreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#postModal .file-input-hidden {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+#postModal .caption-area {
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+}
+#postModal .caption-area img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+#postModal .caption-area textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    font-size: 15px;
+    height: 60px;
+}
+#postModal .submit-post-btn {
+    background: #0095f6;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+#postModal .submit-post-btn:hover {
+    background: #0077c5;
+}

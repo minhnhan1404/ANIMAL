@@ -1,0 +1,989 @@
+BỘ GIÁO DỤC VÀ ĐÀO TẠO ĐẠI HỌC CẦN THƠ
+TRƯỜNG CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG
+TIỂU LUẬN TỐT NGHIỆP ĐẠI HỌC NGÀNH KỸ THUẬT PHẦN MỀM
+XÂY DỰNG WEBSITE THẾ GIỚI ĐỘNG VẬT ANIMALAI
+(WEBSITE FOR BUILDING 
+ANIMAL WORLD)
+Sinh viên: Lê Trần Minh Nhân
+Mã số: DC2196N519
+Khóa: 47
+ĐẠI HỌC CẦN THƠ
+TRƯỜNG CÔNG NGHỆ THÔNG TIN VÀ TRUYỀN THÔNG KHOA CÔNG NGHỆ THÔNG TIN
+TIỂU LUẬN TỐT NGHIỆP ĐẠI HỌC
+NGÀNH KỸ THUẬT PHẦN MỀM
+ĐỀ TÀI:
+XÂY DỰNG WEBSITE THẾ GIỚI ĐỘNG VẬT ANIMALAI
+(WEBSITE FOR BUILDING 
+ANIMAL WORLD)
+Giảng viên hướng dẫn: Ths. ÔNG THỊ MỸ LING
+Sinh viên thực hiện: LÊ TRẦN MINH NHÂN MSSV: DC2196N519
+Khóa: 47
+MỤC LỤC
+Contents
+(WEBSITE FOR BUILDING ANIMAL WORLD)1
+ĐỀ TÀI:2
+(WEBSITE FOR BUILDING ANIMAL WORLD)2
+MỤC LỤC1
+LỜI CẢM ƠN2
+DANH MỤC BẢNG4
+DANH MỤC THUẬT NGỮ VIẾT TẮT5
+TÓM TẮT9
+ABSTRACT10
+Phần 1: GIỚI THIỆU11
+I.ĐẶT VẤN ĐỀ11
+II.NHỮNG NGHIÊN CỨU LIÊN QUAN11
+III.MỤC TIÊU ĐỀ TÀI12
+IV.PHƯƠNG PHÁP NGHIÊN CỨU13
+V.NỘI DUNG NGHIÊN CỨU15
+VI.BỐ CỤC LUẬN VĂN15
+Phần 2: NỘI DUNG17
+CHƯƠNG 1: TỔNG QUAN ĐỀ TÀI18
+1.1MÔ TẢ ĐỀ TÀI18
+1.2CÁC CHỨC NĂNG CỦA HỆ THỐNG18
+CHƯƠNG 2: CƠ SỞ LÝ THUYẾT22
+2.1TỔNG QUAN CÔNG NGHỆ SỬ DỤNG22
+2.1.1.Ngôn ngữ lập trình PHP22
+2.1.2.Framework Laravel22
+2.1.3.Hệ quản trị cơ sở dữ liệu MySQL22
+2.1.4.Kỹ thuật AJAX và Thư viện jQuery22
+2.1.5.Phần mềm XAMPP22
+2.1.6.Python22
+2.1.7.YOLOv823
+2.2CÁC CÔNG NGHỆ SỬ DỤNG KHÁC23
+CHƯƠNG 3: THIẾT KẾ VÀ CÀI ĐẶT GIẢI PHÁP24
+3.1SƠ ĐỒ USECASE24
+3.1.1KHÁCH VÃNG LAI24
+3.1.2NGƯỜI DÙNG25
+3.1.3.QUẢN TRỊ VIÊN26
+3.2THIẾT KẾ CƠ SỞ DỮ LIỆU26
+3.2.1.Các collection26
+3.2.2.Collection Người Dùng27
+3.2.3.Bảng Loài vật (Animals)28
+3.2.4.Bảng Bài viết (Posts)29
+3.2.5.Bảng Bình luận30
+3.2.6.CollectionBảng Lịch sử nhận diện30
+3.3.THIẾT KẾ MÔ HÌNH NHẬN DIỆN ĐỘNG VẬT ANIMALIA31
+3.3.1.Dữ liệu nhận diện31
+3.3.2.Mô tả quá trình huấn luyện31
+3.4.CÁC CHỨC NĂNG CHÍNH CỦA HỆ THỐNG32
+3.4.1.Người dùng32
+a.Đăng nhập32
+b.Trang chủ35
+c.Trang diễn đàng / chi tiết về trang diễn đàng36
+d.Trang AI nhận diện hình ảnh 38
+e.Cập nhật thông tin39
+3.3.2.Quản trị viên40
+a.Trang tổng quan quản lý40
+b.Quản lý người dùng41
+c.Quản lý bài đăng trên trang chủ42
+d.Quản lý bài đăng của người dùng lên trang diễn đàng43
+CHƯƠNG 4: KIỂM THỬ VÀ ĐÁNH GIÁ45
+4.1MỤC TIÊU KIỂM THỬ45
+Kiểm thử chức năng:45
+Kiểm thử cơ sở dữ liệu:45
+Kiểm thử tính bảo mật:46
+Môi trường kiểm thử:46
+4.2KỊCH BẢN KIỂM THỬ46
+4.3KẾT QUẢ KIỂM THỬ48
+4.3.1.Chức năng đăng nhập48
+4.3.2.Chức năng đăng ký49
+4.3.3.Chức năng thay đổi mật khẩu50
+4.3.4.Chức năng nhận diện hình ảnh51
+4.3.5.Chức năng quản lý của Quản trị viên51
+4.3.6.Chức năng tạo bài viết53
+4.3.7.Chức năng thông báo diễn đàn53
+4.3.8.Chức năng cập nhật thông tin cá nhân54
+Phần 3: KẾT LUẬN55
+I.KẾT QUẢ ĐẠT ĐƯỢC55
+II.HẠN CHẾ55
+III.HƯỚNG PHÁT TRIỂN55
+TÀI LIỆU THAM KHẢO57
+LỜI CẢM ƠN
+Tiểu luận tốt nghiệp đại học là một trong những công trình nghiên cứu và sản phẩm quan trọng nhất đối với một sinh viên trong quá trình học tập. Để có được kết quả ngày hôm nay, trước hết em xin chân thành cảm ơn gia đình, cảm ơn cha mẹ. Tất cả những gì em có được hôm nay và cả sau này đều nhờ công lao và sự hy sinh của cha mẹ. Cha mẹ chính là động lực lớn nhất giúp em không ngừng cố gắng, luôn tin tưởng và tạo mọi điều kiện tốt nhất để em an tâm hoàn thành tốt khóa học.
+Bên cạnh đó, em cũng xin gửi lời cảm ơn đến Ban giám hiệu Trường Đại học Cần Thơ , quý Thầy Cô Khoa Công nghệ Thông tin và Truyền thông đã tận tình dẫn dắt, truyền đạt những kiến thức và kinh nghiệm quý báu trong suốt những năm tháng em học tập và rèn luyện tại trường.
+Đặc biệt, em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến Ths. Ông Thị Mỹ Linh , người đã trực tiếp hướng dẫn, góp ý và tận tình giúp đỡ em trong suốt quá trình thực hiện đề tài. Cô đã luôn dành thời gian định hướng, kiểm tra tiến độ và đưa ra những chỉ dẫn kịp thời giúp em vượt qua những khó khăn về mặt chuyên môn để hoàn thành tiểu luận đúng nội dung và mục tiêu đề ra.
+Cuối cùng, em xin cảm ơn các bạn cùng khóa, đặc biệt là các bạn học cùng lớp đã luôn chia sẻ, động viên và đóng góp những ý kiến chân thành để em có thể hoàn thiện đề tài của mình một cách tốt nhất.
+Mặc dù đã có nhiều cố gắng, nhưng do thời gian và kinh nghiệm còn hạn chế, tiểu luận khó tránh khỏi những thiếu sót. Em kính mong nhận được sự thông cảm và những ý kiến đóng góp quý báu từ quý Thầy Cô để đề tài của em được hoàn thiện hơn.
+Em xin chân thành cảm ơn!
+Cần Thơ, ngày … tháng … năm 2025
+Người viết
+LÊ TRẦN MINH NHÂN
+DANH MỤC HÌNH ẢNH
+  Hình 1: Sơ đồ Usecase Khách Vãng Lai .................................................... 15
+  Hình 2: Sơ đồ Usecase Người Dùng .......................................................... 16
+  Hình 3: Sơ đồ Usecase Quản Trị Viên ....................................................... 17
+  Hình 4: Sơ đồ Cơ Sở Dữ Liệu ................................................................... 18
+  Hình 11: Giao diện tổng quan của Trang Chủ ........................................... 29
+  Hình 13: Tổng quan danh sách loài vật trên giao diện Website ................... 30
+  Hình 15: Thông tin chi tiết về loài Voi trên giao diện Website ..................... 32
+  Hình 16: Thông tin chi tiết về loài Voọc chà vá chân nâu ............................. 32
+  Hình 17: Danh mục các bộ động vật trên giao diện Website ........................ 33
+  Hình 21: Tổng quan tin tức bảo tồn trên giao diện Website ........................ 36
+  Hình 30: Trang Diễn đàn chia sẻ trên giao diện Website .............................. 42
+  Hình 32: Chức năng nhận diện động vật bằng AI trên giao diện Website ...... 44
+  Hình 34: Kết quả nhận diện loài Gấu (Bear) bằng mô hình YOLOv8 ............ 45
+  Hình 43: Quản trị viên xem trang tổng quan hệ thống ................................. 50
+  Hình 48: Quản trị viên quản lý danh sách loài vật ....................................... 53
+  Hình 52: Quản trị viên quản lý danh mục các bộ động vật ........................... 54
+  Hình 60: Quản trị viên quản lý danh sách bài đăng diễn đàn ........................ 58
+  Hình 64: Quản trị viên thực hiện duyệt bài đăng của người dùng ................ 59
+DANH MỤC BẢNG
+Bảng 1: Mô tả chức năng của Khách Vãng Lai ........................................... 19
+Bảng 2: Mô tả chức năng của Người Dùng ................................................ 21
+Bảng 3: Mô tả chức năng của Người Quản Trị ............................................ 23
+Bảng 4: Mô tả chức năng của các công nghệ đã sử dụng .............................. 25
+Bảng 5: Mô tả Collection Người Dùng ........................................................ 29
+Bảng 6: Mô tả Bảng Loài vật (Animals) ..................................................... 30
+Bảng 7: Mô tả Bảng Bài viết (Posts) .......................................................... 31
+Bảng 8: Mô tả Bảng Bình luận (Comments) ................................................ 32
+Bảng 9: Mô tả Bảng Lịch sử nhận diện AI .................................................. 32
+Bảng 14: Kịch bản kiểm thử chức năng ...................................................... 48
+Bảng 15: Kịch bản kiểm thử tính khả dụng ................................................. 49
+Bảng 16: Kịch bản kiểm thử cơ sở dữ liệu ................................................... 50
+Bảng 17: Kịch bản kiểm thử tính bảo mật ................................................... 50
+Bảng 18: Mô tả chức năng Đăng nhập ....................................................... 50
+Bảng 19: Mô tả chức năng Đăng ký ............................................................ 51
+Bảng 20: Mô tả chức năng Thay đổi mật khẩu ............................................. 52
+Bảng 21: Mô tả chức năng Nhận diện hình ảnh ............................................ 53
+Bảng 22: Mô tả chức năng Quản lý của Quản trị viên ................................... 53
+Bảng 23: Mô tả chức năng Tạo bài viết ........................................................ 55
+Bảng 24: Mô tả chức năng Thông báo diễn đàn ........................................... 55
+Bảng 25: Mô tả chức năng Cập nhật thông tin cá nhân ................................. 56
+Bảng 26: Mô tả chức năng Thêm ảnh yêu thích ........................................... 72
+DANH MỤC THUẬT NGỮ VIẾT TẮT
+API
+Application Programming Interface
+Giao diện lập trình ứng dụng
+PDM
+Physical Data Model
+Mô hình dữ liệu mức vật lý
+AI
+Artificial Intelligence
+Trí tuệ nhân tạo
+MFA
+Multi-factor Authentication
+Xác thực đa yếu tố
+mAP
+Mean Average Precision
+Độ chính xác trung bình
+YOLOv8
+You Only Look Once
+Mô hình mạng CNN cho việc phát hiện, nhận dạng, phân loại
+đối tượng
+CNN
+Convolutional Neural Networks
+Mô hình mạng neural tích chập
+GPS
+Global Positioning System
+Hệ thống định vị toàn cầu
+HTTP
+Hypertext Transfer Protocol
+Giao thức truyền tải siêu văn bản
+MVC
+Model - View - Controller
+Kiến trúc lập trình phần mềm
+CRUD
+Create - Read - Update - Delete
+Thao tác Thêm, Đọc, Sửa, Xóa dữ liệu
+AJAX
+Asynchronous JavaScript and XML
+Cập nhật dữ liệu không tải lại trang
+TÓM TẮT
+Trong những năm gần đây, nhu cầu tìm hiểu và khám phá thế giới động vật ngày càng tăng, đặc biệt là trong giáo dục và bảo tồn thiên nhiên. Tuy nhiên, các nguồn thông tin về động vật học thường phân tán, thiếu hệ thống và chưa tích hợp các công nghệ tương tác hiện đại. Xuất phát từ thực tế đó, đề tài "Xây dựng website thê giới toàn thư động vật Animalia" được thực hiện nhằm tạo ra một nền tảng trực quan, hỗ trợ người dùng tra cứu kiến thức và tương tác một cách sinh động.
+Website được xây dựng với các chức năng chính như: hiển thị thông tin chi tiết về các loài vật theo danh mục và bộ (Order), hệ thống tương tác yêu thích (Like) thời gian thực, và hỗ trợ nhận dạng loài vật bằng công nghệ học sâu. Về mặt kỹ thuật, hệ thống sử dụng framework Laravel cho backend, kết hợp với AJAX/JQuery để tối ưu hóa trải nghiệm người dùng và MySQL để quản lý cơ sở dữ liệu. Đặc biệt, đề tài ứng dụng thư viện Ultralytics với mô hình YOLOv8 để nhận diện hình ảnh các loài động vật từ dữ liệu thực tế, giúp tăng tính tương tác và mang lại trải nghiệm mới mẻ cho người dùng.
+Kết quả đạt được là một website đa nền tảng, dễ sử dụng, có khả năng mở rộng cao. Sản phẩm không chỉ phục vụ nhu cầu học tập cá nhân mà còn có thể ứng dụng hiệu quả trong truyền thông khoa học và giáo dục bảo tồn.
+ABSTRACT
+In recent years, the demand for exploring and discovering the animal kingdom has grown significantly, particularly in education and wildlife conservation. However, zoological information sources are often scattered, unsystematic, and lack modern interactive technology integration. Consequently, the project "Developing Animalia: An Online Animal Encyclopedia" was conducted to create an intuitive platform that helps users look up knowledge and interact with nature vividly.
+The website is developed with key features including detailed animal information organized by categories and orders, a real-time "Favorite" interaction system, and AI-powered animal identification. Technically, the system utilizes the Laravel framework for the backend, combined with AJAX/JQuery for user experience optimization and MySQL for database management. Notably, the project integrates the Ultralytics YOLOv8 model to recognize animal species from real-world images, enhancing interactivity and providing a modern approach for users.
+The final result is a cross-platform, user-friendly, and highly scalable website. This product not only serves individual learning needs but also holds great potential for scientific communication and conservation education.
+Phần 1: GIỚI THIỆU
+ĐẶT VẤN ĐỀ
+Thế giới động vật luôn là một trong những lĩnh vực tự nhiên hấp dẫn và quan trọng, góp phần duy trì sự cân bằng sinh thái trên Trái Đất. Việc tìm hiểu về đặc điểm, tập tính và phân loại các loài động vật không chỉ mang lại kiến thức bổ ích mà còn nâng cao ý thức bảo tồn thiên nhiên cho cộng đồng, đặc biệt là giới trẻ và học sinh, sinh viên chuyên ngành công nghệ. 
+Tuy nhiên, việc tiếp cận kiến thức động vật học hiện nay vẫn còn gặp nhiều hạn chế. Các nguồn thông tin thường phân tán trên nhiều nền tảng, nhiều nội dung còn mang tính lý thuyết khô khan, chưa có sự hệ thống hóa rõ ràng và thiếu tính tương tác trực quan. Điều này gây trở ngại đáng kể trong quá trình tra cứu, học tập cũng như truyền đạt kiến thức bách khoa toàn thư đến người dùng phổ thông.
+Bên cạnh đó, sự phát triển mạnh mẽ của công nghệ thông tin, đặc biệt là trí tuệ nhân tạo (AI) và học sâu (Deep Learning), đang mở ra những hướng đi mới trong việc hiện đại hóa các ứng dụng giáo dục. Việc tích hợp các mô hình nhận diện hình ảnh vào website giúp người dùng không chỉ xem thông tin tĩnh mà còn có thể tương tác trực tiếp với dữ liệu thực tế. 
+Xuất phát từ nhu cầu thực tiễn đó, đề tài “Xây dựng website thế giới động vật Animalia” được thực hiện với mong muốn tạo ra một nền tảng trực tuyến thân thiện, tích hợp các công nghệ hiện đại nhằm hỗ trợ người dùng tiếp cận kiến thức động vật một cách dễ dàng, trực quan và sinh động. Website không chỉ cung cấp thông tin chi tiết được phân loại khoa học theo danh mục và bộ (Order), mà còn tích hợp hệ thống tương tác yêu thích thời gian thực bằng AJAX. Đặc biệt, ứng dụng mô hình học sâu Ultralytics YOLOv8 để nhận diện hình ảnh các loài động vật mang lại trải nghiệm học tập hiện đại, hấp dẫn và thực tế hơn cho người dùng.
+NHỮNG NGHIÊN CỨU LIÊN QUAN
+Trong lĩnh vực động vật học và bảo tồn thiên nhiên, nhiều hệ thống và ứng dụng đã được phát triển nhằm hỗ trợ người dùng tìm hiểu, quan sát và nghiên cứu các loài sinh vật. Một số ứng dụng tiêu biểu như iNaturalist hay Seek cung cấp khả năng nhận diện loài vật qua camera điện thoại, cho phép người dùng xác định danh tính sinh vật dựa trên vị trí địa lý cụ thể. Các nền tảng này giúp kết nối cộng đồng yêu thiên nhiên và hỗ trợ đắc lực cho các nhà khoa học trong việc thu thập dữ liệu đa dạng sinh học. Tuy nhiên, phần lớn các ứng dụng quốc tế này thường tập trung vào khả năng quan sát thực tế ngoài trời, ít chú trọng đến việc cung cấp kiến thức nền tảng bách khoa một cách hệ thống theo các Bộ (Order) và thường chưa hỗ trợ tốt ngôn ngữ tiếng Việt cho người dùng trong nước.
+Một số website nổi tiếng như National Geographic, World Wildlife Fund (WWF) hay ARKive cung cấp lượng thông tin phong phú và cập nhật liên tục về các loài động vật quý hiếm, tập tính sinh hoạt và các nỗ lực bảo tồn trên toàn cầu. Tuy nhiên, các nền tảng này chủ yếu sử dụng tiếng Anh và mang tính học thuật cao, gây khó khăn cho người dùng phổ thông, đặc biệt là học sinh phổ thông tại Việt Nam trong việc tiếp cận kiến thức chuyên sâu.
+Về mặt kỹ thuật, nhiều công trình nghiên cứu trên thế giới đã ứng dụng các mô hình học sâu (Deep Learning) trong việc nhận dạng hình ảnh động vật. Mô hình YOLO (You Only Look Once) được xem là một trong những giải pháp hiệu quả và nhanh chóng nhất hiện nay trong bài toán phát hiện đối tượng thời gian thực. Các phiên bản gần đây, đặc biệt là YOLOv8, đã được sử dụng rộng rãi để nhận dạng các loài thú hoang dã, chim chóc từ dữ liệu ảnh chụp bẫy ảnh (camera traps) hoặc ảnh chụp thực tế với độ chính xác cao.
+Tại Việt Nam, một số đề tài nghiên cứu và hệ thống website về động vật đã được triển khai, nhưng chủ yếu tập trung vào việc cung cấp kiến thức dạng bài viết tĩnh. Các hệ thống này thường thiếu các tính năng tương tác hiện đại như hệ thống yêu thích (Like) thời gian thực, không tích hợp công nghệ trí tuệ nhân tạo và cũng chưa hỗ trợ khả năng nhận diện loài vật tự động từ ảnh tải lên của người dùng.
+Tổng quan các công trình liên quan cho thấy còn tồn tại khoảng trống trong việc kết hợp giữa công nghệ web hiện đại (như framework Laravel) và trí tuệ nhân tạo trong giáo dục động vật học tại Việt Nam. Do đó, việc xây dựng hệ thống website Animalia có chức năng nhận dạng hình ảnh bằng mô hình Ultralytics YOLOv8, giao diện thân thiện và tích hợp các tính năng tương tác AJAX là hướng đi phù hợp, góp phần nâng cao hiệu quả học tập và truyền thông khoa học trong lĩnh vực bảo tồn thiên nhiên.
+MỤC TIÊU ĐỀ TÀI
+Mục tiêu của đề tài là xây dựng một hệ thống website bách khoa toàn thư trực tuyến có khả năng cung cấp thông tin chuyên sâu và hỗ trợ người dùng tìm hiểu về thế giới động vật theo hướng hiện đại, trực quan và tương tác cao. Cụ thể, các mục tiêu chi tiết bao gồm:
+Xây dựng nền tảng tri thức số hóa: Cung cấp một giao diện thân thiện, cho phép người dùng truy cập nhanh chóng các thông tin chi tiết về các loài động vật được phân loại khoa học theo danh mục (Thú, Chim, Bò sát, Đại dương) và các bộ (Order) cụ thể.
+Tối ưu hóa trải nghiệm tương tác: Tích hợp hệ thống tương tác yêu thích (Like/Wishlist) thời gian thực sử dụng kỹ thuật AJAX và JQuery, giúp người dùng lưu trữ các loài vật quan tâm mà không làm gián đoạn quá trình duyệt web.
+Ứng dụng trí tuệ nhân tạo: Triển khai chức năng nhận dạng hình ảnh động vật dựa trên mô hình học sâu Ultralytics YOLOv8, góp phần tăng tính thực tiễn và giúp người dùng xác định loài vật một cách nhanh chóng, chính xác từ dữ liệu hình ảnh thực tế.
+Làm chủ công nghệ phát triển Web: Phát triển hệ thống theo mô hình MVC hiện đại với backend sử dụng framework Laravel (PHP) và cơ sở dữ liệu MySQL, nhằm đảm bảo tính bảo mật, hiệu năng cao và khả năng mở rộng linh hoạt cho hệ thống.
+Quản lý dữ liệu khoa học: Thiết kế cơ sở dữ liệu có cấu trúc rõ ràng, đảm bảo tính liên kết giữa thông tin loài vật, phân loại khoa học và dữ liệu tương tác của người dùng.
+Đánh giá và thực nghiệm: Tiến hành kiểm thử, đánh giá hiệu quả vận hành của các chức năng tự động hóa và nhận diện AI, từ đó đề xuất các hướng phát triển tiếp theo trong việc ứng dụng công nghệ vào phổ cập kiến thức bảo tồn thiên nhiên.
+PHƯƠNG PHÁP NGHIÊN CỨU
+Đề tài sử dụng phương pháp nghiên cứu kết hợp giữa khảo sát tài liệu, thiết kế hệ thống và thử nghiệm thực tế. Cụ thể:
+Phương pháp khảo sát và phân tích tài liệu: Tiến hành thu thập, phân tích các nguồn tài liệu liên quan đến động vật học, các hệ thống nhận dạng hình ảnh và các nền tảng bách khoa toàn thư hiện có để xây dựng cơ sở lý thuyết vững chắc cho việc thiết kế chức năng hệ thống.
+Phương pháp lập trình và mô hình hóa: Sử dụng mô hình MVC (Model-View-Controller) để phát triển website với các module chức năng cụ thể như quản lý loài vật, bộ lọc danh mục và hệ thống tương tác AJAX.
+Phương pháp ứng dụng trí tuệ nhân tạo: Module nhận dạng hình ảnh được triển khai bằng mô hình học sâu Ultralytics YOLOv8. Mô hình này được huấn luyện để nhận diện các đối tượng là các loài động vật từ dữ liệu hình ảnh thực tế, giúp tối ưu hóa khả năng phân loại tự động.
+Phương pháp thực nghiệm và đánh giá: Triển khai hệ thống trên môi trường thực tế (Localhost/XAMPP) để kiểm thử các tính năng. Phương pháp đánh giá dựa trên tính chính xác của việc nhận dạng hình ảnh AI, tốc độ phản hồi của hệ thống AJAX và mức độ thân thiện trong trải nghiệm người dùng.
+NỘI DUNG NGHIÊN CỨU
+Nội dung nghiên cứu của đề tài bao gồm các phần chính như sau:
+1. Tổng quan lý thuyết: Tìm hiểu các kiến thức về động vật học phổ thông, cách phân loại các loài động vật theo danh mục (Thú, Chim, Bò sát, Đại dương) và các bộ (Order). Nghiên cứu các công nghệ lập trình web hiện đại như framework Laravel, ngôn ngữ PHP, cơ sở dữ liệu MySQL và các kỹ thuật tương tác người dùng như AJAX/JQuery. Đồng thời, nghiên cứu mô hình học sâu Ultralytics YOLOv8 ứng dụng trong bài toán nhận diện hình ảnh.
+2. Phân tích và thiết kế hệ thống: Xây dựng kiến trúc hệ thống website theo mô hình MVC, bao gồm thiết kế cơ sở dữ liệu cho các bảng động vật (animals) và tương tác người dùng (likes). Thiết kế giao diện người dùng (UI/UX) trực quan, hiện đại, đảm bảo tính thẩm mỹ và dễ sử dụng trên nhiều thiết bị.
+3. Xây dựng chức năng tra cứu và hiển thị dữ liệu động vật: Xây dựng cơ sở dữ liệu bách khoa toàn thư và các chức năng hiển thị thông tin chi tiết về các loài vật. Phát triển bộ lọc dữ liệu thông minh theo danh mục và bộ, kết hợp với hệ thống tương tác yêu thích (Like/Wishlist) thời gian thực bằng AJAX để tăng tính sinh động cho website.
+4. Nhận dạng hình ảnh động vật bằng AI: Triển khai chức năng nhận dạng hình ảnh động vật sử dụng thư viện Ultralytics với mô hình YOLOv8. Chức năng này cho phép người dùng tải lên hình ảnh thực tế để hệ thống tự động xác định loài vật và cung cấp thông tin liên quan một cách nhanh chóng.
+5. Kiểm thử và đánh giá hệ thống: Thực hiện kiểm thử các chức năng cốt lõi, đánh giá hiệu suất của backend Laravel và độ chính xác của mô hình nhận dạng YOLOv8. Thu thập phản hồi về trải nghiệm người dùng, từ đó đề xuất các hướng cải tiến và mở rộng hệ thống trong tương lai.
+BỐ CỤC LUẬN VĂN
+Nội dung của tiểu luận được trình bày theo cấu trúc gồm các chương mục chính như sau:
+Chương 1: Giới thiệu: Trình bày về đặt vấn đề, các nghiên cứu liên quan, mục tiêu, đối tượng, phạm vi nghiên cứu và phương pháp thực hiện đề tài.
+Chương 2: Cơ sở lý thuyết: Giới thiệu tổng quan về hệ thống bách khoa toàn thư, các công nghệ lập trình sử dụng bao gồm framework Laravel, ngôn ngữ PHP, cơ sở dữ liệu MySQL, kỹ thuật AJAX và mô hình học sâu Ultralytics YOLOv8.
+Chương 3: Phân tích và Thiết kế hệ thống: Trình bày các yêu cầu chức năng, sơ đồ Use Case, thiết kế cơ sở dữ liệu (ERD) và kiến trúc hệ thống theo mô hình MVC.
+Chương 4: Đặc tả chức năng và Kịch bản Use Case: Mô tả chi tiết luồng hoạt động của các chức năng chính như tra cứu động vật, hệ thống tương tác yêu thích và cơ chế nhận diện hình ảnh AI.
+Chương 5: Cài đặt và Thực nghiệm: Trình bày quá trình triển khai hệ thống thực tế, giao diện website và kết quả nhận diện hình ảnh từ mô hình YOLOv8.
+Chương 6: Kiểm thử và Đánh giá: Trình bày mục tiêu kiểm thử, các kịch bản kiểm thử (Test Case) cho chức năng AJAX, AI và tổng kết kết quả đạt được.
+Kết luận và Hướng phát triển: Tổng kết các kết quả đã đạt được, những hạn chế còn tồn tại và đề xuất hướng phát triển hệ thống trong tương lai.
+Phần 2: NỘI DUNG
+CHƯƠNG 1: TỔNG QUAN ĐỀ TÀI
+MÔ TẢ ĐỀ TÀI
+Việc tiếp cận kiến thức động vật học hiện nay vẫn còn gặp nhiều hạn chế đối với phần lớn người dùng phổ thông. Dù có nhiều nguồn tài liệu, ứng dụng và website cung cấp thông tin, nhưng đa phần vẫn còn mang tính chất trình bày tĩnh, thiếu tương tác và chưa thực sự thân thiện với người sử dụng không chuyên. Bên cạnh đó, nhu cầu tra cứu nhanh chóng thông tin về các loài động vật, phân loại theo bộ (Order) hay các đặc điểm sinh thái ngày càng gia tăng, đặc biệt trong giáo dục, nghiên cứu và nâng cao ý thức bảo tồn thiên nhiên của giới trẻ.
+Trong bối cảnh đó, công nghệ trí tuệ nhân tạo, đặc biệt là học sâu (Deep Learning), đang mở ra nhiều cơ hội để xây dựng các hệ thống hỗ trợ hiệu quả và thông minh hơn. Một số nền tảng hiện tại đã bắt đầu tích hợp các công nghệ tra cứu, nhưng vẫn còn thiếu khả năng xử lý hình ảnh linh hoạt, tương tác thời gian thực hoặc hỗ trợ tốt ngôn ngữ tiếng Việt cho người dùng trong nước.
+Từ thực tế đó, đề tài “Xây dựng website thế giới động vật Animalai” được thực hiện với mục tiêu xây dựng một nền tảng tích hợp đa chức năng. Hệ thống bao gồm: chức năng hiển thị thông tin chi tiết các loài vật, hệ thống tương tác yêu thích (Like) sử dụng kỹ thuật AJAX , và đặc biệt là module nhận diện loài vật từ ảnh đầu vào sử dụng mô hình Ultralytics YOLOv8.
+Hệ thống hướng đến ba nhóm người dùng chính: Người dùng phổ thông có nhu cầu tra cứu kiến thức động vật học; Sinh viên hoặc người nghiên cứu cần dữ liệu hỗ trợ học tập và thực hành; Quản trị viên quản lý dữ liệu nội dung loài vật và người dùng. Việc kết hợp công nghệ web (Laravel), trí tuệ nhân tạo (YOLOv8) và dữ liệu động vật học không chỉ giúp nâng cao trải nghiệm người dùng mà còn góp phần phổ cập kiến thức khoa học một cách trực quan, thân thiện và hiện đại hơn.
+CÁC CHỨC NĂNG CỦA HỆ THỐNG
+Hệ thống bao gồm các chức năng chính sau:
+Bảng 1: Mô tả chức năng của Khách Vãng Lai
+Đối Tượng
+Chức năng
+Mô tả
+Khách vãng lai
+Đăng ký/Đăng Nhập
+Cho phép người dùng tạo tài khoản mới hoặc đăng nhập để sử dụng các chức năng nâng cao như thả tim (Like) và quản lý hồ sơ cá nhân.
+Xem trang chủ
+Tiếp cận giao diện tổng quan của hệ thống Animalia, hiển thị danh sách các loài động vật nổi bật và các tin tức mới nhất.
+Lọc động vật theo danh mục
+Cho phép người dùng tra cứu nhanh các loài vật theo nhóm chính như: Thú, Chim, Bò sát và Đại dương. 
+Xem chi tiết theo Bộ (Order)
+Hỗ trợ người dùng tiếp cận thông tin chuyên sâu về các loài vật được phân loại theo các Bộ khoa học (như Bộ Ăn thịt, Bộ Vòi, Bộ Ưng...).
+Xem thông tin chi tiết loài vật
+Hiển thị đầy đủ dữ liệu khoa học bao gồm tên tiếng Việt, tên Latinh, đặc điểm sinh thái và hình ảnh thực tế của từng loài.
+Sử dụng công cụ tìm kiếm
+Tìm kiếm nhanh chóng thông tin về một loài vật cụ thể dựa trên từ khóa tên gọi hoặc đặc điểm.
+Trải nghiệm nhận diện AI
+Cho phép người dùng thử nghiệm chức năng nhận diện loài vật qua hình ảnh bằng mô hình Ultralytics YOLOv8 tích hợp trên hệ thống.
+Bảng 2: Mô tả chức năng của Người Dùng
+Đối Tượng
+Chức năng
+Mô tả
+Đăng nhập
+Để sử dụng các chức năng tương tác xã hội và quản lý cá nhân, người dùng bắt buộc phải đăng nhập hệ thống.
+Xem trang chủ
+Tiếp cận giao diện tổng quan, hiển thị các loài động vật nổi bật và bài viết mới nhất từ cộng đồng.
+Tra cứu loài vật theo Bộ
+Xem chi tiết các thông tin khoa học về động vật được phân loại theo từng Bộ (Order) như Bộ Ăn thịt, Bộ Vòi...
+Người dùng
+Góc chia sẻ (Social)
+Truy cập diễn đàn thảo luận, nơi cộng đồng chia sẻ kiến thức, hình ảnh và kinh nghiệm bảo tồn động vật.
+Tạo bài viết mới
+Đăng tải nội dung, hình ảnh thực tế lên trang Social để chia sẻ hoặc đặt câu hỏi cho cộng đồng.
+Tương tác Thả tim
+Sử dụng kỹ thuật AJAX để yêu thích loài vật hoặc bài viết. Trạng thái được cập nhật tức thì mà không cần tải lại trang.
+Bình luận
+Tham gia thảo luận, để lại ý kiến dưới các bài viết của thành viên khác trong cộng đồng.
+Cập nhật hồ sơ cá nhân
+Chỉnh sửa các thông tin cá nhân như tên hiển thị, ảnh đại diện (avatar) 
+Đổi mật khẩu
+Thực hiện thay đổi mật khẩu thông qua hệ thống xác thực email để đảm bảo bảo mật tài khoản
+Đăng xuất
+Kết thúc phiên làm việc hiện tại để bảo vệ thông tin cá nhân trên hệ thống.
+Bảng 3: Mô tả chức năng của Người Quản Trị
+Đối Tượng
+Chức năng
+Mô tả
+Đăng nhập hệ thống
+Quản trị viên bắt buộc phải đăng nhập qua cổng bảo mật riêng để truy cập vào Dashboard quản trị.
+Quản lý người dùng
+Giám sát danh sách thành viên, có quyền chỉnh sửa thông tin hoặc khóa tài khoản nếu vi phạm quy định của cộng đồng.
+Quản lý loài động vật
+Thực hiện các thao tác thêm mới, cập nhật thông tin khoa học (tên, mô tả, bộ, danh mục) hoặc xóa dữ liệu loài vật trong cơ sở dữ liệu.
+Quản trị viên
+Quản lý danh mục & Bộ
+Quản trị viên cập nhật, thêm mới hoặc xóa các Danh mục chính (Thú, Chim...) và các Bộ (Order) để phân loại loài vật chính xác.
+Quản lý bài viết Social
+Giám sát, kiểm duyệt hoặc xóa các bài viết/bình luận của người dùng trên trang Social để đảm bảo nội dung lành mạnh.
+Quản lý tin tức & Bài viết
+Cập nhật các thông tin mới nhất về thế giới động vật, các phát hiện mới về loài hoặc các tin tức bảo tồn thiên nhiên.
+Thống kê hệ thống
+Xem các báo cáo về số lượng người dùng, lượt tương tác thả tim và hiệu suất nhận diện của mô hình YOLOv8.
+Đăng xuất
+Kết thúc phiên làm việc hiện tại trên hệ thống để đảm bảo an toàn bảo mật.
+CHƯƠNG 2: CƠ SỞ LÝ THUYẾT
+TỔNG QUAN CÔNG NGHỆ SỬ DỤNG
+Ngôn ngữ lập trình PHP
+PHP (Hypertext Preprocessor) là một ngôn ngữ kịch bản máy chủ mã nguồn mở được sử dụng rộng rãi để phát triển các ứng dụng web động. PHP cho phép kết nối dễ dàng với các hệ quản trị cơ sở dữ liệu, xử lý biểu mẫu và xây dựng các chức năng tương tác phức tạp trên website.
+Framework Laravel
+Laravel là một framework mã nguồn mở dành cho PHP, được thiết kế theo mô hình MVC (Model-View-Controller) giúp tối ưu hóa quá trình phát triển web. Laravel cung cấp các công cụ mạnh mẽ như Eloquent ORM để quản lý dữ liệu, hệ thống Blade Template để xây dựng giao diện và các tính năng bảo mật tích hợp sẵn, giúp hệ thống hoạt động ổn định và dễ dàng mở rộng
+Hệ quản trị cơ sở dữ liệu MySQL
+MySQL là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở phổ biến nhất thế giới. MySQL sử dụng ngôn ngữ truy vấn cấu trúc (SQL) để quản lý dữ liệu, đảm bảo tính nhất quán, an toàn và khả năng truy xuất dữ liệu với tốc độ cao, rất phù hợp cho các hệ thống bách khoa toàn thư cần lưu trữ lượng lớn thông tin loài vật.
+Kỹ thuật AJAX và Thư viện jQuery
+AJAX (Asynchronous JavaScript and XML) là một bộ các kỹ thuật thiết kế web cho phép cập nhật các phần của trang web mà không cần tải lại toàn bộ trang. Kết hợp với thư viện jQuery, AJAX giúp triển khai các chức năng tương tác thời gian thực như hệ thống thả tim (Like) và bộ lọc động vật một cách mượt mà, nâng cao trải nghiệm người dùng (UX).
+Phần mềm XAMPP
+XAMPP là một chương trình tổng hợp mạng máy chủ (web server) mã nguồn mở phổ biến, tích hợp sẵn các thành phần cần thiết để phát triển ứng dụng web bao gồm: Apache (Web Server), MySQL/MariaDB (Database), và trình thông dịch cho các ngôn ngữ như PHP và Perl. Trong đề tài này, XAMPP đóng vai trò là môi trường thực nghiệm cục bộ (Localhost), giúp triển khai và kiểm thử các chức năng của Laravel và cơ sở dữ liệu một cách nhanh chóng trước khi đưa lên hệ thống thực tế.
+Python
+Python [6] là một ngôn ngữ lập trình bậc cao, đa mục đích, được ưa chuộng trong nhiều lĩnh vực như trí tuệ nhân tạo, học máy, thị giác máy tính và khoa học dữ liệu. Với cú pháp đơn giản, dễ đọc cùng hệ sinh thái thư viện phong phú như NumPy, OpenCV, TensorFlow và PyTorch, Python trở thành một công cụ lý tưởng để phát triển các ứng dụng xử lý và phân tích hình ảnh.
+YOLOv8
+YOLOv8 [7] (You Only Look Once phiên bản 8) là một mô hình học sâu chuyên dùng cho bài toán phát hiện đối tượng trong ảnh. Đây là phiên bản cải tiến của dòng mô hình YOLO với ưu điểm về tốc độ xử lý, độ chính xác cao và khả năng huấn luyện linh hoạt trên tập dữ liệu tùy chỉnh.
+CÁC CÔNG NGHỆ SỬ DỤNG KHÁC
+Bảng 4: Mô tả chức năng của các công nghệ đã sử dụng
+STT
+Công
+nghệ sử dụng
+Chức năng
+1
+Framework Laravel
+Xây dựng cấu trúc hệ thống theo mô hình MVC, quản lý logic nghiệp vụ và bảo mật phía Backend.
+2
+Ngôn ngữ PHP
+Xử lý các kịch bản phía máy chủ, kết nối dữ liệu và điều khiển luồng hoạt động của website.
+3
+MySQL (XAMPP)
+Xây dựng server cho ứng dụng
+4
+AJAX & jQuery
+Thực hiện các yêu cầu bất đồng bộ cho chức năng thả tim (Like), bộ lọc động vật và các tương tác thời gian thực mà không cần tải lại trang.
+5
+Bootstrap & CSS3
+Thiết kế giao diện (UI/UX) trực quan, đảm bảo website hiển thị tốt trên nhiều kích thước màn hình (Responsive).
+6
+Python
+Tổ chức và xử lý dữ liệu, xây dựng mô hình huấn luyện
+7
+YOLOv8
+Phát hiện nhanh và chính xác các đối tượng trong hình ảnh đầu vào
+8
+Axios
+Gọi API server
+9
+Bootstrap
+Template thiết kế giao diện trên ứng dụng web chuẩn responsive
+CHƯƠNG 3: THIẾT KẾ VÀ CÀI ĐẶT GIẢI PHÁP
+SƠ ĐỒ USECASE
+KHÁCH VÃNG LAI
+Hình 1: Sơ đồ usecase khách vãng lai
+Hình 1 mô tả các chức năng mà khách vãng lai có thể thực hiện trên hệ thống mà không cần đăng nhập. Cụ thể, khách vãng lai có thể đăng ký tài khoản người dùng để sử dụng thêm các chức năng tương tác nâng cao. Bên cạnh đó, khách vãng lai được xem trang chủ, nơi hiển thị thông tin tổng quan về các loài động vật nổi bật. Ngoài ra, khách vãng lai có thể xem chi tiết thông tin về các loài vật được phân loại theo danh mục và bộ (Order). 
+NGƯỜI DÙNG
+Hình 2: Sơ đồ usecase Người dùng
+Hình 2 mô tả các chức năng chính mà người dùng đã đăng nhập có thể thực hiện trong hệ thống. Khác với khách vãng lai, người dùng có quyền truy cập vào các chức năng nâng cao liên quan đến cá nhân hóa nội dung và tương tác trực tiếp với cộng đồng Social. Sau khi thực hiện đăng nhập, hệ thống hỗ trợ chức năng quản lý tài khoản cá nhân như cập nhật thông tin, đổi mật khẩu nhằm tăng tính bảo mật.
+QUẢN TRỊ VIÊN
+Hình 3: Sơ đồ usecase Quản trị viên
+Hình 3 mô tả các chức năng mà người dùng trong vai trò Quản trị viên có thể thực hiện sau khi đăng nhập vào hệ thống. Quản trị viên là đối tượng có quyền cao nhất, cho phép truy cập và thao tác với tất cả thành phần dữ liệu và chức năng quản lý trong hệ thống Animalia.
+Sau khi đăng nhập, quản trị viên có thể thực hiện quản lý người dùng, bao gồm việc giám sát, chỉnh sửa thông tin, phân quyền và xóa tài khoản nhằm đảm bảo an toàn và kiểm soát truy cập phù hợp. Ngoài ra, quản trị viên được cấp quyền quản lý thông tin về các loài động vật, các danh mục bộ (Order), tin tức và các bài viết trên trang mạng xã hội nội bộ. Quản trị viên có thể cập nhật dữ liệu khoa học, thay đổi hình ảnh minh họa phục vụ mô hình nhận diện YOLOv8 hoặc xóa bỏ các bài đăng, dữ liệu không còn chính xác để duy trì chất lượng nội dung của hệ thống.
+THIẾT KẾ CƠ SỞ DỮ LIỆU
+Các collection
+Collection là một tập hợp các documents (tương tự như dòng trong cơ sở dữ liệu quan hệ) và được lưu dưới dạng JSON. Hệ thống bao gồm các collection như: Người dùng, Hành Tinh, Chòm Sao, Sự Kiện, Thư viện ảnh, Bài viết, Bình Luận, Thông Báo, Tin Tức. Các collection sẽ được trình bày chi tiết bên dưới.
+Hình 4: Sơ đồ cơ sở dữ liệu
+Hình 4 mô tả tổng quan cấu trúc cơ sở dữ liệu quan hệ của toàn hệ thống Animalia. Thay vì sử dụng các tập hợp không định hình, hệ thống được tổ chức thành các bảng dữ liệu (Tables) chặt chẽ với các thuộc tính cụ thể. Giữa các bảng có sự liên kết và ràng buộc mật thiết thông qua các khóa chính (Primary Key) và khóa ngoại (Foreign Key) để đảm bảo tính toàn vẹn dữ liệu.
+Collection Người Dùng
+Bảng 5: Mô tả Collection Người Dùng
+STT
+Tên thuộc tính
+Kiểu dữ liệu
+Mô tả
+1
+_ID
+String
+Mã người dùng
+2
+Username
+varchar(255)
+Tên người dùng
+3
+Email
+varchar(255)
+Email người dùng
+4
+Password
+varchar(255)
+Mật khẩu
+5
+Role
+enum('admin','user')
+Vai trò người dùng
+6
+Favorites
+ObjectId
+Ảnh yêu thích
+7
+isVerified
+Boolean
+Được xác nhận
+8
+ReceiveEmailNotification
+Boolean
+Thông báo nhận email
+9
+Avatar
+String
+Ảnh đại diện
+Bảng Loài vật (Animals)
+Bảng 6: Mô tả Bảng Loài vật 
+STT
+Tên thuộc tính
+Kiểu dữ
+liệu
+Mô tả
+1
+_ID
+bigint(20)
+Mã định danh
+2
+Name
+varchar(255)
+Tên thường gọi của loài vật
+3
+scientific_name
+varchar(255)
+Tên khoa học của loài vật
+4
+category
+varchar(100)
+Danh mục phân loại
+5
+animal_class
+varchar(255)
+Lớp
+6
+animal_order
+varchar(255)
+Bộ
+7
+habitat
+varchar(255)
+Môi trường sống tự nhiên
+8
+diet_type
+enum
+Chế độ ăn
+9
+description
+text
+Mô tả chi tiết về đặc điểm và tập tính
+10
+image_url
+varchar(255)
+Đường dẫn lưu trữ hình ảnh minh họa trên server
+11
+status
+varchar(100)
+Tình trạng bảo tồn
+12
+likes_count
+int(11)
+Tổng số lượt yêu thích từ người dùng
+13
+created_at
+timestamp
+Thời điểm thêm loài vật vào hệ thống
+Bảng Bài viết (Posts)
+Bảng 7: Mô tả Bảng Bài viết (Posts)
+STT
+Tên thuộc tính
+Kiểu dữ
+liệu
+Mô tả
+1
+_ID
+String
+Mã bài viết
+2
+user_id
+bigint(20)
+Mã người đăng
+3
+content
+text
+Nội dung bài chia sẻ
+4
+image_url
+varchar(255)
+Hình ảnh
+5
+likes_count
+int(11)
+Tổng số lượt thích bài viết
+6
+status
+tinyint(4)
+Trạng thái (0: Chờ duyệt, 1: Đã duyệt)
+ Bảng Bình luận
+Bảng 8: Mô Bảng Bình luận
+STT
+Tên thuộc tính
+Kiểu dữ
+liệu
+Mô tả
+1
+_ID
+bigint(20)
+Mã bình luận
+2
+user_id
+bigint(20)
+Người bình luận
+3
+post_id
+bigint(20)
+Bình luận cho bài nào
+4
+content
+Text
+Nội dung phản hồi
+CollectionBảng Lịch sử nhận diện
+Bảng 9: Mô tả Collection Thư viện ảnh
+STT
+Tên thuộc tính
+Kiểu dữ
+liệu
+Mô tả
+1
+_ID
+int(11)
+Mã lượt nhận diện
+2
+user_name
+varchar(255)
+Tên người dùng thực hiện
+3
+prediction_result
+varchar(255)
+Tên loài vật mà AI đoán được
+4
+confidence
+float
+Độ tin cậy của kết quả
+5
+image_path
+varchar(255)
+Đường dẫn ảnh đã upload
+THIẾT KẾ MÔ HÌNH NHẬN DIỆN ĐỘNG VẬT ANIMALIA
+Dữ liệu nhận diện
+Tập dữ liệu (Dataset) được xây dựng tập trung vào các loài động vật phổ biến và các loài động vật quý hiếm cần bảo tồn. Cụ thể, mô hình được huấn luyện để nhận diện các lớp đối tượng bao gồm nhiều loài động vật khác nhau .
+Tổng cộng hơn 4.500 hình ảnh đã được thu thập từ các nguồn uy tín như Wikipedia, các kho dữ liệu khoa học công khai và dữ liệu thực tế. Toàn bộ dữ liệu được gán nhãn thủ công (Annotation) bằng công cụ Roboflow theo định dạng YOLO để đảm bảo độ chính xác cao nhất cho quá trình học máy.
+Mô tả quá trình huấn luyện
+Quá trình huấn luyện mô hình nhận diện được thực hiện với mục tiêu giúp hệ thống Animalia có khả năng tự động phân loại và xác định chính xác các đối tượng là các loài động vật khác nhau. Để đạt được điều này, mô hình YOLOv8 (You Only Look Once phiên bản 8) từ thư viện Ultralytics đã được lựa chọn vì khả năng xử lý ảnh thời gian thực cực nhanh và độ chính xác cao trong việc phát hiện đa đối tượng.
+Tập dữ liệu nhận diện bao gồm các loài động vật tiêu biểu như: Gấu (Bear), Voi (Elephant), Đại bàng (Eagle), Cá sấu (Crocodile) và các loài vật phổ biến khác đã được gán nhãn thủ công. Tập dữ liệu này được chia thành ba phần theo tỷ lệ chuẩn:
+70% ảnh dùng cho huấn luyện (Train): Cung cấp dữ liệu gốc để mô hình học các đặc trưng hình ảnh của loài vật.
+20% ảnh dùng cho kiểm định (Validation): Dùng để tinh chỉnh các tham số trong quá trình huấn luyện nhằm tránh hiện tượng quá khớp (Overfitting).
+10% ảnh dùng để kiểm tra hiệu năng (Test): Đánh giá khách quan khả năng nhận diện của mô hình trên các hình ảnh hoàn toàn mới.
+Dữ liệu được gán nhãn theo định dạng YOLO (Bounding box và Class), với tệp cấu trúc định dạng .txt và sơ đồ thư mục phù hợp để huấn luyện trực tiếp bằng YOLOv8. Quá trình huấn luyện được thực hiện liên tục trên thiết bị máy tính cá nhân để tối ưu hóa trọng số mô hình.
+Kết quả thực nghiệm cho thấy mô hình đạt chỉ số mAP (mean Average Precision) > 92% đối với các loài động vật có đặc điểm hình thái rõ ràng. Sau khi hoàn tất quá trình huấn luyện, mô hình được tích hợp vào hệ thống Website thông qua API Python. Tại đây, người dùng có thể tải lên hình ảnh thực tế, hệ thống sẽ xử lý và hiển thị kết quả nhận diện kèm theo độ tin cậy (Confidence) tương ứng, đồng thời lưu lịch sử vào bảng dữ liệu detection_history để người dùng theo dõi lại.
+CÁC CHỨC NĂNG CHÍNH CỦA HỆ THỐNG
+Người dùng
+Đăng nhập
+Hình 5: Trang đăng nhập giao diện
+Hình 6: Trang sau khi đăng nhập thành công
+Hình 5, hình 6 mô tả việc người dùng đăng nhập vào hệ thống trên website bằng cách điền các thông tin mà người dùng đã đăng kí vào form đăng nhập, ngay lập tức hệ thống sẽ hiển thị tên người dùng khi đăng nhập thành công.
+Hình 7: Màn hình đăng nhập và sau khi đăng nhập thành công
+Hình 7 mô tả trang người dùng đăng nhập vào hệ thống, tương tự như trên website, người dùng nhập thông tin đã đăng kí vào form đăng nhập hệ thống sẽ hiện thị tên người dùng khi đăng nhập thành công.
+Hình 8: Tiến hành đặt lại mật khẩu
+Hình 9: Màn hình tiến hành đặt lại mật khẩu
+Hình 10: Email gửi mã đặt lại mật khẩu trên website
+Hình 8, hình 9 và hình 10 mô tả việc khi người dùng quên mật khẩu, có thể chọn vào phần mật khẩu để cập nhật lại mật khẩu. Lúc này, hệ thống sẽ gửi mã OTP để tiến hành đặt lại mật khẩu đến email đã đăng kí của người dùng.
+Trang chủ
+ 
+Hình 11: Giao diện tổng quan của trang chủ
+Trang diễn đàng / chi tiết về trang diễn đàng
+Hình 13: Tổng quan về giao diện diễn đàng của website
+Hình 13 hiển thị giao iện trang cộng đồng website, nơi kết nối những người yêu thích động vật.  Giao diện này được thiết kế theo phong cách mạng xã hội hiện đại, cho phép người dùng theo dõi các bài đăng chia sẻ hình ảnh thực tế về các loài vật. Mỗi bài viết được trình bài dưới dạng thẻ nội dung bao gồm hình ảnh trực quan, tên người đăng, nội dung chia sẻ và hệ thông tương rác thời gian thực như nút  “thả tim” và  “bình luận” giúp tăng tính gắn kết giữa các thành viên trong hệ thống.
+Hình 15: Thông tin chi tiết về loài vật trên giao diện website
+Hình 16: trang chi tiết về động vật
+Hình 15 và hình 16 mô tả trang chi tiết loài vật là nơi hiển thị thông tin chuyên sâu về từng cá thể động vật trong hệ thống, được trình bày với hình ảnh minh họa khổ lớn cùng tên loài giúp người dùng dễ dàng quan sát và tìm hiểu. Mỗi loài vật được minh họa bằng hình ảnh thực tế kèm theo các thông tin cơ bản như tên tiếng Việt, tên khoa học (Latinh), tình trạng bảo tồn và phân loại thuộc lớp nào.
+Khi người dùng chọn xem một loài vật bất kỳ, hệ thống sẽ hiển thị các mục thông tin cụ thể hơn như Tập tính & Đặc điểm sinh học, cùng phần Mô tả chi tiết về môi trường sống và hiện trạng ngoài tự nhiên. Ngoài ra, trang chi tiết còn tích hợp các thẻ màu (Labels) trực quan và nút "Quay lại trang chủ" để hỗ trợ người dùng thuận tiện trong việc điều hướng và tra cứu dữ liệu. Sự kết hợp giữa các trường dữ liệu khoa học và hình ảnh thực tế góp phần tạo nên trải nghiệm học tập tương tác và sinh động cho người dùng trên ứng dụng Animalia.
+Trang AI nhận diện hình ảnh 
+Hình 17: Hiện kết quả nhận diện hình ảnh động vật
+Hình 17 cho kết quả nhận diện trên giao diện website bao gồm tên loài vật và độ tin cậy của mô hình AI. Trang này có ích trong việc hỗ trợ người dùng học tập, quan sát và kiểm chứng các loài động vật một cách trực quan và dễ dàng thông qua việc tải lên hình ảnh thực tế. Dựa trên mô hình YOLOv8 đã được huấn luyện, hệ thống sẽ phân tích và trả về tên loài (ví dụ: Bear) cùng tỉ lệ chính xác lên đến 98.09%, giúp người dùng dễ dàng nhận biết và tìm hiểu về sự đa dạng của thế giới động vật một cách nhanh chóng. Ngoài ra, trang kết quả còn cung cấp tóm tắt về tình trạng bảo tồn và đặc điểm sinh học của loài vật ngay sau khi quá trình phân tích hoàn tất.
+Cập nhật thông tin
+Hình 38: Hồ sơ người dùng
+Hình 39: Cập nhật thông tin trong Hồ sơ Người dùng
+Hình 42: Hồ sơ Người dùng được cập nhật thành công
+Hình 38, hình 39, hình 40, hình 41 và hình 42 mô tả trang hồ sơ người dùng cung cấp thông tin cá nhân cơ bản như họ tên, email, địa chỉ, ảnh đại diện,.  Tại
+đây, người dùng có thể cập nhật các thông tin cá nhân, đổi mật khẩu. Trang hồ sơ góp phần tạo trải nghiệm cá nhân hoá và đảm bảo quyền kiểm soát thông tin của người dùng.
+Quản trị viên
+Trang tổng quan quản lý
+Hình 18: Quản trị viên xem trang tổng quan
+Hình 18 mô tả trang tổng quan của Quản trị viên, nơi cung cấp cái nhìn toàn diện về hoạt động của hệ thống Animalia. Trang trình bày sơ bộ các thông tin thống kê quan trọng bao gồm: tổng số loài động vật đang quản lý, số lượng thành viên đã đăng ký và tổng lượt yêu thích từ người dùng. Tại đây, Admin có thể theo dõi nhanh danh sách các loài vật như Voọc chà vá chân nâu, Crocodile, Elephant kèm theo trạng thái bảo tồn, cũng như giám sát lịch sử nhận diện AI (YOLOv8) với các chỉ số độ tin cậy cụ thể. Khi muốn thay đổi hoặc cập nhật dữ liệu, quản trị viên có quyền tùy chọn vào các mục điều hướng bên tay trái để truy cập các trang quản lý chuyên sâu như: Quản lý loài vật, Người dùng, Bài đăng và các thiết lập hệ thống khác.
+Quản lý người dùng
+Hình 19: Quản trị viên xem danh sách người dùng
+Hình 19, mô tả chức năng quản lý người dùng của Quản trị viên như xem danh sách người dùng,Ngoài ra quản trị viên có thể xóa vĩnh viễn người dùng khỏi danh sách.
+Quản lý bài đăng trên trang chủ
+Hình 20: Quản trị viên xem và chọn đăng bài lên trang chủ
+Hình 21: Quản trị viên chọn tình trạng của loài vật
+Hình 22: Quản trị viên chọn loài vật thuộc danh mục nào
+Hình 23: Quản trị viên thực hiện chọn phân chia bộ cho loài vật
+Hình 20, hình 21, hình 22 và hình 23 mô tả chức năng quản lý loài vật của Quản trị viên bao gồm các thao tác xem, thêm mới, cập nhật hoặc xóa thông tin dữ liệu. Khi thực hiện thêm loài vật mới vào hệ thống bách khoa toàn thư, quản trị viên sẽ điền đầy đủ thông tin vào biểu mẫu (form) bao gồm: tên loài vật, tên khoa học (Latinh), danh mục phân loại, tình trạng bảo tồn (từ Ít lo ngại đến Cực kỳ nguy cấp), lớp động vật, bộ (Order) và chế độ ăn.
+Hệ thống cung cấp các danh mục lựa chọn có sẵn như Nhóm Thú, Nhóm Chim, Nhóm Đại dương giúp việc phân loại dữ liệu trở nên đồng nhất và chính xác. Ngoài ra, quản trị viên có thể nhập nội dung chi tiết về tập tính, đặc điểm sinh học và tải lên hình ảnh minh họa chất lượng cao cho loài vật. Khi muốn thay đổi thông tin hoặc xóa vĩnh viễn một loài vật khỏi danh sách hệ thống, quản trị viên có thể thao tác trực tiếp thông qua các nút chức năng tương ứng trên giao diện quản lý.
+Quản lý bài đăng của người dùng lên trang diễn đàng
+Hình 24: Quản trị viên xem danh bài đăng của người dùng lên trang diễn đàng
+Hình 24 mô tả chức năng quản lý bài đăng của Quản trị viên, giúp kiểm duyệt nội dung trước khi hiển thị công khai trên hệ thống Social. Tại giao diện này, Admin có quyền xem chi tiết thông tin người đăng, nội dung bài viết và hình ảnh đi kèm như hình ảnh gấu đen hoặc con bò đã được người dùng tải lên. Đối với mỗi bài đăng, Quản trị viên có hai lựa chọn hành động chính: nhấn nút "Accept" để phê duyệt cho phép bài viết xuất hiện trên diễn đàn, hoặc nhấn "Denied" để từ chối và xóa bỏ các nội dung không phù hợp. Việc quản lý này giúp đảm bảo môi trường chia sẻ của cộng đồng Animalia luôn lành mạnh, an toàn và các thông tin dữ liệu được lưu trữ chính xác theo đúng cấu trúc hệ thống.
+CHƯƠNG 4: KIỂM THỬ VÀ ĐÁNH GIÁ
+MỤC TIÊU KIỂM THỬ
+Mục tiêu của việc kiểm thử là đảm bảo quá trình vận hành của hệ thống Animalia một cách mượt mà và chính xác nhất, đánh giá mức độ hoàn thiện cũng như kiểm tra các chức năng có thỏa các yêu cầu đặc tả đã đặt ra hay không. Bên cạnh đó, quá trình này giúp phát hiện các lỗi chương trình nhằm đề ra biện pháp ngăn chặn kịp thời, hạn chế tối đa sai sót và đảm bảo sự tin cậy cho người sử dụng.Kiểm thử tính khả dụng:
+Kiểm thử tính khả dụng: Kiểm tra độ thân thiện của giao diện website đối với người dùng mới.
+Nội dung thông tin về các loài động vật chính xác, không có lỗi chính tả.
+Tất cả thông báo lỗi (như sai mật khẩu, thiếu ảnh khi đăng bài) hiển thị chính xác và khớp với nhãn trường.
+Kiểm tra các liên kết điều hướng giữa trang chủ, trang chi tiết loài vật và trang Social hoạt động đúng.
+Thông báo xác nhận hiển thị rõ ràng cho các thao tác thêm, sửa, xóa dữ liệu hoặc khi thực hiện Like/Comment qua AJAX.
+Kiểm thử chức năng:
+Xác minh sản phẩm đáp ứng đúng các nghiệp vụ trong tài liệu đặc tả.
+Kiểm tra chức năng nhận diện hình ảnh bằng mô hình YOLOv8, đảm bảo trả về tên loài vật và độ tin cậy chính xác.
+Kiểm tra chức năng đăng bài, phê duyệt bài viết của Quản trị viên và tương tác Social.
+Kiểm tra tính năng tìm kiếm và lọc loài vật theo Danh mục/Bộ.
+Kiểm thử cơ sở dữ liệu:
+Kiểm tra tính đồng nhất giữa dữ liệu hiển thị trên Web và dữ liệu thực tế trong MySQL.
+Dữ liệu loài vật, bài đăng, và lịch sử nhận diện được thêm vào các bảng tương ứng một cách chính xác.
+Đảm bảo các ràng buộc khóa chính, khóa ngoại giữa bảng users, animals và posts hoạt động ổn định.
+Kiểm thử tính bảo mật:
+Xác định các lỗ hổng bảo mật và đảm bảo an toàn thông tin.
+Thông tin mật khẩu người dùng được mã hóa hoàn toàn trước khi lưu vào bảng users.
+Phân quyền chính xác giữa vai trò Admin và User.
+Môi trường kiểm thử:
+Thiết bị thực hiện: Laptop Lenovo Ideapad Slim 5, hệ điều hành Windows 11.
+Trình duyệt: Google Chrome Version 139.0.7258.66.
+Hệ quản trị CSDL: MySQL (MariaDB) tích hợp trong bộ XAMPP.
+KỊCH BẢN KIỂM THỬ
+-Kịch bản kiểm thử các chức năng: Bảng 14: Kịch bản kiểm thử chức năng
+STT
+Mô tả
+Ngày tháng
+1
+Chức năng đăng ký và xác thực tài khoản người dùng
+20/02/2026
+2
+Chức năng đăng nhập hệ thống và phân quyền (Admin/User)
+21/02/2026
+3
+Chức năng thay đổi mật khẩu và cập nhật thông tin cá nhân
+21/02/2026
+4
+Chức năng đăng xuất khỏi hệ thống
+21/02/2026
+5
+Chức năng nhận diện hình ảnh động vật bằng YOLOv8
+22/02/2026
+6
+Chức năng lưu lịch sử nhận diện vào cơ sở dữ liệu
+22/02/2026
+7
+Chức năng tạo bài viết mới trên trang Social (kèm hình ảnh)
+23/02/2026
+8
+Chức năng tương tác "Thả tim" (Like) bài viết qua AJAX
+23/02/2026
+9
+Chức năng bình luận (Comment) và phản hồi bài đăng
+23/02/2026
+10
+Chức năng Quản lý loài vật (Thêm/Sửa/Xóa)
+24/02/2026
+11
+Chức năng Quản lý danh mục Bộ (Orders) và lớp động vật
+24/02/2026
+12
+Chức năng Phê duyệt bài đăng người dùng của Quản trị viên
+25/02/2026
+13
+Chức năng Quản lý tin tức và sự kiện bảo tồn
+25/02/2026
+Bảng 15: Kịch bản kiểm thử tính khả dụng
+STT
+Mô tả
+Ngày tháng
+1
+Kiểm tra nội dung màn hình
+27/02/2026
+2
+Kiểm tra các nút chuyển màn hình và điều hướng menu
+27/02/2026
+3
+Kiểm tra các thông báo phản hồi khi thực hiện thêm, sửa, xóa dữ liệu loài vật hoặc khi người dùng tương tác Like/Comment qua AJAX.
+28/02/2026
+4
+Kiểm tra các liên kết đường dẫn (Links) trên website và khả năng tương thích giao diện (Responsive) trên các kích thước màn hình.
+28/02/2026
+Bảng 16: Kịch bản kiểm thử cơ sở dữ liệu
+STT
+Mô tả
+Ngày tháng
+1
+Kiểm tra dữ liệu hiển thị: Xác minh thông tin các loài động vật và bài đăng trên web khớp hoàn toàn với các bản ghi trong bảng animals.
+20/03/2026
+2
+Kiểm tra lưu trữ dữ liệu: Đảm bảo khi người dùng thực hiện nhận diện AI hoặc Like bài viết, dữ liệu được ghi vào bảng
+21/03/2026
+3
+Tính hợp lệ của dữ liệu
+22/03/2026
+Bảng 17: Kịch bản kiểm thử tính bảo mật
+STT
+Mô tả
+Ngày tháng
+1
+Kiểm thử mã hóa mật khẩu
+22/03/2026
+KẾT QUẢ KIỂM THỬ
+Chức năng đăng nhập
+Bảng 18: Mô tả chức năng đăng nhập
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Thành công/thất bại
+Ngày test
+Đăng nhập Người dùng
+1
+Đăng nhập sai tên đăng nhập hoặc mật khẩu
+Tên đăng nhập: 
+animalai@gmail.comMật khẩu:
+0147
+Báo lỗi sai mật khẩu hoặc tên đăng nhập, yêu cầu
+Đăng
+nhập lại
+Báo lỗi, yêu cầu đăng nhập lại
+Thành công
+24/03/2026
+2
+Đăng nhập đúng tên đăng nhập và mật
+khẩu
+Tên đăng nhập: animalai@gmail.comMật khẩu: 0123456789
+Đăng nhập thành công
+Đăng nhập thành công
+Thành công
+25/03/2026
+Đăng nhập Quản trị viên
+Đăng
+Báo lỗi sai mật khẩu hoặc tên đăng nhập, yêu cầu đăng nhập lại
+nhập
+sai tên
+Tên đăng nhập:
+Báo lỗi,
+3
+đăng
+nhập
+animalai@gmail.com
+Mật khẩu:
+yêu cầu
+đăng
+Thành
+công
+25/03/2026
+hoặc
+267
+nhập lại
+mật
+khẩu
+Đăng
+nhập
+sai tên
+Tên đăng nhập:
+Đăng nhập thành công
+Đăng nhập thành công
+4
+đăng
+nhập
+animalai@gmail.com
+Mật khẩu:
+Thành
+công
+25/03/2026
+hoặc
+admin0147
+mật
+khẩu
+Chức năng đăng ký
+Bảng 19: Mô tả chức năng đăng ký
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Khách vãng lai
+- Bước 1: Vào Trang chủ
+Bước 2: Chọn đăng ký
+Bước 3: Nhập tên , email và mật khẩu
+Bước 4: Chọn vào
+“Đăng ký”
+Bước 5: Nhập mã otp được hệ thống gửi về email
+Bước 6: Nhấn “Xác
+nhận” để tiếp tục
+Thành công
+Thành công
+29/03/2026
+Chức năng thay đổi mật khẩu
+Bảng 20: Mô tả chức năng thay đổi mật khẩu
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Người dùng
+Bước 1: Vào Trang đăng nhập
+Bước 2: chọn vào quên mật khẩu
+Bước 3: nhập email
+Bước 4: bấm vào gửi
+Bước 5: vào emaill của mình copy mã xác nhận
+Bước 6: dán mã xác nhận vào và nhập mật khẩu mới và xác nhận lại mật khẩu một lần nữa
+Bước 7: bấm cập nhật mật khẩu
+Thành công
+Thành công
+29/03/2026
+Chức năng nhận diện hình ảnh
+Bảng 21: Mô tả chức năng nhận diện hình ảnh
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Người dùng nhận diện hình ảnh
+Bước 1: Vào Trang chủ
+Bước 2: vào trang nhận diện hình ảnh
+Bước 3: Nhận diện hình ảnh
+Bước 4: Gửi hình ảnh để nhận diện
+Bước 5: Nhấn “Nhận
+diện” để tiến hành nhận diện
+Thành công
+Thành công
+31/03/2026
+Chức năng quản lý của Quản trị viên
+Bảng 22: Mô tả chức năng quản lý của Quản trị viên
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Quản trị viên quản lý bài đăng lên trang socail của mọi người/thêm thông tin loài vật và hình ảnh vảo trang chủ
+Bước 1: Đăng nhập vào Trang chủ Quản lý
+Bước 2: Chọn mục
+“Quản lý người dùng” “Quản lý bài đăng”/ ”Quản lý bài post của mọi người”.
+Thành công
+Thành công
+31/03/2026
+2
+Quản trị viên sửa thông tin bài đăng lên trang chủ
+Bước 1: Đăng nhập vào Trang chủ Quản lý
+Bước 2: Chọn mục
+“Quản lý bài đăng”
+Bước 3 chọn chỉnh sửa bài đăng.
+Bước 4: sửa nội dung cũ đã đăng.
+Bước 5: Bấm nút cập nhật.
+Thành công
+Thành công
+31/03/2026
+3
+Quản trị viên xóa bài đăng của người dùng/
+Bước 1: Đăng nhập vào Trang chủ Quản lý
+Bước 2: Chọn mục
+“Quản lý bài đăng người dùng”
+Bước 3: bấm xóa để xóa bài đăng của người dùng
+Thành công
+Thành công
+31/03/2026
+4
+Quản trị viên duyệt bài viết
+Bước 1: Đăng nhập vào Trang chủ Quản lý
+Bước 2: Chọn mục
+“Quản lý bài viết”.
+Bước 3: Chọn vào
+“Duyệt ”
+Bước 4: Nhấn “Xác
+nhận hoặc từ chối”
+Thành công
+Thành công
+01/04/2026
+Chức năng tạo bài viết
+Bảng 23: Mô tả chức năng tạo bài viết
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Người dùng tạo bài viết
+Bước 1: Vào Trang chủ
+Bước 2: Chọn Diễn đàn
+Bước 3: Chọn “Tạo bài viết”
+Bước 4: Nhập các thông tin cần thiết
+Bước 5: Nhấn “Tạo bài
+viết” để tiến hành tạo.
+Thành công
+Thành công
+01/04/2026
+Chức năng thông báo diễn đàn
+Bảng 24: Mô tả chức năng thông báo diễn dàn
+STT
+Miêu tả use
+case
+Các bước kiểm thử
+Kết quả mong
+đợi
+Kết quả thực tế
+Ngày test
+1
+Người dùng tương
+tác bài viết
+Bước 1: Vào Trang chủ
+Bước 2: Chọn Diễn
+đàn
+Bước 3: Người dùng tiến hành tương tác bài viết
+Bước 4: Hệ thống gửi thông báo bài viết
+Thành công
+Thành công
+01/04/2026
+Chức năng cập nhật thông tin cá nhân
+Bảng 25: Mô tả chức năng cập nhật thông tin cá nhân
+STT
+Miêu tả use case
+Các bước kiểm thử
+Kết quả mong đợi
+Kết quả thực tế
+Ngày test
+1
+Người dùng cập nhật thông tin cá nhân
+Bước 1: Vào Trang chủ
+Bước 2: Chọn Tài khoản
+Bước 3: Chọn “Chỉnh sửa”
+Bước 3: Người dùng điền thông tin cần cập nhật
+Bước 4: Nhấn “Lưu” để
+tiến hành cập nhật.
+Thành công
+Thành công
+02/04/206
+Phần 3: KẾT LUẬN
+KẾT QUẢ ĐẠT ĐƯỢC
+Sau quá trình nghiên cứu, thiết kế và xây dựng hệ thống, đề tài đã hoàn thành các mục tiêu đặt ra ban đầu. Cụ thể, hệ thống bách khoa toàn thư động vật Animalia được triển khai có khả năng hiển thị và quản lý thông tin về loài vật, danh mục bộ (Orders), bài viết cộng đồng và hình ảnh minh họa một cách trực quan, thân thiện với người dùng. Đặc biệt, chức năng nhận diện hình ảnh động vật được tích hợp mô hình YOLOv8 đã đạt hiệu quả cao với độ chính xác mAP > 92% đối với nhận diện các loài vật có đặc điểm hình thái rõ ràng như Bear, Elephant, Eagle. Hệ thống cũng cho phép người dùng tương tác thông qua kỹ thuật AJAX, đánh dấu hình ảnh yêu thích và chia sẻ kiến thức trong cộng đồng Social. Về phía quản trị viên, chức năng quản lý dữ liệu được xây dựng đầy đủ giúp kiểm soát nội dung hiệu quả và dễ dàng mở rộng.
+HẠN CHẾ
+ Mặc dù đã đạt được nhiều kết quả tích cực, hệ thống vẫn còn tồn tại một số hạn chế nhất định:
+Mô hình nhận diện hiện tại mới chỉ hỗ trợ một số nhóm loài vật tiêu biểu và các loài trong danh mục huấn luyện, chưa bao phủ đầy đủ các đối tượng động vật quý hiếm khác như các loài bò sát nhỏ, lưỡng cư hoặc các loài thú hiếm gặp.
+Chức năng nhận diện video thời gian thực chưa được tối ưu hóa hoàn toàn để tích hợp trực tiếp lên giao diện web do gặp khó khăn trong việc duy trì tốc độ xử lý và băng thông truyền tải dữ liệu hình ảnh liên tục. Việc nhận dạng đòi hỏi cấu hình máy chủ xử lý GPU mạnh mẽ, vốn là một thách thức đối với các hệ thống web thông thường.
+Hệ thống hiện vẫn còn đơn giản về mặt bảo mật và chưa tích hợp xác thực người dùng đa yếu tố (MFA) cho các chức năng quản lý quan trọng của Quản trị viên.
+Chưa có tích hợp bản đồ phân bố thực tế (Species Distribution Map) để hỗ trợ người dùng theo dõi khu vực sinh sống của loài vật ngoài tự nhiên.
+HƯỚNG PHÁT TRIỂN
+Trong tương lai, hệ thống Animalia có thể được mở rộng và hoàn thiện theo các hướng sau nhằm nâng cao trải nghiệm người dùng và giá trị khoa học:
+Nâng cao mô hình nhận diện đa loài: Tiếp tục mở rộng tập dữ liệu (Dataset) và cải tiến mô hình để nhận diện thêm các đối tượng động vật phức tạp, các loài lưỡng cư, bò sát hoặc côn trùng nhỏ. Tích hợp các kiến trúc mạng nơ-ron tiên tiến như Transformer hoặc Vision Transformer (ViT) để tăng cường độ chính xác khi nhận diện các loài vật có đặc điểm ngoại hình tương đồng trong môi trường tự nhiên phức tạp.
+Tích hợp bản đồ phân bố sinh thái thời gian thực: Kết hợp dữ liệu GPS và bản đồ số để giúp người dùng định vị, theo dõi các khu vực bảo tồn và vùng phân bố thực tế của các loài động vật quý hiếm trên thế giới.
+Phát triển Chatbot tư vấn sinh học thông minh: Mở rộng khả năng tương tác với Chatbot AI chuyên sâu, hỗ trợ người dùng đặt câu hỏi về tập tính sinh học, cách thức bảo tồn các loài động vật nguy cấp và cung cấp các kiến thức giáo dục về hệ sinh thái một cách nhanh chóng.
+Tăng cường bảo mật và cá nhân hóa hệ thống: Áp dụng các cơ chế mã hóa dữ liệu đầu cuối và xác thực đa yếu tố (MFA). Đồng thời, phát triển tính năng gợi ý nội dung cá nhân hóa dựa trên sở thích tìm kiếm và tương tác của từng người dùng để nâng cao tính gắn kết với cộng đồng Animalia.
+TÀI LIỆU THAM KHẢO
+Laravel Team. (2026). Laravel Documentation: The PHP Framework for Web Artisans. Truy cập ngày 25 tháng 03 năm 2026, từ https://laravel.com/docs
+[2] MySQL Documentation. (2026). MySQL 8.0 Reference Manual. Truy cập ngày 25 tháng 03 năm 2026, từ https://dev.mysql.com/doc/refman/8.0/en/
+[3] Ultralytics. (2025). YOLOv8: Real-time Object Detection and Predictive AI. Truy cập ngày 20 tháng 03 năm 2026, từ https://docs.ultralytics.com/models/yolov8/
+[4] Jocher, G., & Qiu, J. (2024). YOLOv8: An In-Depth Exploration of the Next-Generation Object Detector. arXiv preprint arXiv:2408.15857. Truy cập ngày 20 tháng 03 năm 2026.
+[5] MDPI. (2024). SQL and Relational Database Software Architecture: Performance Analysis and Assessments in Web Applications. Systematic Literature Review.
+[6] PHP.net. (2026). PHP: Hypertext Preprocessor Documentation. Truy cập ngày 26 tháng 03 năm 2026, từ https://www.php.net/manual/en/
+[7] Axios Documentation. (2026). Axios: Promise based HTTP client for the browser and node.js. Truy cập ngày 27 tháng 03 năm 2026, từ https://axios-http.com/docs/intro
+[8] Bootstrap Team. (2025). Bootstrap 5: Introduction & Getting Started. Truy cập ngày 27 tháng 03 năm 2026, từ https://getbootstrap.com/docs/5.3/getting-started/introduction/
+[9] Roboflow. (2025). Computer Vision Dataset Management and Annotation for YOLO Models. Truy cập ngày 15 tháng 03 năm 2026, từ https://roboflow.com/
