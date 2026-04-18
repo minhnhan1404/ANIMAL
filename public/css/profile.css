@@ -8,15 +8,23 @@ body {
 
 /* Sidebar Styling */
 .sidebar {
-    width: 250px;
+    width: 80px;
     height: 100vh;
     border-right: 1px solid #dbdbdb;
-    padding: 20px;
+    padding: 20px 15px;
     position: fixed;
     left: 0;
     top: 0;
     background-color: #fff;
     box-sizing: border-box;
+    z-index: 1000;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebar:hover {
+    width: 250px;
 }
 
 .sidebar .logo {
@@ -27,6 +35,13 @@ body {
     text-decoration: none;
     color: black;
     font-family: 'Comic Sans MS', cursive;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding-left: 10px;
+}
+
+.sidebar:hover .logo {
+    opacity: 1;
 }
 
 .menu-item {
@@ -48,8 +63,17 @@ body {
 .menu-item i {
     margin-right: 15px;
     font-size: 20px;
-    width: 25px;
+    min-width: 25px;
     text-align: center;
+}
+
+.menu-item span {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .menu-item span {
+    opacity: 1;
 }
 
 .menu-item.active {
@@ -58,7 +82,7 @@ body {
 
 /* Main Content Area */
 .main-content {
-    margin-left: 250px;
+    margin-left: 80px;
     flex: 1;
     display: flex;
     justify-content: center;

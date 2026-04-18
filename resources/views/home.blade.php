@@ -221,13 +221,13 @@
                 </li>
                 <li>
                     <i class="fas fa-envelope"></i>
-                    <span>animalaidongvat@gmail.com<br>animalaidongvat@gmail.com</span>
+                    <span>animalaidongvat@gmail.com</span>
                 </li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
-        <p>&copy; {{ date('Y') }} Animalia World. Mọi quyền được bảo lưu. Phát triển với <i class="fas fa-heart" style="color: #e74c3c;"></i> dành cho thiên nhiên.</p>
+        <p>&copy; {{ date('Y') }} Animalia World. Mọi quyền được bảo lưu. Phát triển với dành cho thiên nhiên.</p>
     </div>
 </footer>
 

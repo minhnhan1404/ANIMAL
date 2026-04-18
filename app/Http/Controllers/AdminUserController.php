@@ -46,6 +46,20 @@ public function deleteUser($id) {
         return back()->with('error', 'Bạn không thể tự xóa tài khoản của chính mình!');
     }
 
+    // Xóa các bản ghi liên quan để tránh lỗi khóa ngoại (Foreign Key Constraint 1451)
+    \Illuminate\Support\Facades\DB::table('comments')->where('user_id', $user->id)->delete();
+    \Illuminate\Support\Facades\DB::table('likes')->where('user_id', $user->id)->delete();
+
+    // Lấy tất cả bài viết của user này
+    $postIds = \Illuminate\Support\Facades\DB::table('posts')->where('user_id', $user->id)->pluck('id');
+    if ($postIds->isNotEmpty()) {
+        // Xóa tất cả bình luận và lượt thích thuộc về các bài viết này trước
+        \Illuminate\Support\Facades\DB::table('comments')->whereIn('post_id', $postIds)->delete();
+        \Illuminate\Support\Facades\DB::table('likes')->whereIn('post_id', $postIds)->delete();
+        // Cuối cùng mới xóa bài viết
+        \Illuminate\Support\Facades\DB::table('posts')->where('user_id', $user->id)->delete();
+    }
+
     $user->delete();
     return back()->with('success', 'Đã xóa người dùng thành công!');
 }
