@@ -1,25 +1,54 @@
-<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;">
-    <div style="background-color: #27ae60; padding: 20px; text-align: center;">
-        <h1 style="color: white; margin: 0;">Animalia World 🐾</h1>
-    </div>
-
-    <div style="padding: 30px; color: #333; line-height: 1.6;">
-        <h2>Xin chào {{ $name }}!</h2>
-
-        {{-- Dùng biến $title để hiển thị loại yêu cầu --}}
-        <h3 style="color: #27ae60;">{{ $title }}</h3>
-
-        <p>Chúng mình nhận được yêu cầu <strong>{{ strtolower($title) }}</strong> từ tài khoản của bạn.</p>
-        <p>Vui lòng sử dụng mã xác nhận dưới đây để tiếp tục:</p>
-
-        <div style="background: #f9f9f9; border: 2px dashed #27ae60; padding: 20px; text-align: center; font-size: 32px; font-weight: bold; color: #2ecc71; letter-spacing: 10px; margin: 20px 0;">
-            {{ $code }}
+<div style="background-color: #f4f7f6; padding: 40px 20px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);">
+        
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, #054a29 0%, #138a53 100%); padding: 40px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 1px;">
+                ANIMALIA WORLD 🐾
+            </h1>
         </div>
 
-        <p style="color: #e74c3c; font-size: 0.9rem;">* Mã này có hiệu lực trong vòng 10 phút. Đừng chia sẻ cho ai khác nhé!</p>
-    </div>
+        <!-- Body -->
+        <div style="padding: 40px 35px; color: #333333; line-height: 1.8;">
+            <h2 style="margin-top: 0; color: #1a1a1a; font-size: 22px; font-weight: 600;">
+                Xin chào {{ $name }},
+            </h2>
 
-    <div style="background: #f1f1f1; padding: 15px; text-align: center; font-size: 0.8rem; color: #7f8c8d;">
-        &copy; {{ date('Y') }} Animalia - Bảo tồn vẻ đẹp thiên nhiên.
+            <p style="font-size: 16px; color: #555555; margin-bottom: 30px;">
+                Chúng mình vừa nhận được yêu cầu <strong><span style="color: #138a53;">{{ mb_strtolower($title, 'UTF-8') }}</span></strong> cho tài khoản của bạn tại Animalia. Vui lòng sử dụng mã xác minh an toàn dưới đây để hoàn tất quá trình:
+            </p>
+
+            <!-- OTP Code -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 25px; text-align: center; margin: 35px 0;">
+                <span style="font-size: 38px; font-weight: 800; color: #166534; letter-spacing: 12px; display: inline-block; margin-left: 12px;">
+                    {{ $code }}
+                </span>
+            </div>
+
+            <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px; border-top: 1px solid #eeeeee; padding-top: 25px;">
+                <tr>
+                    <td style="vertical-align: top; padding-right: 15px; width: 24px;">
+                        <span style="font-size: 22px;">🔒</span>
+                    </td>
+                    <td>
+                        <p style="margin: 0; color: #d97706; font-size: 14px; line-height: 1.6; font-weight: 500;">
+                            Mã này có hiệu lực trong vòng <strong>10 phút</strong>. Vì lý do bảo mật, vui lòng không chia sẻ mã này cho bất kỳ ai.
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            
+            <p style="font-size: 14px; color: #888888; margin-top: 25px;">
+                Nếu bạn không thực hiện yêu cầu này, xin vui lòng bỏ qua email hoặc liên hệ với bộ phận hỗ trợ của chúng mình để bảo vệ tài khoản.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div style="background-color: #fafbfc; border-top: 1px solid #f1f1f1; padding: 25px; text-align: center;">
+            <p style="margin: 0; color: #999999; font-size: 13px;">
+                &copy; {{ date('Y') }} Animalia World.<br>
+                Nền tảng chia sẻ và bách khoa toàn thư thế giới động vật.
+            </p>
+        </div>
     </div>
 </div>

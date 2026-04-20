@@ -20,7 +20,7 @@
         </a>
 
         <a href="{{ route('admin.animals') }}" class="menu-item">
-            <i class="fas fa-hippo"></i> Quản lý loài vật
+            <i class="fas fa-fish"></i> Quản lý loài vật
         </a>
 
         <a href="{{ route('admin.users.index') }}" class="menu-item active">
@@ -31,7 +31,7 @@
             <i class="fas fa-newspaper"></i> Bài đăng
         </a>
 
-        <a href="{{ route('home') }}" class="menu-item" style="margin-top: auto; border-top: 1px solid #1a252f;">
+        <a href="{{ route('home') }}" class="menu-item">
             <i class="fas fa-home"></i> Xem trang chủ
         </a>
     </div>

@@ -23,7 +23,7 @@ body {
 
 .sidebar-admin .logo {
     padding: 20px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #2ecc71; /* Màu xanh lá cây Animalia Admin */
     text-align: center;
@@ -55,6 +55,12 @@ body {
     background-color: #34495e;
     color: #2ecc71;
     border-left: 4px solid #2ecc71;
+}
+
+.sidebar-admin .menu-item i {
+    width: 24px;
+    text-align: center;
+    font-size: 1.1rem;
 }
 
 /* --- MAIN CONTENT --- */
