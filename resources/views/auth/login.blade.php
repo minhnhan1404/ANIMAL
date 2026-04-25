@@ -24,6 +24,9 @@
                 @csrf
                 <h1>Tạo tài khoản</h1>
                 <span>Tham gia cộng đồng yêu động vật</span>
+                @if ($errors->any())
+                    <div class="error" style="color: #e74c3c; font-size: 0.8rem; margin-bottom: 10px;">{{ $errors->first() }}</div>
+                @endif
                 <input type="text" name="name" placeholder="Tên người dùng" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Mật khẩu" required>
@@ -36,8 +39,13 @@
                 <h1>Xác thực Email 🐾</h1>
                 <span>Nhập mã 6 số gửi tới Gmail của bạn</span>
                 <input type="hidden" name="email" value="{{ session('verify_email') }}">
+
+                @if (session('success')) <div class="success">{{ session('success') }}</div> @endif
+                @if (session('error')) <div class="error">{{ session('error') }}</div> @endif
+
                 <input type="text" name="code" placeholder="Mã xác thực" required maxlength="6" style="text-align: center; letter-spacing: 5px;">
                 <button type="submit">Kích hoạt tài khoản</button>
+                <a href="javascript:void(0)" onclick="location.href='{{ route('login') }}'" style="margin-top: 15px; font-size: 13px;">Quay lại đăng nhập</a>
             </form>
         </div>
 

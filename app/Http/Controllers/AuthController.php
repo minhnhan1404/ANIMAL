@@ -54,7 +54,11 @@ class AuthController extends Controller
             // Kiểm tra xem đã xác thực chưa
             if ($user->is_verified == 0) {
                 Auth::logout(); // Đăng xuất ngay nếu chưa xác thực
-                return back()->with('error', 'Tài khoản chưa xác thực Gmail! Check hòm thư đi Nhan ơi.');
+                return back()->with([
+                    'error' => 'Tài khoản chưa xác thực Gmail! Vui lòng nhập mã để kích hoạt.',
+                    'show_verify_form' => true,
+                    'verify_email' => $user->email
+                ]);
             }
 
             $request->session()->regenerate();
