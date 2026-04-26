@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
     btnScan.addEventListener('click', async () => {
         const formData = new FormData();
         formData.append('image', aiInput.files[0]);
+        
+        const userNameMeta = document.querySelector('meta[name="user-name"]');
+        if (userNameMeta) {
+            formData.append('user_name', userNameMeta.content);
+        }
 
         btnScan.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang phân tích...';
         // Thêm hiệu ứng quét laser

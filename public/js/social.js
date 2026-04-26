@@ -90,16 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
             data.comments.forEach(cmt => {
                 const isOwner = currentUserId && String(cmt.user_id) === String(currentUserId);
                 html += `
-                    <div class="comment-item" id="comment-${cmt.id}">
-                        <div class="comment-content-wrapper">
-                            <img src="${cmt.user_avatar || '/images/default-avatar.png'}" class="avatar-small">
-                            <p><strong>${cmt.user_name}</strong> ${cmt.content}</p>
+                    <div class="comment-item" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;" id="comment-${cmt.id}">
+                        <div style="display: flex; gap: 10px;">
+                            <img src="${cmt.user_avatar || '/images/default-avatar.png'}" class="avatar-small" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                            <p style="margin: 0; line-height: 1.4; word-break: break-word;"><strong>${cmt.user_name}</strong> ${cmt.content}</p>
                         </div>
                         ${isOwner ? `
-                            <div class="comment-actions-container">
-                                <i class="fas fa-ellipsis-h" onclick="event.stopPropagation(); toggleDeleteMenu(${cmt.id})"></i>
-                                <div id="delete-menu-${cmt.id}" class="delete-menu">
-                                    <button onclick="confirmDeleteComment(${cmt.id})">Xóa</button>
+                            <div style="position: relative; margin-left: 10px;">
+                                <i class="fas fa-ellipsis-h" style="cursor: pointer; color: #8e8e8e; padding: 5px;" onclick="event.stopPropagation(); toggleDeleteMenu(${cmt.id})"></i>
+                                <div id="delete-menu-${cmt.id}" class="delete-menu" style="display: none; position: absolute; right: 0; top: 20px; background: white; border: 1px solid #ddd; border-radius: 4px; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                                    <button onclick="confirmDeleteComment(${cmt.id})" style="color: #ed4956; border: none; background: none; padding: 8px 15px; cursor: pointer; font-weight: bold; white-space: nowrap;">Xóa</button>
                                 </div>
                             </div>
                         ` : ''}
@@ -159,6 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = inputField.value;
 
         if (!content.trim()) return;
+        
+        // Xóa ngay lập tức để chống người dùng bấm đúp (double-click) gây ra 2 bình luận
+        inputField.value = ''; 
 
         try {
             const response = await fetch(`/post/${postId}/comment`, {
@@ -216,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) { console.error("Lỗi gửi bình luận:", err); }
     };
 
-    document.querySelectorAll(".post-image-container").forEach(container => {
+    document.querySelectorAll(".post-image-grid-container").forEach(container => {
         container.addEventListener("dblclick", function(e) {
             e.preventDefault();
             const postId = this.closest('.post-card').dataset.id;
@@ -226,17 +229,39 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function previewImage(event) {
-    const reader = new FileReader();
-    const output = document.getElementById('imagePreview');
+    const container = document.getElementById('imagePreviewContainer');
     const placeholder = document.getElementById('uploadPlaceholder');
-    reader.onload = () => {
-        if (output) {
-            output.src = reader.result;
-            output.style.display = "block";
+    
+    if (!container) return;
+    
+    container.innerHTML = ''; // Xóa preview cũ
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+        if (files.length > 5) {
+            alert("Bạn chỉ được tải lên tối đa 5 ảnh cùng lúc!");
+            event.target.value = ''; // Reset input
+            return;
         }
+
+        container.style.display = "flex";
         if (placeholder) placeholder.style.display = "none";
-    };
-    if (event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
+
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.style.minWidth = "100%";
+                img.style.height = "100%";
+                img.style.objectFit = "contain";
+                img.style.scrollSnapAlign = "center";
+                img.style.borderRadius = "8px";
+                container.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 }
 
 window.resetPostModal = () => {
@@ -244,12 +269,77 @@ window.resetPostModal = () => {
     if (textarea) textarea.value = '';
     const fileInput = document.getElementById('file-upload');
     if (fileInput) fileInput.value = '';
-    const preview = document.getElementById('imagePreview');
+    
+    const container = document.getElementById('imagePreviewContainer');
     const placeholder = document.getElementById('uploadPlaceholder');
-    if (preview) {
-        preview.src = '#';
-        preview.style.display = 'none';
+    
+    if (container) {
+        container.innerHTML = '';
+        container.style.display = 'none';
     }
     if (placeholder) placeholder.style.display = 'block';
 };
+
+// --- LIGHTBOX GIAO DIỆN XEM ẢNH TO ---
+let currentLightboxImages = [];
+let currentLightboxIndex = 0;
+
+window.openLightbox = (imgElement, index) => {
+    // Ngăn sự kiện double click nếu cần
+    const container = imgElement.closest('.post-image-grid, .post-image-grid-container');
+    if (!container || !container.dataset.images) return;
+    
+    try {
+        currentLightboxImages = JSON.parse(container.dataset.images);
+    } catch(e) {
+        currentLightboxImages = [imgElement.src];
+    }
+    
+    currentLightboxIndex = index;
+    updateLightboxUI();
+    document.getElementById('lightbox').style.display = 'flex';
+};
+
+window.closeLightbox = () => {
+    document.getElementById('lightbox').style.display = 'none';
+};
+
+window.changeLightboxImage = (direction) => {
+    currentLightboxIndex += direction;
+    if (currentLightboxIndex < 0) currentLightboxIndex = currentLightboxImages.length - 1;
+    if (currentLightboxIndex >= currentLightboxImages.length) currentLightboxIndex = 0;
+    updateLightboxUI();
+};
+
+function updateLightboxUI() {
+    if (!currentLightboxImages || currentLightboxImages.length === 0) return;
+    
+    const img = document.getElementById('lightbox-img');
+    img.src = currentLightboxImages[currentLightboxIndex];
+    
+    const prevBtn = document.querySelector('.lightbox-prev');
+    const nextBtn = document.querySelector('.lightbox-next');
+    
+    if (currentLightboxImages.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+    } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+    }
+}
+
+// Hỗ trợ bấm nút trái phải trên bàn phím để chuyển ảnh
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') {
+            window.changeLightboxImage(-1);
+        } else if (e.key === 'ArrowRight') {
+            window.changeLightboxImage(1);
+        } else if (e.key === 'Escape') {
+            window.closeLightbox();
+        }
+    }
+});
 

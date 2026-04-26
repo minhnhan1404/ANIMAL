@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 17, 2026 lúc 05:52 PM
+-- Thời gian đã tạo: Th4 26, 2026 lúc 05:00 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -70,7 +70,7 @@ CREATE TABLE `animals` (
 INSERT INTO `animals` (`id`, `name`, `scientific_name`, `category`, `habitat`, `status`, `behavior`, `image_url`, `description`, `image`, `created_at`, `updated_at`, `animal_class`, `animal_order`, `animal_family`, `animal_genus`, `diet_type`, `likes_count`) VALUES
 (2, 'Eagle', 'Haliaeetus leucocephalus', 'Chim', NULL, 'Ít lo ngại', NULL, 'uploads/1769324656.jpg', 'Đây là biểu tượng quốc gia của Hoa Kỳ. Chúng có sải cánh cực lớn và thị lực gấp nhiều lần con người, giúp chúng nhìn thấy con mồi từ khoảng cách hơn 1km.', NULL, '2026-01-25 00:04:16', '2026-03-28 21:02:17', 'Chim', 'Ưng', NULL, NULL, 'Ăn thịt', 1),
 (5, 'Bear', 'Ursus americanus', 'Thú', NULL, 'Ít lo ngại', NULL, 'uploads/1769329437.jpg', 'Gấu đen Bắc Mỹ là loài gấu phổ biến nhất ở khu vực này, có cơ thể to lớn nhưng lại chạy rất nhanh (tới 40-50 km/h).\r\n\r\nMàu lông phổ biến nhất là đen truyền thống (như trong ảnh bạn gửi), nhưng đôi khi chúng cũng có lông màu nâu hoặc quế tùy vùng sinh sống.\r\n\r\nDù là loài ăn thịt nhưng 85% chế độ ăn của chúng thực chất là thực vật như các loại quả mọng, hạt và chồi non.', NULL, '2026-01-25 01:23:57', '2026-03-25 19:39:46', 'Thú', 'Ăn thịt', NULL, NULL, 'Ăn thịt', 1),
-(6, 'Elephant', 'Loxodonta africana', 'Thú', NULL, 'Ít lo ngại', NULL, 'uploads/1769330098.jpg', 'Voi châu Phi có đôi tai lớn hình dáng giống như bản đồ châu Phi, giúp chúng tản nhiệt hiệu quả trong môi trường nắng nóng.\r\n\r\nCả voi đực và voi cái đều có ngà (răng cửa biến dạng), đây là công cụ quan trọng để đào đất tìm nước, bóc vỏ cây và tự vệ.\r\n\r\nHiện nay, loài voi đang đối mặt với nguy cơ tuyệt chủng do tình trạng săn bắn trái phép lấy ngà và mất môi trường sống tự nhiên.', NULL, '2026-01-25 01:34:58', '2026-03-25 20:18:33', 'Động vật có vú', 'Vòi', NULL, NULL, 'Ăn cỏ', 2),
+(6, 'Elephant', 'Loxodonta africana', 'Thú', NULL, 'Ít lo ngại', NULL, 'uploads/1769330098.jpg', 'Voi châu Phi có đôi tai lớn hình dáng giống như bản đồ châu Phi, giúp chúng tản nhiệt hiệu quả trong môi trường nắng nóng.\r\n\r\nCả voi đực và voi cái đều có ngà (răng cửa biến dạng), đây là công cụ quan trọng để đào đất tìm nước, bóc vỏ cây và tự vệ.\r\n\r\nHiện nay, loài voi đang đối mặt với nguy cơ tuyệt chủng do tình trạng săn bắn trái phép lấy ngà và mất môi trường sống tự nhiên.', NULL, '2026-01-25 01:34:58', '2026-03-25 20:18:33', 'Động vật có vú', 'Vòi', NULL, NULL, 'Ăn cỏ', 3),
 (7, 'Crocodile', 'Alligator mississippiensis', 'Bò sát', NULL, 'Nguy cấp', NULL, 'uploads/1773410792.jpg', 'Cá sấu mõm ngắn Mỹ là một trong hai loài cá sấu mõm ngắn còn tồn tại. Chúng có đặc điểm nhận dạng là mõm rộng hình chữ U, màu da đen sẫm và khi ngậm miệng không lộ răng hàm dưới. Con trưởng thành có thể đạt chiều dài từ 3 đến 4,5 mét. Chúng đóng vai trò quan trọng trong việc duy trì hệ sinh thái đất ngập nước tại Đông Nam Hoa Kỳ.', NULL, '2026-03-13 07:06:32', '2026-03-25 20:16:40', 'Bò sát', 'Cá sấu', NULL, NULL, 'Ăn tạp', 0),
 (9, 'Voọc chà vá chân nâu', 'Pygathrix nemaeus', 'Thú', NULL, 'Nguy cấp', 'Đặc điểm: Có bộ lông rực rỡ với 5 màu chủ đạo. Đặc trưng nhất là ống chân có màu đỏ nâu, mặt màu vàng cam với chòm râu trắng muốt dưới cằm.\r\nTập tính: Sống theo đàn từ 4–15 cá thể, chủ yếu hoạt động trên cây cao. Chúng rất hiền lành, ít khi xuống đất và có khả năng chuyền cành cực kỳ điêu luyện. Sinh sản thường diễn ra vào mùa xuân, mỗi lần chỉ đẻ một con.', 'uploads/1774765364.jpg', 'Voọc chà vá chân nâu là loài đặc hữu của khu vực Đông Dương (Việt Nam, Lào và một phần Campuchia). Tại Việt Nam, chúng tập trung nhiều nhất ở bán đảo Sơn Trà (Đà Nẵng). Loài này có vai trò quan trọng trong việc phát tán hạt giống và duy trì sự cân bằng hệ sinh thái rừng nhiệt đới. Do mất môi trường sống và nạn săn bắt, chúng đang được bảo vệ nghiêm ngặt theo pháp luật Việt Nam và quốc tế.', NULL, '2026-03-28 23:22:44', '2026-03-28 23:22:44', 'Thú', 'Linh trưởng', NULL, NULL, 'Ăn cỏ', 2),
 (10, 'Cá mập trắng lớn (Great White Shark)', 'Carcharodon carcharias', 'Cá', NULL, 'Sắp nguy cấp', NULL, 'uploads/1775619535.jpg', 'Cá mập trắng lớn là loài cá săn mồi lớn nhất thế giới hiện còn tồn tại. Chúng có hàm răng răng cưa hình tam giác lởm chởm, thường xuyên rơi ra và mọc lại liên tục cấu tạo từ sụn. Chúng đóng vai trò cực kỳ quan trọng trong việc giữ cân bằng hệ sinh thái đại dương bằng cách loại bỏ các cá thể động vật biển yếu, bệnh tật.', NULL, '2026-04-07 20:38:55', '2026-04-07 20:41:06', 'Chondrichthyes (Cá sụn)', 'Cá mập', NULL, NULL, 'Ăn thịt', 0),
@@ -101,7 +101,7 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `post_id`, `content`, `created_at`, `updated_at`) VALUES
-(14, 3, 8, 'đẹp nha', '2026-03-07 20:48:48', '2026-03-07 20:48:48');
+(18, 7, 9, 'đẹp quá', '2026-04-25 18:51:03', '2026-04-25 18:51:03');
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,18 @@ INSERT INTO `detection_history` (`id`, `user_name`, `prediction_result`, `confid
 (11, 'Khách', 'Goldfish', 0.999856, NULL, '2026-04-08 03:43:25'),
 (12, 'Khách', 'Goldfish', 0.999856, NULL, '2026-04-08 03:46:47'),
 (13, 'Khách', 'Monkey', 0.999991, NULL, '2026-04-08 04:30:01'),
-(14, 'Khách', 'Bear', 0.980881, NULL, '2026-04-08 04:37:59');
+(14, 'Khách', 'Bear', 0.980881, NULL, '2026-04-08 04:37:59'),
+(15, 'Khách', 'Bear', 0.980881, NULL, '2026-04-18 03:44:21'),
+(16, 'Khách', 'Monkey', 0.998827, NULL, '2026-04-20 04:42:36'),
+(17, 'Khách', 'Monkey', 0.998827, NULL, '2026-04-20 04:43:21'),
+(18, 'Khách', 'Butterfly', 0.995825, NULL, '2026-04-20 04:43:31'),
+(19, 'Khách', 'Bear (best.pt)', 0.980881, NULL, '2026-04-20 05:15:23'),
+(20, 'Khách', 'Bear (từ best.pt)', 0.980881, NULL, '2026-04-20 05:18:31'),
+(21, 'Khách', 'Bear (từ best.pt)', 0.980881, NULL, '2026-04-20 05:18:43'),
+(22, 'Khách', 'Bear (từ best.pt)', 0.980881, NULL, '2026-04-20 05:20:32'),
+(23, 'Khách', 'Brown bear (từ best.pt)', 0.999836, NULL, '2026-04-20 05:22:44'),
+(24, 'Khách', 'Bear', 0.980881, NULL, '2026-04-20 05:23:42'),
+(25, 'Khách', 'Crocodile', 0.999592, NULL, '2026-04-25 03:06:42');
 
 -- --------------------------------------------------------
 
@@ -158,12 +169,9 @@ CREATE TABLE `likes` (
 --
 
 INSERT INTO `likes` (`id`, `user_id`, `post_id`, `type`, `animal_id`, `created_at`) VALUES
-(11, 3, NULL, 'like', 6, '2026-03-03 22:26:20'),
-(21, 3, 7, 'like', NULL, '2026-03-06 09:21:37'),
-(30, 3, 8, 'like', NULL, '2026-03-15 00:30:10'),
 (38, 7, NULL, 'like', 9, '2026-03-29 00:05:58'),
-(49, 7, 7, 'like', NULL, '2026-04-07 21:15:08'),
-(50, 7, 8, 'like', NULL, '2026-04-07 21:18:26');
+(51, 7, NULL, 'like', 6, '2026-04-17 21:26:18'),
+(52, 7, 9, 'like', NULL, '2026-04-19 21:31:24');
 
 -- --------------------------------------------------------
 
@@ -201,8 +209,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `animal_id`, `content`, `image_url`, `image_hash`, `status`, `created_at`, `updated_at`, `likes_count`) VALUES
-(7, 3, NULL, 'con bò', 'uploads/posts/1770352292.jpg', NULL, 1, '2026-02-05 21:31:32', '2026-03-03 22:28:39', 2),
-(8, 3, NULL, 'ád', 'uploads/posts/1770514502.jpg', NULL, 1, '2026-02-07 18:35:02', '2026-03-06 08:16:57', 2);
+(9, 7, NULL, 'Chim Yến hót', 'uploads/posts/1776659482.jpg', '852b50fff304904c11cf3564d9dea04f', 1, '2026-04-19 21:31:22', '2026-04-19 21:31:48', 1);
 
 -- --------------------------------------------------------
 
@@ -240,11 +247,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `avatar`, `email`, `password`, `reset_code`, `role`, `created_at`, `updated_at`, `is_verified`) VALUES
-(3, 'nhan', 'uploads/avatars/1772954450.jpg', 'admin@gmail.com', '$2y$12$zsGEyJ.Nc88KBnsq95iise4nwe1lnaep9UqSRO2YTsl8etymTDx0.', NULL, 'user', '2026-01-12 06:22:55', '2026-03-08 00:20:50', 0),
 (6, 'Lê trần minh nhân', 'uploads/avatars/1774756856.jpg', 'minhnhan1442003@gmail.com', '$2y$12$0/52/aC5BaSPS3nW3KiAaekrhmULIXiVdrYOZMypk2AEOlBO8TYEG', NULL, 'user', '2026-03-28 20:06:23', '2026-03-28 21:00:56', 1),
-(7, 'admin', 'uploads/avatars/1774755851.jpg', 'animalaidongvat@gmail.com', '$2y$12$VV5/YRIt0kzJRKWkmn5QNebvY/Rtji2tF6KMrtTdr09hTTDZSIjz.', '237566', 'admin', '2026-03-28 20:31:33', '2026-04-07 20:09:38', 1),
+(7, 'admin', 'uploads/avatars/1774755851.jpg', 'animalaidongvat@gmail.com', '$2y$12$yyK3GJtlL/A6CHAh2X6nneDzYcpVC7bs0PcgWxKzstIRJLVq7p4nO', NULL, 'admin', '2026-03-28 20:31:33', '2026-04-19 21:40:53', 1),
 (8, 'nhan', NULL, 'minhnhanvip456@gmail.com', '$2y$12$Fw.X9AynWTL3d6KJmMqSquAa1xft90dGWDkREUF1nuXC0TdkaaxCW', NULL, 'user', '2026-03-28 20:59:55', '2026-03-28 21:00:18', 1),
-(9, 'nhan', NULL, 'nhan0123@gmail.com', '$2y$12$/fBkBqvM0bk.TRzVwUkoKu3u9qioVdJzWbPc8RoqdFIzoWNRyKAii', NULL, 'user', '2026-04-07 20:19:50', '2026-04-07 20:19:50', 1);
+(11, 'hnhan', 'uploads/avatars/1777084449.jpg', '16.huunhan@gmail.com', '$2y$12$BSzX.n.UtVUJVDlpMb2VXuZI/k4zogNfXOD5hofdHr41y1bUGSneq', NULL, 'user', '2026-04-24 19:31:33', '2026-04-24 19:34:09', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -333,19 +339,19 @@ ALTER TABLE `animals`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT cho bảng `detection_history`
 --
 ALTER TABLE `detection_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`
@@ -357,7 +363,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `post_images`
@@ -369,7 +375,7 @@ ALTER TABLE `post_images`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

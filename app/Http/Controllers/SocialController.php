@@ -52,23 +52,27 @@ class SocialController extends Controller
 
         $request->validate(['content' => 'required']);
 
-        // Danh sách từ cấm "thật" của Nhan
-        $badWords = [
-            'đụ', 'mẹ', 'mày', 'tao', 'chửi', 'vô văn hóa', 'ngu', 'cút', 'đếch', 'đéo',
-            'giết', 'thịt', 'ăn thịt', 'săn bắn', 'bắn chết', 'ngược đãi', 'hành hạ',
-            'đánh đập', 'buôn bán lậu', 'tận diệt', 'bẫy', 'kích điện', 'lột da',
-            'đâm', 'chém', 'đốt', 'phóng hỏa', 'bạo lực', 'tàn sát', 'thảm sát'
-        ];
-
         $content = $request->content;
 
-        foreach ($badWords as $word) {
-            if (str_contains(mb_strtolower($content), $word)) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Ko được bình luận những từ ngữ thô tục hoặc vi phạm chính sách bảo vệ động vật!'
-                ], 422); // Trả về mã lỗi 422 để JS bắt được
+        try {
+            // Gửi dữ liệu sang máy chủ Python (AI NLP) để kiểm duyệt
+            $response = \Illuminate\Support\Facades\Http::post('http://127.0.0.1:5000/check-comment', [
+                'content' => $content
+            ]);
+
+            if ($response->successful()) {
+                $result = $response->json();
+                if (isset($result['is_banned']) && $result['is_banned'] == true) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $result['message']
+                    ], 422); // Trả về mã lỗi 422 để JS bắt được
+                }
             }
+        } catch (\Exception $e) {
+            // Nếu API Python chưa bật, cứ cho qua tạm hoặc báo lỗi (tùy Nhan)
+            // Ở đây tạm cho qua nếu server AI đang tắt để không sập luồng
+            \Log::error('Lỗi kết nối tới AI NLP: ' . $e->getMessage());
         }
 
         $id = DB::table('comments')->insertGetId([
@@ -105,15 +109,19 @@ class SocialController extends Controller
     {
         $request->validate([
             'content' => 'required',
-            'image' => 'nullable|image|max:2048'
+            'images.*' => 'nullable|image|max:2048',
+            'images' => 'max:5' // Tối đa 5 ảnh
         ]);
 
-        $imagePath = null;
+        $imagePaths = [];
         $fileHash = null;
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $fileHash = md5_file($image->getRealPath());
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            
+            // Lấy hash của ảnh ĐẦU TIÊN để làm mốc check duplicate
+            $firstImage = $images[0];
+            $fileHash = md5_file($firstImage->getRealPath());
 
             $isDuplicate = DB::table('posts')
                 ->where('user_id', Auth::id())
@@ -124,15 +132,20 @@ class SocialController extends Controller
                 return redirect()->back()->with('error', 'Ảnh này bạn đã đăng rồi, đừng spam nhé!');
             }
 
-            $imageName = time().'.'.$image->extension();
-            $image->move(public_path('uploads/posts'), $imageName);
-            $imagePath = 'uploads/posts/' . $imageName;
+            foreach ($images as $image) {
+                $imageName = time() . '_' . uniqid() . '.' . $image->extension();
+                $image->move(public_path('uploads/posts'), $imageName);
+                $imagePaths[] = 'uploads/posts/' . $imageName;
+            }
         }
+
+        // Chuyển mảng thành JSON string. Nếu trống thì null.
+        $finalImageUrl = empty($imagePaths) ? null : json_encode($imagePaths);
 
         DB::table('posts')->insert([
             'user_id' => Auth::id(),
             'content' => $request->content,
-            'image_url' => $imagePath,
+            'image_url' => $finalImageUrl,
             'image_hash' => $fileHash,
             'status' => 1,
             'likes_count' => 0,

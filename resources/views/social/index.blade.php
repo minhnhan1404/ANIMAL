@@ -42,9 +42,27 @@
                     <img src="{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}" class="avatar-small">
                     <span class="username">{{ $post->user_name }}</span>
                 </div>
-                <div class="post-image-container">
+                <div class="post-image-grid-container">
                     @if($post->image_url)
-                        <img src="{{ asset($post->image_url) }}" class="post-image">
+                        @php
+                            $images = json_decode($post->image_url, true);
+                        @endphp
+                        
+                        @if(is_array($images))
+                            @php 
+                                $count = count($images); 
+                                $assetImages = array_map('asset', $images);
+                            @endphp
+                            <div class="post-image-grid grid-{{ $count }}" data-images="{{ json_encode($assetImages) }}">
+                                @foreach($assetImages as $index => $imgAsset)
+                                    <img src="{{ $imgAsset }}" class="grid-img" onclick="openLightbox(this, {{ $index }})">
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="post-image-grid grid-1" data-images="{{ json_encode([asset($post->image_url)]) }}">
+                                <img src="{{ asset($post->image_url) }}" class="grid-img single-img" onclick="openLightbox(this, 0)">
+                            </div>
+                        @endif
                     @endif
                 </div>
                 <div class="ins-footer">
@@ -101,12 +119,12 @@
                 @csrf
                 <div class="modal-body">
                     <div class="upload-area">
-                        <input type="file" name="image" id="file-upload" class="file-input-hidden" accept="image/*" onchange="previewImage(event)" required>
+                        <input type="file" name="images[]" id="file-upload" class="file-input-hidden" accept="image/*" multiple onchange="previewImage(event)" required>
                         <div id="uploadPlaceholder">
                             <i class="far fa-images"></i>
-                            <span>Chọn ảnh tải lên</span>
+                            <span>Chọn ảnh tải lên (Tối đa 5 ảnh)</span>
                         </div>
-                        <img id="imagePreview" src="#" alt="Bản xem trước">
+                        <div id="imagePreviewContainer" style="display: none; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px; padding: 10px; align-items: center;"></div>
                     </div>
                     <div class="caption-area">
                         <img src="{{ asset(Auth::user()->avatar ?? 'images/default-avatar.png') }}" alt="Avatar">
@@ -127,6 +145,14 @@
                 <button onclick="document.getElementById('customConfirm').style.display='none'" style="width: 100%; padding: 10px; border: none; background: none; cursor: pointer;">Hủy</button>
             </div>
         </div>
+    </div>
+
+    {{-- LIGHTBOX XEM ẢNH TO --}}
+    <div id="lightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</button>
+        <img id="lightbox-img" src="">
+        <button class="lightbox-next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</button>
     </div>
 
     {{-- THÔNG BÁO ĐỎ PHẢI NẰM ĐÂY --}}
