@@ -379,3 +379,128 @@ body::before {
 }
 .lightbox-prev { left: 20px; }
 .lightbox-next { right: 20px; border-radius: 3px 0 0 3px; }
+@media (max-width: 768px) { .sidebar { width: 100%; height: 60px; bottom: 0; top: auto; left: 0; display: flex; flex-direction: row; padding: 0; justify-content: space-around; z-index: 9999; border-top: 1px solid rgba(219, 219, 219, 0.3); border-right: none; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); } .sidebar:hover { width: 100%; } .sidebar-logo { display: none; } .sidebar-nav { display: flex; flex-direction: row; width: 100%; justify-content: space-around; align-items: center; } .sidebar-nav a { margin: 0; padding: 10px; flex-direction: column; gap: 2px; } .sidebar-nav a i { font-size: 24px; margin: 0; } .sidebar-nav a span { display: none; } .instagram-container { margin-left: auto; margin-right: auto; width: 95%; max-width: 400px; padding: 10px 5px; padding-bottom: 80px; } .post-card { border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); } .modal-content { flex-direction: column !important; height: 90vh !important; } }
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; margin: 0; padding: 0; }
+    * { box-sizing: border-box !important; }
+}
+@media (max-width: 768px) { .instagram-container { margin-left: 0 !important; width: 100vw !important; max-width: 100vw !important; box-sizing: border-box !important; } }
+
+/* === COMMENT MODAL REFACTOR === */
+.cmt-modal-container { max-width: 900px; display: flex; height: 600px; padding: 0; flex-direction: row; }
+.cmt-modal-img-col { flex: 1.2; background: #000; display: flex; align-items: center; justify-content: center; }
+.cmt-modal-img-col img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.cmt-modal-chat-col { flex: 0.8; display: flex; flex-direction: column; background: #fff; }
+.cmt-modal-header { padding: 15px; border-bottom: 1px solid #efefef; display: flex; align-items: center; gap: 10px; }
+.cmt-modal-close { margin-left: auto; cursor: pointer; font-size: 24px; }
+.cmt-modal-list { flex: 1; overflow-y: auto; padding: 15px; }
+.cmt-modal-form-wrap { padding: 15px; border-top: 1px solid #efefef; }
+.cmt-modal-form-inner { display: flex; gap: 10px; }
+.cmt-modal-form-inner input { flex: 1; border: none; outline: none; }
+.cmt-modal-form-inner button { background: none; border: none; color: #0095f6; font-weight: 600; cursor: pointer; }
+
+@media (max-width: 768px) {
+    #commentModal { padding: 0 !important; }
+    .cmt-modal-container { 
+        flex-direction: column !important; 
+        height: 100% !important; /* Shrinks with keyboard */
+        width: 100% !important; 
+        max-width: 100% !important; 
+        margin: 0 !important; 
+        border-radius: 0 !important; 
+    }
+    .cmt-modal-img-col { flex: 0.4 !important; } /* Image takes 40% height */
+    .cmt-modal-chat-col { flex: 0.6 !important; } /* Chat takes 60% height */
+}
+
+/* FIX MOBILE COMMENT MODAL */
+@media (max-width: 768px) {
+    #commentModal { padding: 0 !important; display: none; align-items: flex-start !important; }
+    #commentModal[style*="display: flex"] { display: flex !important; }
+    .cmt-modal-container { 
+        flex-direction: column !important; 
+        height: 100% !important; /* Shrinks with keyboard */
+        width: 100% !important; 
+        max-width: 100% !important; 
+        margin: 0 !important; 
+        border-radius: 0 !important; 
+    }
+    .cmt-modal-img-col { display: none !important; } /* ?n h?n ?nh trên mobile d? uu tiên khung chat */
+    .cmt-modal-chat-col { flex: 1 !important; height: 100% !important; }
+}
+
+/* C?I THI?N KHUNG NH?P BÌNH LU?N CHO D? B?M */
+.cmt-modal-form-wrap { padding: 10px 15px !important; border-top: 1px solid #efefef; background: #fff; z-index: 100; position: relative; }
+.cmt-modal-form-inner input { 
+    flex: 1; 
+    border: 1px solid #ddd !important; 
+    outline: none !important; 
+    padding: 12px 15px !important;
+    border-radius: 25px !important;
+    background-color: #f0f2f5 !important;
+    font-size: 16px !important; /* Ngan ch?n Zoom trên iOS/Android */
+    pointer-events: auto !important;
+}
+.cmt-modal-form-inner button { 
+    padding: 0 15px; 
+    font-size: 16px;
+    pointer-events: auto !important;
+}
+
+@media (max-width: 768px) {
+    .cmt-modal-form-wrap { padding-bottom: 25px !important; } /* Can l? an toàn cho Android/iOS du?i cùng */
+    .modal-content.cmt-modal-container { height: 95% !important; margin-top: 5% !important; border-radius: 15px 15px 0 0 !important; }
+}
+
+/* FIX MOBILE POST MODAL (T?O BÀI VI?T) */
+@media (max-width: 768px) {
+    #postModal { padding: 0 !important; align-items: flex-start !important; }
+    #postModal .modal-content {
+        height: 100% !important;
+        max-height: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    #postForm {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100%;
+        overflow: hidden;
+    }
+    #postModal .modal-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        overflow-y: auto !important; /* Cho phép cu?n */
+    }
+    /* Thu nh? khung ?nh l?i khi bàn phím b?t lên */
+    #postModal .upload-area {
+        height: 35vh !important; /* Chi?m 35% chi?u cao màn hình hi?n t?i */
+        min-height: 120px !important;
+        flex-shrink: 0;
+    }
+    /* Vùng nh?p ch? luôn hi?n rõ */
+    #postModal .caption-area {
+        flex-shrink: 0;
+        padding-bottom: 20px;
+        min-height: 100px;
+    }
+    #postModal .caption-area textarea {
+        font-size: 16px !important; /* Ch?ng zoom */
+    }
+    #postModal .submit-post-btn {
+        flex-shrink: 0;
+    }
+}
+
+/* Ð?M B?O MODAL LUÔN N?M TRÊN THANH ÐI?U HU?NG (BOTTOM NAV) */
+.modal {
+    z-index: 10000 !important; /* Ðè lên thanh di?u hu?ng du?i cùng (z-index: 9999) */
+}
+#customConfirm {
+    z-index: 100000 !important;
+}

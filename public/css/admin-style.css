@@ -98,3 +98,8 @@ body { background-color: var(--bg-light); color: var(--text-dark); }
 /* ALERTS */
 .alert-success { background: #d4edda; color: #155724; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb; }
 
+@media (max-width: 768px) { .dashboard-container { flex-direction: column; } .sidebar { width: 100%; height: auto; position: relative; padding: 10px 0; } .sidebar-brand { padding: 10px 20px; text-align: center; } .sidebar-menu { display: flex; overflow-x: auto; white-space: nowrap; padding-bottom: 10px; } .sidebar-menu li a { padding: 10px; flex-direction: column; font-size: 12px; gap: 5px; } .sidebar-menu li a i { margin-right: 0; } .main-content { width: 100%; } .admin-header { flex-direction: column; height: auto; padding: 15px; gap: 10px; } .search-bar input { width: 100%; max-width: 300px; } .content-body { padding: 15px; } .stats-grid { grid-template-columns: 1fr; } .data-table-container { overflow-x: auto; } .data-table { min-width: 600px; } }
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; margin: 0; padding: 0; }
+    * { box-sizing: border-box !important; }
+}

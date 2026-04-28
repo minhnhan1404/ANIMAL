@@ -75,7 +75,7 @@
         <div class="filter-container">
             <div class="filter-section">
                 <span class="filter-label"><i class="fas fa-th-large" style="color: #27ae60;"></i> DANH MỤC</span>
-                <div class="btn-group-custom">
+                <div class="btn-group-custom desktop-filter">
                     <a href="{{ route('home') }}" class="nav-filter-btn {{ !request('category') ? 'active' : '' }}">Tất cả</a>
                     <a href="{{ route('home', ['category' => 'Thú']) }}" class="nav-filter-btn {{ request('category') == 'Thú' ? 'active' : '' }}">Thú</a>
                     <a href="{{ route('home', ['category' => 'Chim']) }}" class="nav-filter-btn {{ request('category') == 'Chim' ? 'active' : '' }}">Chim</a>
@@ -84,6 +84,15 @@
                     <a href="{{ route('home', ['category' => 'Lưỡng cư']) }}" class="nav-filter-btn {{ request('category') == 'Lưỡng cư' ? 'active' : '' }}">Lưỡng cư</a>
                     <a href="{{ route('home', ['category' => 'Côn trùng']) }}" class="nav-filter-btn {{ request('category') == 'Côn trùng' ? 'active' : '' }}">Côn trùng</a>
                 </div>
+                <select class="custom-select category-dropdown mobile-filter" onchange="window.location.href=this.value">
+                    <option value="{{ route('home') }}" {{ !request('category') ? 'selected' : '' }}>Tất cả danh mục</option>
+                    <option value="{{ route('home', ['category' => 'Thú']) }}" {{ request('category') == 'Thú' ? 'selected' : '' }}>Thú (Mammals)</option>
+                    <option value="{{ route('home', ['category' => 'Chim']) }}" {{ request('category') == 'Chim' ? 'selected' : '' }}>Chim (Birds)</option>
+                    <option value="{{ route('home', ['category' => 'Bò sát']) }}" {{ request('category') == 'Bò sát' ? 'selected' : '' }}>Bò sát (Reptiles)</option>
+                    <option value="{{ route('home', ['category' => 'Cá']) }}" {{ request('category') == 'Cá' ? 'selected' : '' }}>Cá (Fishes)</option>
+                    <option value="{{ route('home', ['category' => 'Lưỡng cư']) }}" {{ request('category') == 'Lưỡng cư' ? 'selected' : '' }}>Lưỡng cư (Amphibians)</option>
+                    <option value="{{ route('home', ['category' => 'Côn trùng']) }}" {{ request('category') == 'Côn trùng' ? 'selected' : '' }}>Côn trùng (Insects)</option>
+                </select>
             </div>
 
             @if(request('category'))
@@ -91,10 +100,8 @@
     <span class="filter-label" style="font-size: 0.8rem; color: #7f8c8d;">
         <i class="fas fa-level-down-alt"></i> CHI TIẾT THEO BỘ ({{ request('category') }})
     </span>
-    <div class="sub-menu-scroll">
+    <div class="sub-menu-scroll desktop-filter">
         @php $category = request('category'); @endphp
-
-        {{-- NHÓM THÚ --}}
         @if($category == 'Thú')
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Ăn thịt']) }}" class="sub-btn {{ request('order') == 'Ăn thịt' ? 'active' : '' }}">Bộ Ăn thịt</a>
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Vòi']) }}" class="sub-btn {{ request('order') == 'Vòi' ? 'active' : '' }}">Bộ Vòi</a>
@@ -104,8 +111,6 @@
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Gặm nhấm']) }}" class="sub-btn {{ request('order') == 'Gặm nhấm' ? 'active' : '' }}">Bộ Gặm nhấm</a>
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Dơi']) }}" class="sub-btn {{ request('order') == 'Dơi' ? 'active' : '' }}">Bộ Dơi</a>
             <a href="{{ route('home', ['category' => 'Thú', 'order' => 'Cá voi']) }}" class="sub-btn {{ request('order') == 'Cá voi' ? 'active' : '' }}">Bộ Cá voi (Thú biển)</a>
-
-        {{-- NHÓM CHIM --}}
         @elseif($category == 'Chim')
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Ưng']) }}" class="sub-btn {{ request('order') == 'Ưng' ? 'active' : '' }}">Bộ Ưng</a>
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Sẻ']) }}" class="sub-btn {{ request('order') == 'Sẻ' ? 'active' : '' }}">Bộ Sẻ</a>
@@ -113,32 +118,74 @@
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Gà']) }}" class="sub-btn {{ request('order') == 'Gà' ? 'active' : '' }}">Bộ Gà</a>
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cú']) }}" class="sub-btn {{ request('order') == 'Cú' ? 'active' : '' }}">Bộ Cú</a>
             <a href="{{ route('home', ['category' => 'Chim', 'order' => 'Cánh cụt']) }}" class="sub-btn {{ request('order') == 'Cánh cụt' ? 'active' : '' }}">Bộ Cánh cụt</a>
-
-        {{-- NHÓM BÒ SÁT --}}
         @elseif($category == 'Bò sát')
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" class="sub-btn {{ request('order') == 'Cá sấu' ? 'active' : '' }}">Bộ Cá sấu</a>
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" class="sub-btn {{ request('order') == 'Rùa' ? 'active' : '' }}">Bộ Rùa</a>
             <a href="{{ route('home', ['category' => 'Bò sát', 'order' => 'Có vảy']) }}" class="sub-btn {{ request('order') == 'Có vảy' ? 'active' : '' }}">Bộ Có vảy</a>
-
-        {{-- NHÓM CÁ --}}
         @elseif($category == 'Cá')
             <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá mập']) }}" class="sub-btn {{ request('order') == 'Cá mập' ? 'active' : '' }}">Cá mập / Cá nhám</a>
             <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá xương']) }}" class="sub-btn {{ request('order') == 'Cá xương' ? 'active' : '' }}">Cá xương (Cá vược...)</a>
             <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Cá đuối']) }}" class="sub-btn {{ request('order') == 'Cá đuối' ? 'active' : '' }}">Cá đuối</a>
             <a href="{{ route('home', ['category' => 'Cá', 'order' => 'Chân đầu']) }}" class="sub-btn {{ request('order') == 'Chân đầu' ? 'active' : '' }}">Lớp Chân đầu (Mực/Bạch tuộc)</a>
-
-        {{-- NHÓM LƯỠNG CƯ --}}
         @elseif($category == 'Lưỡng cư')
             <a href="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Không đuôi']) }}" class="sub-btn {{ request('order') == 'Không đuôi' ? 'active' : '' }}">Không đuôi (Ếch/Nhái)</a>
             <a href="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Có đuôi']) }}" class="sub-btn {{ request('order') == 'Có đuôi' ? 'active' : '' }}">Có đuôi (Kỳ giông)</a>
-
-        {{-- NHÓM CÔN TRùng --}}
         @elseif($category == 'Côn trùng')
             <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh cứng']) }}" class="sub-btn {{ request('order') == 'Cánh cứng' ? 'active' : '' }}">Bộ Cánh cứng</a>
             <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh phấn']) }}" class="sub-btn {{ request('order') == 'Cánh phấn' ? 'active' : '' }}">Bộ Cánh phấn (Bướm)</a>
             <a href="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh màng']) }}" class="sub-btn {{ request('order') == 'Cánh màng' ? 'active' : '' }}">Bộ Cánh màng (Ong/Kiến)</a>
         @endif
     </div>
+
+    <select class="custom-select sub-category-dropdown mobile-filter" onchange="window.location.href=this.value">
+        @php $category = request('category'); @endphp
+        <option value="{{ route('home', ['category' => $category]) }}">Tất cả các bộ trong {{ $category }}</option>
+
+        {{-- NHÓM THÚ --}}
+        @if($category == 'Thú')
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Ăn thịt']) }}" {{ request('order') == 'Ăn thịt' ? 'selected' : '' }}>Bộ Ăn thịt</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Vòi']) }}" {{ request('order') == 'Vòi' ? 'selected' : '' }}>Bộ Vòi</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Linh trưởng']) }}" {{ request('order') == 'Linh trưởng' ? 'selected' : '' }}>Bộ Linh trưởng</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Guốc chẵn']) }}" {{ request('order') == 'Guốc chẵn' ? 'selected' : '' }}>Bộ Guốc chẵn</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Guốc lẻ']) }}" {{ request('order') == 'Guốc lẻ' ? 'selected' : '' }}>Bộ Guốc lẻ</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Gặm nhấm']) }}" {{ request('order') == 'Gặm nhấm' ? 'selected' : '' }}>Bộ Gặm nhấm</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Dơi']) }}" {{ request('order') == 'Dơi' ? 'selected' : '' }}>Bộ Dơi</option>
+            <option value="{{ route('home', ['category' => 'Thú', 'order' => 'Cá voi']) }}" {{ request('order') == 'Cá voi' ? 'selected' : '' }}>Bộ Cá voi (Thú biển)</option>
+
+        {{-- NHÓM CHIM --}}
+        @elseif($category == 'Chim')
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Ưng']) }}" {{ request('order') == 'Ưng' ? 'selected' : '' }}>Bộ Ưng</option>
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Sẻ']) }}" {{ request('order') == 'Sẻ' ? 'selected' : '' }}>Bộ Sẻ</option>
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Vẹt']) }}" {{ request('order') == 'Vẹt' ? 'selected' : '' }}>Bộ Vẹt</option>
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Gà']) }}" {{ request('order') == 'Gà' ? 'selected' : '' }}>Bộ Gà</option>
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Cú']) }}" {{ request('order') == 'Cú' ? 'selected' : '' }}>Bộ Cú</option>
+            <option value="{{ route('home', ['category' => 'Chim', 'order' => 'Cánh cụt']) }}" {{ request('order') == 'Cánh cụt' ? 'selected' : '' }}>Bộ Cánh cụt</option>
+
+        {{-- NHÓM BÒ SÁT --}}
+        @elseif($category == 'Bò sát')
+            <option value="{{ route('home', ['category' => 'Bò sát', 'order' => 'Cá sấu']) }}" {{ request('order') == 'Cá sấu' ? 'selected' : '' }}>Bộ Cá sấu</option>
+            <option value="{{ route('home', ['category' => 'Bò sát', 'order' => 'Rùa']) }}" {{ request('order') == 'Rùa' ? 'selected' : '' }}>Bộ Rùa</option>
+            <option value="{{ route('home', ['category' => 'Bò sát', 'order' => 'Có vảy']) }}" {{ request('order') == 'Có vảy' ? 'selected' : '' }}>Bộ Có vảy</option>
+
+        {{-- NHÓM CÁ --}}
+        @elseif($category == 'Cá')
+            <option value="{{ route('home', ['category' => 'Cá', 'order' => 'Cá mập']) }}" {{ request('order') == 'Cá mập' ? 'selected' : '' }}>Cá mập / Cá nhám</option>
+            <option value="{{ route('home', ['category' => 'Cá', 'order' => 'Cá xương']) }}" {{ request('order') == 'Cá xương' ? 'selected' : '' }}>Cá xương (Cá vược...)</option>
+            <option value="{{ route('home', ['category' => 'Cá', 'order' => 'Cá đuối']) }}" {{ request('order') == 'Cá đuối' ? 'selected' : '' }}>Cá đuối</option>
+            <option value="{{ route('home', ['category' => 'Cá', 'order' => 'Chân đầu']) }}" {{ request('order') == 'Chân đầu' ? 'selected' : '' }}>Lớp Chân đầu (Mực/Bạch tuộc)</option>
+
+        {{-- NHÓM LƯỠNG CƯ --}}
+        @elseif($category == 'Lưỡng cư')
+            <option value="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Không đuôi']) }}" {{ request('order') == 'Không đuôi' ? 'selected' : '' }}>Không đuôi (Ếch/Nhái)</option>
+            <option value="{{ route('home', ['category' => 'Lưỡng cư', 'order' => 'Có đuôi']) }}" {{ request('order') == 'Có đuôi' ? 'selected' : '' }}>Có đuôi (Kỳ giông)</option>
+
+        {{-- NHÓM CÔN TRùng --}}
+        @elseif($category == 'Côn trùng')
+            <option value="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh cứng']) }}" {{ request('order') == 'Cánh cứng' ? 'selected' : '' }}>Bộ Cánh cứng</option>
+            <option value="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh phấn']) }}" {{ request('order') == 'Cánh phấn' ? 'selected' : '' }}>Bộ Cánh phấn (Bướm)</option>
+            <option value="{{ route('home', ['category' => 'Côn trùng', 'order' => 'Cánh màng']) }}" {{ request('order') == 'Cánh màng' ? 'selected' : '' }}>Bộ Cánh màng (Ong/Kiến)</option>
+        @endif
+    </select>
 </div>
 @endif
         </div>

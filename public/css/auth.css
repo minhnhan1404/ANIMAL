@@ -197,3 +197,73 @@ button:hover {
 .container.active .toggle-right {
     transform: translateX(200%);
 }
+
+/* MOBILE RESPONSIVE CHO TRANG ĐĂNG NHẬP */
+@media (max-width: 768px) {
+    body { padding: 0; margin: 0; }
+    .container {
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .form-container {
+        width: 100%;
+        height: 60%;
+        top: 40%;
+        left: 0;
+        transition: none;
+    }
+    .sign-in, .sign-up {
+        width: 100%;
+        left: 0;
+        transition: opacity 0.5s ease;
+    }
+    
+    /* Vô hiệu hóa hiệu ứng trượt ngang của form trên mobile, dùng mờ dần */
+    .container.active .sign-in {
+        transform: none !important;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .container.active .sign-up {
+        transform: none !important;
+        opacity: 1;
+        z-index: 5;
+        animation: none;
+    }
+    .sign-up { opacity: 0; transform: none !important; pointer-events: none; }
+    .container.active .sign-up { pointer-events: auto; }
+    .sign-in { opacity: 1; transform: none !important; pointer-events: auto; }
+
+    /* Biến mảng xanh lá (Toggle) thành Banner trượt ngang ở phía trên */
+    .toggle-container {
+        width: 100%;
+        height: 40%;
+        left: 0;
+        top: 0;
+        border-radius: 0 0 30px 30px;
+    }
+    .container.active .toggle-container {
+        transform: none !important;
+        border-radius: 0 0 30px 30px;
+    }
+    .toggle {
+        width: 200%;
+        left: -100%;
+    }
+    .container.active .toggle {
+        transform: translateX(50%);
+    }
+    
+    /* Căn chỉnh lại nội dung cho vừa điện thoại */
+    .toggle-panel { padding: 0 20px; }
+    form { padding: 0 30px; justify-content: center; }
+    .container h1 { font-size: 1.5rem; margin-bottom: 5px; }
+    .container p { font-size: 13px; margin: 10px 0; }
+    .animal-icon { font-size: 35px; margin-bottom: 5px; }
+    .container input { padding: 12px 15px; font-size: 15px; }
+    button { padding: 12px 40px; font-size: 14px; margin-top: 15px; }
+}

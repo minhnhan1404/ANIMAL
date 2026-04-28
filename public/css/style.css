@@ -71,9 +71,9 @@ body {
 .hero-content { position: relative; z-index: 10; max-width: 800px; padding: 0 20px; }
 
 .display-title {
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(1.8rem, 5vw, 4rem);
     font-weight: 800;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: -1px;
     animation: fadeInUp 0.8s ease;
@@ -85,17 +85,56 @@ body {
 
 .btn-primary {
     background: var(--primary); color: white;
-    padding: 14px 35px; border-radius: 30px;
+    padding: 12px 25px; border-radius: 30px;
     text-decoration: none; font-weight: 600; transition: 0.3s;
 }
 
 .btn-outline {
     border: 2px solid white; color: white;
-    padding: 14px 35px; border-radius: 30px;
+    padding: 12px 25px; border-radius: 30px;
     text-decoration: none; font-weight: 600; transition: 0.3s;
 }
 
 .btn-outline:hover { background: white; color: var(--dark); }
+
+@media (max-width: 768px) {
+    /* Hero Section - Cực kỳ nhỏ gọn */
+    .hero { height: 65vh; }
+    .display-title { font-size: 1.5rem !important; margin-bottom: 8px !important; line-height: 1.2; }
+    .hero-subtitle { font-size: 0.85rem !important; margin-bottom: 15px !important; padding: 0 10px; }
+    .hero-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .hero-buttons a { text-align: center; padding: 8px 15px !important; font-size: 0.8rem !important; border-radius: 20px; width: auto; }
+    
+    /* Navbar Mobile */
+    .navbar { padding: 8px 0; }
+    .navbar .container { display: flex; flex-direction: column; gap: 8px; padding: 0 10px; }
+    .navbar .container::before { content: ""; display: table; clear: both; }
+    .logo { font-size: 1.2rem; display: block; text-align: center; margin-bottom: 0; color: var(--primary) !important; font-weight: bold; }
+    .nav-tools { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: 5px; align-items: center; }
+    .search-box { width: 100%; order: 3; margin-top: 2px; padding: 5px 15px; border-radius: 15px; } 
+    .search-box input { width: 100%; max-width: none; font-size: 0.85rem; }
+    .btn-ai-nav { padding: 4px 8px; font-size: 0.75rem; border-radius: 15px; }
+    .btn-ai-nav span { display: none; }
+    .btn-ai-nav::after { content: "AI"; font-weight: bold; margin-left: 3px; }
+    .btn-outline-sm, .btn-primary-sm { padding: 4px 8px; font-size: 0.75rem; border-radius: 15px; }
+
+    /* Bộ lọc (Filter) - Nhỏ hơn */
+    .filter-wrapper { margin: -20px 0 20px; }
+    .filter-group label { padding: 6px 15px; font-size: 0.8rem; border-radius: 15px; }
+    .nav-filter-btn { padding: 6px 15px; font-size: 0.8rem; border-radius: 15px; }
+    .sub-btn { padding: 5px 12px; font-size: 0.75rem; }
+    
+    /* Thẻ Động Vật (Animal Cards) - 2 Cột trên Mobile! */
+    .animal-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+    .animal-card { border-radius: 12px; }
+    .card-img-wrapper { height: 130px; }
+    .card-body { padding: 12px; }
+    .card-body h3 { font-size: 1rem; margin-bottom: 3px; }
+    .card-body .latin { font-size: 0.75rem; }
+    .taxonomy-mini { font-size: 0.75rem; margin-bottom: 10px; }
+    .btn-detail { padding: 8px; font-size: 0.8rem; border-radius: 8px; }
+    .fav-btn { width: 30px; height: 30px; top: 8px; right: 8px; font-size: 0.9rem; }
+}
 
 /* --- Filter & Cards --- */
 .filter-wrapper { margin: -40px 0 40px; position: relative; z-index: 20; }
@@ -842,3 +881,41 @@ body {
     font-size: 0.9rem;
 }
 
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100vw !important; margin: 0; padding: 0; }
+    * { box-sizing: border-box !important; }
+}
+.custom-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #27ae60;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    background-color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2327ae60' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1.2em;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+.custom-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.2);
+}
+.filter-section { display: flex; flex-direction: column; align-items: flex-start; width: 100%; max-width: 400px; margin: 0 auto; }
+.sub-filter-section { display: flex; flex-direction: column; align-items: flex-start; width: 100%; max-width: 400px; margin: 0 auto; margin-top: 15px; }
+
+/* Responsive Filter Toggles */
+.mobile-filter { display: none !important; }
+
+@media (max-width: 768px) {
+    .desktop-filter { display: none !important; }
+    .mobile-filter { display: block !important; }
+}

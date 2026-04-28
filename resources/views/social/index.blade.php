@@ -43,11 +43,14 @@
                     <span class="username">{{ $post->user_name }}</span>
                 </div>
                 <div class="post-image-grid-container">
-                    @if($post->image_url)
-                        @php
+                    @php
+                        $firstImage = '';
+                        if ($post->image_url) {
                             $images = json_decode($post->image_url, true);
-                        @endphp
-                        
+                            $firstImage = is_array($images) && count($images) > 0 ? $images[0] : $post->image_url;
+                        }
+                    @endphp
+                    @if($post->image_url)
                         @if(is_array($images))
                             @php 
                                 $count = count($images); 
@@ -68,7 +71,7 @@
                 <div class="ins-footer">
                     <div class="post-actions">
                         <button class="action-btn-ins" onclick="handleLike({{ $post->id }})"><i class="far fa-heart fa-lg"></i></button>
-                        <button class="action-btn-ins" onclick="openCommentModal({{ $post->id }}, '{{ asset($post->image_url) }}', '{{ $post->user_name }}', '{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}')"><i class="far fa-comment fa-lg"></i></button>
+                        <button class="action-btn-ins" onclick="openCommentModal({{ $post->id }}, '{{ $firstImage ? asset($firstImage) : '' }}', '{{ $post->user_name }}', '{{ asset($post->user_avatar ?? 'images/default-avatar.png') }}')"><i class="far fa-comment fa-lg"></i></button>
                     </div>
                     <div class="ins-content">
                         <p><strong id="likes-count-{{ $post->id }}">{{ $post->likes_count ?? 0 }}</strong> lượt thích</p>
@@ -83,23 +86,23 @@
 
     {{-- MODAL BÌNH LUẬN --}}
     <div class="modal" id="commentModal">
-        <div class="modal-content" style="max-width: 900px; display: flex; height: 600px; padding: 0; flex-direction: row;">
-            <div style="flex: 1.2; background: #000; display: flex; align-items: center; justify-content: center;">
-                <img id="modalPostImage" src="" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+        <div class="modal-content cmt-modal-container">
+            <div class="cmt-modal-img-col">
+                <img id="modalPostImage" src="">
             </div>
-            <div style="flex: 0.8; display: flex; flex-direction: column; background: #fff;">
-                <div style="padding: 15px; border-bottom: 1px solid #efefef; display: flex; align-items: center; gap: 10px;">
+            <div class="cmt-modal-chat-col">
+                <div class="cmt-modal-header">
                     <img id="modalUserAvatar" src="" class="avatar-small">
                     <strong id="modalUserName"></strong>
-                    <span style="margin-left: auto; cursor: pointer; font-size: 24px;" onclick="document.getElementById('commentModal').style.display='none'">&times;</span>
+                    <span class="cmt-modal-close" onclick="document.getElementById('commentModal').style.display='none'">&times;</span>
                 </div>
-                <div id="modalCommentList" style="flex: 1; overflow-y: auto; padding: 15px;"></div>
-                <div style="padding: 15px; border-top: 1px solid #efefef;">
+                <div id="modalCommentList" class="cmt-modal-list"></div>
+                <div class="cmt-modal-form-wrap">
                     <form id="commentForm" onsubmit="submitComment(event)">
                         <input type="hidden" id="modalPostId">
-                        <div style="display: flex; gap: 10px;">
-                            <input type="text" id="commentInput" placeholder="Thêm bình luận..." style="flex: 1; border: none; outline: none;" required>
-                            <button type="submit" style="background: none; border: none; color: #0095f6; font-weight: 600; cursor: pointer;">Đăng</button>
+                        <div class="cmt-modal-form-inner">
+                            <input type="text" id="commentInput" placeholder="Thêm bình luận..." required>
+                            <button type="submit">Đăng</button>
                         </div>
                     </form>
                 </div>
