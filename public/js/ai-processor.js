@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             // Đợi tối thiểu 2.5 giây để tia laser chạy hết 1 vòng ảnh cho ngầu
             const [response] = await Promise.all([
-                fetch('http://127.0.0.1:5000/predict', {
+                // Tự động lấy IP hiện tại của trang web (localhost hoặc 192.168.x.x) để kết nối API Python
+                fetch('http://' + window.location.hostname + ':5000/predict', {
                     method: 'POST',
                     body: formData
                 }),

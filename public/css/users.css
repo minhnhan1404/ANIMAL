@@ -82,12 +82,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     padding: 20px;
+    overflow-x: auto; /* Cho phép cuộn ngang trên điện thoại */
 }
 
 /* --- BẢNG DỮ LIỆU --- */
 .admin-table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 700px; /* Bắt buộc bảng phải rộng để không bị che khuất nút trên Mobile */
 }
 
 .admin-table th {

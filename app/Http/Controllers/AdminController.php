@@ -172,8 +172,17 @@ public function updateStatus(Request $request, $id)
         ]);
         $msg = 'Đã phê duyệt bài viết thành công!';
     } else {
-        // Nếu Denied: XÓA VĨNH VIỄN BÀI VIẾT
+        // Nếu Denied: XÓA VĨNH VIỄN BÀI VIẾT VÀ CÁC LIÊN KẾT (Tránh lỗi Ràng buộc khóa ngoại)
+        
+        // 1. Xóa tất cả bình luận thuộc về bài viết này
+        DB::table('comments')->where('post_id', $id)->delete();
+        
+        // 2. Xóa tất cả lượt thích (likes) thuộc về bài viết này
+        DB::table('likes')->where('post_id', $id)->delete();
+        
+        // 3. Cuối cùng mới xóa bài viết gốc
         DB::table('posts')->where('id', $id)->delete();
+        
         $msg = 'Đã xóa bài viết bị từ chối!';
     }
 

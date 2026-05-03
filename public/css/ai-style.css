@@ -540,7 +540,7 @@ body {
 
 /* --- Menu & Nút điều hướng (Fix lỗi rời rạc) --- */
 .btn-back-home {
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 20px;
     background: #27ae60;
@@ -668,7 +668,7 @@ body {
 }
 /* --- Sửa cụm Menu Người dùng sát phải --- */
 .user-sidebar-right {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     z-index: 3000;
