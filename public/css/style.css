@@ -572,9 +572,10 @@ body {
 
 .btn-group-custom {
     display: inline-flex;
+    flex-wrap: wrap;
     background: #f8f9fa;
     padding: 5px;
-    border-radius: 30px;
+    border-radius: 15px;
     border: 1px solid #eee;
 }
 
@@ -749,10 +750,9 @@ body {
 
 .sub-menu-scroll {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    overflow-x: auto; /* Tạo thanh cuộn ngang */
     padding: 10px 0;
-    scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
 }
 
 .sub-menu-scroll::-webkit-scrollbar { display: none; } /* Ẩn thanh cuộn trên Chrome/Safari */
